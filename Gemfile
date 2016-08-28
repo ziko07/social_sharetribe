@@ -189,3 +189,4 @@ gem 'capistrano-rails', '~> 1.1.1'
 gem 'capistrano-rvm'
 gem 'carmen-rails'
 gem 'annotate', "~> 2.6.5"
+gem 'daemons'
