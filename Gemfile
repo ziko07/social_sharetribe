@@ -143,7 +143,6 @@ end
 group :development do
   gem 'rb-fsevent', "~> 0.9.4", require: false
   gem 'guard-rspec', "~> 4.6.5", require: false
-  gem 'annotate', "~> 2.6.5"
   gem 'zeus', '~> 0.15.4', require: false
   gem 'quiet_assets', "~> 1.1.0"
   gem 'better_errors', "~> 2.1.1"
@@ -189,3 +188,4 @@ gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rails', '~> 1.1.1'
 gem 'capistrano-rvm'
 gem 'carmen-rails'
+gem 'annotate', "~> 2.6.5"
