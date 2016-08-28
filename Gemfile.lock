@@ -89,6 +89,8 @@ GEM
     airbrake (4.1.0)
       builder
       multi_json
+    airbrussh (1.1.0)
+      sshkit (>= 1.6.1, != 1.7.0)
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
@@ -114,6 +116,22 @@ GEM
     builder (3.2.2)
     byebug (9.0.5)
     callsite (0.0.11)
+    capistrano (3.6.1)
+      airbrussh (>= 1.0.0)
+      capistrano-harrow
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 1.9.0)
+    capistrano-bundler (1.1.4)
+      capistrano (~> 3.1)
+      sshkit (~> 1.2)
+    capistrano-harrow (0.5.3)
+    capistrano-rails (1.1.7)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
+    capistrano-rvm (0.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
     capybara (2.6.2)
       addressable
       mime-types (>= 1.16)
@@ -121,6 +139,11 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carmen (1.0.2)
+      activesupport (>= 3.0.0)
+    carmen-rails (1.0.1)
+      carmen (~> 1.0.0)
+      rails
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     chunky_png (1.3.6)
@@ -312,6 +335,9 @@ GEM
     multipart-post (1.2.0)
     mysql2 (0.3.21)
     nenv (0.3.0)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (3.2.0)
     netrc (0.11.0)
     newrelic_rpm (3.9.1.236)
     nokogiri (1.6.8)
@@ -481,6 +507,9 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    sshkit (1.11.2)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
     statesman (1.3.1)
     stringex (2.5.2)
     stripe (1.30.0)
@@ -541,7 +570,12 @@ DEPENDENCIES
   aws-sdk (~> 2)
   aws-sdk-v1 (~> 1.64.0)
   better_errors (~> 2.1.1)
+  capistrano
+  capistrano-bundler (~> 1.1.2)
+  capistrano-rails (~> 1.1.1)
+  capistrano-rvm
   capybara (~> 2.6.2)
+  carmen-rails
   coffee-rails (~> 4.0.1)
   color (~> 1.8)
   compass (~> 0.13.alpha)
