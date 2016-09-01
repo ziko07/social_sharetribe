@@ -342,6 +342,8 @@ class PeopleController < Devise::RegistrationsController
     params[:closed] && params[:closed].eql?("true")
   end
 
+
+
   private
 
   # Create a new person by params and current community

@@ -416,6 +416,9 @@ Based on Rails routes of Kassi::Application
 // about_infos => (/:locale)/infos/about(.:format)
   // function(options)
   about_infos_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"infos",false],[2,[7,"/",false],[2,[6,"about",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
+// accept_friend => (/:locale)/people/:username/accept_friend(.:format)
+  // function(username, options)
+  accept_friend_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"people",false],[2,[7,"/",false],[2,[3,"username",false],[2,[7,"/",false],[2,[6,"accept_friend",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
 // accept_preauthorized_person_message => (/:locale)/:person_id/messages/:id/accept_preauthorized(.:format)
   // function(person_id, id, options)
   accept_preauthorized_person_message_path: Utils.route(["person_id","id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"messages",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"accept_preauthorized",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),
@@ -437,6 +440,9 @@ Based on Rails routes of Kassi::Application
 // account_person_settings => (/:locale)/:person_id/settings/account(.:format)
   // function(person_id, options)
   account_person_settings_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"settings",false],[2,[7,"/",false],[2,[6,"account",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// add_friend => (/:locale)/people/:username/add_friend(.:format)
+  // function(username, options)
+  add_friend_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"people",false],[2,[7,"/",false],[2,[3,"username",false],[2,[7,"/",false],[2,[6,"add_friend",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
 // add_from_file_listing_images => (/:locale)/listing_images/add_from_file(.:format)
   // function(options)
   add_from_file_listing_images_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listing_images",false],[2,[7,"/",false],[2,[6,"add_from_file",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
@@ -791,6 +797,12 @@ Based on Rails routes of Kassi::Application
 // edit_person_testimonial => (/:locale)/:person_id/testimonials/:id/edit(.:format)
   // function(person_id, id, options)
   edit_person_testimonial_path: Utils.route(["person_id","id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"testimonials",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"edit",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),
+// edit_post => /posts/:id/edit(.:format)
+  // function(id, options)
+  edit_post_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"posts",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"edit",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]], {}),
+// edit_post_comment => /post_comments/:id/edit(.:format)
+  // function(id, options)
+  edit_post_comment_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"post_comments",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"edit",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]], {}),
 // edit_price_admin_custom_fields => (/:locale)/admin/custom_fields/edit_price(.:format)
   // function(options)
   edit_price_admin_custom_fields_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"custom_fields",false],[2,[7,"/",false],[2,[6,"edit_price",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
@@ -824,6 +836,9 @@ Based on Rails routes of Kassi::Application
 // follow_listing => (/:locale)/listings/:id/follow(.:format)
   // function(id, options)
   follow_listing_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"follow",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// friend_list => (/:locale)/people/:username/friend_list(.:format)
+  // function(username, options)
+  friend_list_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"people",false],[2,[7,"/",false],[2,[3,"username",false],[2,[7,"/",false],[2,[6,"friend_list",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
 // getting_started_admin_community => (/:locale)/admin/communities/:id/getting_started(.:format)
   // function(id, options)
   getting_started_admin_community_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"getting_started",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),
@@ -1067,6 +1082,12 @@ Based on Rails routes of Kassi::Application
 // new_person_transaction => (/:locale)/:person_id/transactions/new(.:format)
   // function(person_id, options)
   new_person_transaction_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"transactions",false],[2,[7,"/",false],[2,[6,"new",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// new_post => /posts/new(.:format)
+  // function(options)
+  new_post_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"posts",false],[2,[7,"/",false],[2,[6,"new",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
+// new_post_comment => /post_comments/new(.:format)
+  // function(options)
+  new_post_comment_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"post_comments",false],[2,[7,"/",false],[2,[6,"new",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
 // new_request_without_locale => /listings/new/:type(.:format)
   // function(type, options)
   new_request_without_locale_path: Utils.route(["type"], ["format"], [2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[6,"new",false],[2,[7,"/",false],[2,[3,"type",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]], {}),
@@ -1220,9 +1241,21 @@ Based on Rails routes of Kassi::Application
 // person_transactions => (/:locale)/:person_id/transactions(.:format)
   // function(person_id, options)
   person_transactions_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"transactions",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
+// post => /posts/:id(.:format)
+  // function(id, options)
+  post_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"posts",false],[2,[7,"/",false],[2,[3,"id",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
+// post_comment => /post_comments/:id(.:format)
+  // function(id, options)
+  post_comment_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"post_comments",false],[2,[7,"/",false],[2,[3,"id",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
+// post_comments => /post_comments(.:format)
+  // function(options)
+  post_comments_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"post_comments",false],[1,[2,[8,".",false],[3,"format",false]],false]]], {}),
 // posting_allowed_admin_community_community_memberships => (/:locale)/admin/communities/:community_id/community_memberships/posting_allowed(.:format)
   // function(community_id, options)
   posting_allowed_admin_community_community_memberships_path: Utils.route(["community_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"community_id",false],[2,[7,"/",false],[2,[6,"community_memberships",false],[2,[7,"/",false],[2,[6,"posting_allowed",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]]]], {}),
+// posts => /posts(.:format)
+  // function(options)
+  posts_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"posts",false],[1,[2,[8,".",false],[3,"format",false]],false]]], {}),
 // preferences_update_admin_community_paypal_preferences => (/:locale)/admin/communities/:community_id/paypal_preferences/preferences_update(.:format)
   // function(community_id, options)
   preferences_update_admin_community_paypal_preferences_path: Utils.route(["community_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"community_id",false],[2,[7,"/",false],[2,[6,"paypal_preferences",false],[2,[7,"/",false],[2,[6,"preferences_update",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]]]], {}),
@@ -1256,6 +1289,9 @@ Based on Rails routes of Kassi::Application
 // remove_admin_category => (/:locale)/admin/categories/:id/remove(.:format)
   // function(id, options)
   remove_admin_category_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"categories",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"remove",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),
+// remove_friend => (/:locale)/people/:username/remove_friend(.:format)
+  // function(username, options)
+  remove_friend_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"people",false],[2,[7,"/",false],[2,[3,"username",false],[2,[7,"/",false],[2,[6,"remove_friend",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
 // request_new_password_sessions => (/:locale)/sessions/request_new_password(.:format)
   // function(options)
   request_new_password_sessions_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"sessions",false],[2,[7,"/",false],[2,[6,"request_new_password",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),

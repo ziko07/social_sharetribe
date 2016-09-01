@@ -1,0 +1,42 @@
+<%= form_tag('/posts', multipart: true) do %>
+<%= text_area_tag :description %>
+    <div class="attachment-submit">
+      <div class="attchment">
+          <div class="fileUpload btn btn-default">
+            <span>Upload Image</span>
+            <%= file_field_tag :attachment,:multiple => true, name: "attachments[attachment][]", class: 'upload' %>
+          </div>
+      </div>
+      <%= hidden_field_tag 'post_to_id','', value: current_user?(@person) ? '' : @person.id %>
+      <div class="submit-btn">
+        <div class="btn_submit">
+          <%= submit_tag 'Create Post', class: 'post-btn' %>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+
+<div class="wall_posts">
+  <% get_all_post(@person).each do |post| %>
+      <div class="single-post">
+        <%= post.person.given_name + ' ' + post.person.family_name%>
+        <%= post.description %>
+        <% post.post_attachments.each do |attachment| %>
+        <%= video_tag  attachment.attachment_url, size: "80" %>
+        <%end%>
+        <%= link_to post.likes.where(person_id: @person.id).present? ? 'unlike' : 'like', '#', class: 'likelink',:'data-id' => post.id ,'data-type' => 'post'%>
+        <% post.post_comments.each do |comment| %>
+            <%= comment.person.given_name + ' ' + comment.person.family_name%>
+        <%= comment.comment %>
+        <%= link_to post.likes.where(person_id: @person.id).present? ? 'unlike' : 'like', '#', class: 'likelink',:'data-id' => comment.id, 'data-type' => 'comments'  %>
+        <% end %>
+        <%= form_tag ('/post_comments') do%>
+         <%= hidden_field_tag 'post_id','', value: post.id %>
+        <%= text_area_tag :comment %>
+            <%= submit_tag 'comment'%>
+        <% end %>
+      </div>
+  <% end %>
+</div>
+

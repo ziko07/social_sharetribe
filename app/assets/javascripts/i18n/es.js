@@ -4,144 +4,144 @@
     "admin": {
       "onboarding": {
         "guide": {
-          "back_to_todo": "Regresar a la lista de pasos a completar",
+          "back_to_todo": "Back to to-do list",
           "cover_photo": {
-            "add_your_own": "Añade una foto de portada",
+            "add_your_own": "Add cover photo",
             "advice": {
-              "alt": "Como hacer que las fotos de portada, los logos, las imagenes favicon, las imagenes de perfil y las de los anuncios se vean increiblemente bien?",
-              "content1": "Checa %{link} para encontrar buenas imágenes que se pueden usar de forma gratuita.",
-              "content2": "Nota: el tamaño de la imagen será modificado a %{width}x%{height} pixeles. Las partes superior e inferior de imágenes más altas serán recortadas.",
-              "link": "nuestra guía"
+              "alt": "How to get good-looking cover photos, logos, favicon, profiles and listing pictures?",
+              "content1": "Check out %{link} on where to find good-looking images that are free to use.",
+              "content2": "Note: the photo will be resized to %{width}x%{height} pixels. The top and bottom sections of images that are taller will be cropped.",
+              "link": "our guide"
             },
-            "description": "Una buena foto de portada puede hacer la diferencia para un nuevo visitante entre unirse a la comunidad o no.",
-            "info_image_alt": "Una imagen de pantalla de una página con foto de portada",
-            "title": "Paso 3: Añade una foto de portada"
+            "description": "A good cover photo can make the difference between a new visitor joining or leaving your marketplace.",
+            "info_image_alt": "A screenshot of homepage with big cover photo",
+            "title": "Step 3: Add a cover photo"
           },
           "filter": {
-            "add_fields_and_filters": "Añade campos & filtros",
+            "add_fields_and_filters": "Add fields & filters",
             "advice": {
-              "content": "Los filtros son muy útiles para los usuarios, pero %{not_too_many_link}. Los usuarios pueden sentirse abrumados si hay demasiados filtros, además, cada filtro es un campo adicional que se debe llenar al crear un anuncio.",
-              "not_too_many_link": "evita usar demasiados"
+              "content": "Filters are very handy, but %{not_too_many_link}. Customers will be overwhelmed by having too many filters, and each filter is an additional field for your suppliers to fill in.",
+              "not_too_many_link": "you shouldn't add too many"
             },
             "description": {
-              "content": "Los campos en los anuncios determinan la estructura de tu comunidad. Por ejemplo, si estás creando una comunidad para vender zapatos usados, quizás es buena idea añadir un campo para la talla del zapato. El vendedor deberá entonces indicar la talla del zapato en el momento de crear un nuevo anuncio. Si deseas permitir que los usuarios de tu comunidad puedan filtrar los anuncios por talla de zapatos, puedes seleccionar la opción de %{display_on_homepage} al momento de crear el campo.",
-              "display_on_homepage": "Crear un filtro basado en este campo en la página de inicio"
+              "content": "Listing fields determine the structure of your marketplace. For example, if you are building a marketplace for selling used shoes, you probably want to add a field for shoe size. The seller will then need to add the size of their shoes when creating a new shoe listing. If you wish to allow your customers to filter listings based on shoe size, you can check the box %{display_on_homepage} when creating the field.",
+              "display_on_homepage": "Display a filter based on this field on the homepage"
             },
-            "info_image_alt": "Una imagen de pantalla de la página con filtros",
-            "title": "Paso 4: Añade campos en los anuncios y filtros"
+            "info_image_alt": "A screenshot from fields and filters page",
+            "title": "Step 4: Add listing fields & filters"
           },
           "invitation": {
-            "advice": "Invita a tus amigos primero y obten retroalimentación y comentarios de ellos.",
+            "advice": "Invite your friends first and gather feedback from them.",
             "description": {
-              "content": "Satisfecho del funcionamiento y la imagen de tu comunidad? Quizás quieras hacer %{preview_link}? Si todo está listo, es momento de invitar usuarios!",
-              "preview_link": "una última revisión",
-              "preview_link_alt": "Vista previa"
+              "content": "Happy with what marketplace looks like and how it works? Maybe %{preview_link}? If you're ready, let's start inviting users!",
+              "preview_link": "one last preview",
+              "preview_link_alt": "Check preview"
             },
-            "info_image_alt": "Imagen de usuarios",
-            "invite_users": "Invitar usuarios",
-            "title": "Paso 7: Invita usuarios"
+            "info_image_alt": "Users illustration",
+            "invite_users": "Invite users",
+            "title": "Step 7: Inviting users"
           },
           "listing": {
             "advice": {
-              "close_listing": "Cerrar anuncio",
-              "content": "Eliminar un anuncio es fácil: abre el anuncio y selecciona %{close_listing}."
+              "close_listing": "Close listing",
+              "content": "Removing a listing is easy: simply click on the listing and choose %{close_listing}."
             },
-            "description": "Los anuncios son el corazón de tu comunidad: los productos o servicios que algunos usuarios proveen a otros usuarios. Para hacer que tu comunidad se vea menos vacía y probar como funciona el proceso, añade un nuevo anuncio!",
-            "info_image_alt": "Una imagen de pantalla de la página para Publicar un nuevo anuncio",
-            "post_your_first_listing": "Publica tu primer anuncio",
-            "title": "Paso 6: Publica tu primer anuncio"
+            "description": "Listings are the content of your marketplace: the products or services your providers are offering. To make your marketplace look less empty and test how the process of creating a new listing works, add one yourself!",
+            "info_image_alt": "A screenshot from Post a new listing page",
+            "post_your_first_listing": "Post your first listing",
+            "title": "Step 6: Add your first listing"
           },
           "next_step": {
-            "cover_photo": "Añade una foto de portada",
-            "filter": "Añade campos en los anuncios y filtros",
-            "invitation": "Invita usuarios",
-            "listing": "Publica tu primer anuncio",
-            "paypal": "Configura los pagos en linea",
-            "slogan_and_description": "Añade la descripción y el eslogan"
+            "cover_photo": "Add a cover photo",
+            "filter": "Add fields & filters",
+            "invitation": "Invite users",
+            "listing": "Post your first listing",
+            "paypal": "Accept payments",
+            "slogan_and_description": "Add a slogan & description"
           },
           "paypal": {
             "advice": {
-              "content": "Puedes leer más acerca de como desactivar los pagos en linea en %{disable_payments_link}.",
+              "content": "You can read more about disabling payments from %{disable_payments_link}.",
               "disable_payments_alt": "How to disable payments or add free listings to your marketplace",
-              "disable_payments_link": "este artículo"
+              "disable_payments_link": "this article"
             },
-            "cta_separator": "o",
-            "description_p1": "Si quieres permitir que tus usuarios acepten pagos en linea, debes conectar tu cuenta de PayPal (puedes recibir una comisión por cada transacción). Una vez hecha la conexión, necesita escoger un precio mínimo por transacción y la cuota por transacción.",
-            "description_p2": "Alternativamente, puedes desactivar el sistema de pagos en linea por ahora.",
-            "disable_payments": "Desactivar pagos en linea",
-            "info_image_alt": "Una imagen de pantalla de la página de configuración de pagos",
-            "setup_payments": "Configurar pagos en linea",
-            "title": "Step 5: Configura el sistema de pagos en linea"
+            "cta_separator": "or",
+            "description_p1": "If you want to allow your providers to accept online payments, you need to connect your PayPal account (you will receive a fee from each transaction). Once connected, you need to choose a minimum transaction size and your transaction fee.",
+            "description_p2": "Alternatively, you can disable online payments for now.",
+            "disable_payments": "Disable payments",
+            "info_image_alt": "A screenshot from payments page",
+            "setup_payments": "Set up payments",
+            "title": "Step 5: Set up online payments"
           },
           "slogan_and_description": {
-            "add_your_own": "Añade la descripción y el eslogan",
+            "add_your_own": "Add slogan & description",
             "advice": {
-              "content": "Utiliza el eslogan para explicar rápidamente de qué trata tu comunidad. %{food_from_locals_slogan} o %{guitar_lessons_slogan} son buenos ejemplos. Con la descripción puedes detallar un poco más las ventajas principales de tu comunidad. %{food_from_locals_description} o %{guitar_lessons_description} son buenos ejemplos relacionados a los eslogans anteriores.",
-              "food_from_locals_description": "\"FoodMarket es la forma más sencilla de ordenar productos directamente de los productores locales\"",
-              "food_from_locals_slogan": "\"Compra comida local de gente local\"",
-              "guitar_lessons_description": "\"GuitarPro es el mejor lugar para encontrar y comparar a los mejores maestros de guitarra\"",
-              "guitar_lessons_slogan": "\"Aprende guitarra con un profesional\""
+              "content": "Use the slogan to quickly tell visitors what your marketplace is about. %{food_from_locals_slogan} or %{guitar_lessons_slogan} are good examples. Use the description to share your main value proposition. %{food_from_locals_description} or %{guitar_lessons_description} are good examples.",
+              "food_from_locals_description": "\"FoodMarket is the easiest way to order produce directly from local providers\"",
+              "food_from_locals_slogan": "\"Buy food from locals\"",
+              "guitar_lessons_description": "\"GuitarPro is the best place to compare music teachers\"",
+              "guitar_lessons_slogan": "\"Get guitar lessons from a pro\""
             },
-            "description": "La descripción y el eslogan ayudan a los nuevos visitantes a entender el porqué de tu comunidad. Son la primera cosa que los usuarios ven al entrar a tu sitio, por eso intenta hacerlos descriptivos, claros y concisos.",
-            "info_image_alt": "Una imagen de pantalla que muestra la página con la descripción y el eslogan.",
-            "title": "Paso 2: Añade la descripción y el eslogan"
+            "description": "The slogan and description help new visitors understand what your marketplace is about. They are the first thing visitors notice when they land on your site, so try to make them compact but descriptive.",
+            "info_image_alt": "A screenshot of homepage showing slogan and description.",
+            "title": "Step 2: Add a Slogan & Description"
           },
           "status_page": {
             "congratulation_p1": {
-              "content": "Lo has conseguido! Tu comunidad esta lista y en funcionamiento. Sin embargo, este es solo el inicio. Sólo has visto una pequeña parte de las posibilidades de personalización que Sharetribe ofrece. Para aprender más acerca de como configurar tu comunidad, checa %{knowledge_base_link}.",
+              "content": "You did it! Your marketplace is now up and running. However, this is just the beginning. You've only seen a fraction of the customization options that Sharetribe offers. To read more about how to customize your marketplace further, check out %{knowledge_base_link}.",
               "knowledge_base_alt": "knowledge base",
-              "knowledge_base_link": "nuestra base de conocimiento"
+              "knowledge_base_link": "our knowledge base"
             },
             "congratulation_p2": {
-              "content": "Si deseas aprender más acerca de como hacer crecer tu comunidad como negocio, te recomendamos nuestra %{marketplace_guide_link} (en inglés).",
+              "content": "If you wish to learn more about how to build your marketplace business, we recommend our %{marketplace_guide_link}.",
               "marketplace_guide_alt": "link to marketplace academy",
-              "marketplace_guide_link": "guía práctica para hacer negocios con tu comunidad en linea"
+              "marketplace_guide_link": "practical guide for building an online marketplace business"
             },
             "congratulation_p3": {
-              "contact_support_link": "contactar a nuestro equipo de soporte",
+              "contact_support_link": "contact our support",
               "contact_support_title": "Support",
-              "content": "Si tienes alguna pregunta, no dudes en %{contact_support_link}, estamos siempre dispuestos a ayudar!"
+              "content": "If you have any questions, don't hesitate to %{contact_support_link}, we're always happy to help!"
             },
-            "cover_photo": "Añade una foto de portada",
-            "create_your_marketplace": "Crea tu comunidad",
-            "description_p1": "Para tener tu comunidad lista y en funcionamiento, debes de seguir los pasos que se enlistan más abajo.",
-            "description_p2": "Una vez completados estos pasos, tu comunidad estará lista para recibir a sus primeros visitantes!",
-            "filter": "Añade campos en los anuncios y filtros",
-            "invitation": "Invita usuarios",
-            "listing": "Publica un anuncio",
-            "paypal": "Configura los pagos en linea",
-            "slogan_and_description": "Añade la descripción y el eslogan",
-            "title": "Bienvenido a tu comunidad, %{name}",
-            "title_done": "Todo listo!"
+            "cover_photo": "Upload a cover photo",
+            "create_your_marketplace": "Create your marketplace",
+            "description_p1": "To get your marketplace up and running, there are a few essential steps you need to take, as listed below.",
+            "description_p2": "Once finished, your marketplace will be ready to receive its first visitors!",
+            "filter": "Add fields & filters",
+            "invitation": "Invite users",
+            "listing": "Post a listing",
+            "paypal": "Set up online payments",
+            "slogan_and_description": "Add a slogan & description",
+            "title": "Welcome to your marketplace, %{name}",
+            "title_done": "All done!"
           }
         },
         "topbar": {
-          "cover_photo": "Añade una foto de portada",
-          "filter": "Añade campos en los anuncios y filtros",
-          "invitation": "Invitar usuarios",
-          "listing": "Publicar un anuncio",
-          "next_step": "Siguiente",
-          "paypal": "Configurar pagos en linea",
-          "progress_label": "Progreso",
-          "slogan_and_description": "Añade la descripción y el eslogan"
+          "cover_photo": "Upload a cover photo",
+          "filter": "Add fields & filters",
+          "invitation": "Invite users",
+          "listing": "Post a listing",
+          "next_step": "Next",
+          "paypal": "Accept payments",
+          "progress_label": "Marketplace progress",
+          "slogan_and_description": "Add a slogan & description"
         }
       }
     },
     "topbar": {
-      "admin_dashboard": "Panel de administración",
-      "inbox": "Bandeja de Entrada",
-      "language": "Idioma",
-      "login": "Iniciar sesión",
-      "logout": "Cerrar sesión",
-      "manage_listings": "Administrar anuncios",
-      "menu": "Menú",
-      "more": "Más",
-      "profile": "Perfil",
-      "search_location_placeholder": "Ubicación",
-      "search_placeholder": "Buscar...",
-      "settings": "Configuración",
-      "signup": "Registrarse",
-      "user": "Usuario"
+      "admin_dashboard": "Admin dashboard",
+      "inbox": "Inbox",
+      "language": "Language",
+      "login": "Log in",
+      "logout": "Log out",
+      "manage_listings": "Manage listings",
+      "menu": "Menu",
+      "more": "More",
+      "profile": "Profile",
+      "search_location_placeholder": "Location",
+      "search_placeholder": "Search...",
+      "settings": "Settings",
+      "signup": "Sign up",
+      "user": "User"
     }
   }
 };
