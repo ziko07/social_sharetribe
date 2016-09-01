@@ -35,6 +35,7 @@ Kassi::Application.routes.draw do
 
 resources :posts
 resources :post_comments
+resources :likes
   # Prettier link for admin panel
   namespace :admin do
     get '' => "getting_started_guide#index"

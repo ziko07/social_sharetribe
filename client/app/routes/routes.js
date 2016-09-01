@@ -746,6 +746,9 @@ Based on Rails routes of Kassi::Application
 // edit_invitation => (/:locale)/invitations/:id/edit(.:format)
   // function(id, options)
   edit_invitation_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"invitations",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"edit",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// edit_like => /likes/:id/edit(.:format)
+  // function(id, options)
+  edit_like_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"likes",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"edit",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]], {}),
 // edit_listing => (/:locale)/listings/:id/edit(.:format)
   // function(id, options)
   edit_listing_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"edit",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
@@ -926,6 +929,12 @@ Based on Rails routes of Kassi::Application
 // landing_page_without_locale => /
   // function(options)
   landing_page_without_locale_path: Utils.route([], [], [7,"/",false], {}),
+// like => /likes/:id(.:format)
+  // function(id, options)
+  like_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"likes",false],[2,[7,"/",false],[2,[3,"id",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
+// likes => /likes(.:format)
+  // function(options)
+  likes_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"likes",false],[1,[2,[8,".",false],[3,"format",false]],false]]], {}),
 // listing => (/:locale)/listings/:id(.:format)
   // function(id, options)
   listing_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"id",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
@@ -1031,6 +1040,9 @@ Based on Rails routes of Kassi::Application
 // new_invitation => (/:locale)/invitations/new(.:format)
   // function(options)
   new_invitation_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"invitations",false],[2,[7,"/",false],[2,[6,"new",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
+// new_like => /likes/new(.:format)
+  // function(options)
+  new_like_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"likes",false],[2,[7,"/",false],[2,[6,"new",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
 // new_listing => (/:locale)/listings/new(.:format)
   // function(options)
   new_listing_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[6,"new",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
@@ -1265,6 +1277,9 @@ Based on Rails routes of Kassi::Application
 // posting_allowed_admin_community_community_memberships => (/:locale)/admin/communities/:community_id/community_memberships/posting_allowed(.:format)
   // function(community_id, options)
   posting_allowed_admin_community_community_memberships_path: Utils.route(["community_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"community_id",false],[2,[7,"/",false],[2,[6,"community_memberships",false],[2,[7,"/",false],[2,[6,"posting_allowed",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]]]], {}),
+// posts => /posts(.:format)
+  // function(options)
+  posts_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"posts",false],[1,[2,[8,".",false],[3,"format",false]],false]]], {}),
 // preauthorize_payment => (/:locale)/listings/:listing_id/preauthorize(.:format)
   // function(listing_id, options)
   preauthorize_payment_path: Utils.route(["listing_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"listing_id",false],[2,[7,"/",false],[2,[6,"preauthorize",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
