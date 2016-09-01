@@ -1,22 +1,25 @@
 class PeopleController < Devise::RegistrationsController
-  class PersonDeleted < StandardError; end
+  class PersonDeleted < StandardError;
+  end
 
   skip_before_filter :verify_authenticity_token, :only => [:creates]
   skip_before_filter :require_no_authentication, :only => [:new]
 
+  layout 'social', only: [:show, :wall]
+
   before_filter EnsureCanAccessPerson.new(
-    :id, error_message_key: "layouts.notifications.you_are_not_authorized_to_view_this_content"), only: [:update, :destroy]
+                    :id, error_message_key: "layouts.notifications.you_are_not_authorized_to_view_this_content"), only: [:update, :destroy]
 
   LOOSER_ACCESS_CONTROL = [
-    :check_email_availability,
-    :check_email_availability_and_validity,
-    :check_invitation_code
+      :check_email_availability,
+      :check_email_availability_and_validity,
+      :check_invitation_code
   ]
 
-  skip_filter :cannot_access_if_banned,            only: LOOSER_ACCESS_CONTROL
+  skip_filter :cannot_access_if_banned, only: LOOSER_ACCESS_CONTROL
   skip_filter :cannot_access_without_confirmation, only: LOOSER_ACCESS_CONTROL
-  skip_filter :ensure_consent_given,               only: LOOSER_ACCESS_CONTROL
-  skip_filter :ensure_user_belongs_to_community,   only: LOOSER_ACCESS_CONTROL
+  skip_filter :ensure_consent_given, only: LOOSER_ACCESS_CONTROL
+  skip_filter :ensure_user_belongs_to_community, only: LOOSER_ACCESS_CONTROL
 
   helper_method :show_closed?
 
@@ -30,44 +33,44 @@ class PeopleController < Devise::RegistrationsController
 
     include_closed = @current_user == @person && params[:show_closed]
     search = {
-      author_id: @person.id,
-      include_closed: include_closed,
-      page: 1,
-      per_page: 6
+        author_id: @person.id,
+        include_closed: include_closed,
+        page: 1,
+        per_page: 6
     }
 
     includes = [:author, :listing_images]
     raise_errors = Rails.env.development?
 
     listings =
-      ListingIndexService::API::Api
-      .listings
-      .search(
-        community_id: @current_community.id,
-        search: search,
-        engine: FeatureFlagHelper.search_engine,
-        raise_errors: raise_errors,
-        includes: includes
-      ).and_then { |res|
-      Result::Success.new(
-        ListingIndexViewUtils.to_struct(
-        result: res,
-        includes: includes,
-        page: search[:page],
-        per_page: search[:per_page]
-      ))
-    }.data
+        ListingIndexService::API::Api
+            .listings
+            .search(
+                community_id: @current_community.id,
+                search: search,
+                engine: FeatureFlagHelper.search_engine,
+                raise_errors: raise_errors,
+                includes: includes
+            ).and_then { |res|
+          Result::Success.new(
+              ListingIndexViewUtils.to_struct(
+                  result: res,
+                  includes: includes,
+                  page: search[:page],
+                  per_page: search[:per_page]
+              ))
+        }.data
 
     received_testimonials = TestimonialViewUtils.received_testimonials_in_community(@person, @current_community)
     received_positive_testimonials = TestimonialViewUtils.received_positive_testimonials_in_community(@person, @current_community)
     feedback_positive_percentage = @person.feedback_positive_percentage_in_community(@current_community)
 
-    render locals: { listings: listings,
-                     followed_people: @person.followed_people,
-                     received_testimonials: received_testimonials,
-                     received_positive_testimonials: received_positive_testimonials,
-                     feedback_positive_percentage: feedback_positive_percentage
-                   }
+    render locals: {listings: listings,
+                    followed_people: @person.followed_people,
+                    received_testimonials: received_testimonials,
+                    received_positive_testimonials: received_positive_testimonials,
+                    feedback_positive_percentage: feedback_positive_percentage
+           }
   end
 
   def new
@@ -76,15 +79,19 @@ class PeopleController < Devise::RegistrationsController
     session[:invitation_code] = params[:code] if params[:code]
 
     @person = if params[:person] then
-      Person.new(params[:person].slice(:given_name, :family_name, :email, :username))
-    else
-      Person.new()
-    end
+                Person.new(params[:person].slice(:given_name, :family_name, :email, :username))
+              else
+                Person.new()
+              end
 
     @container_class = params[:private_community] ? "container_12" : "container_24"
     @grid_class = params[:private_community] ? "grid_6 prefix_3 suffix_3" : "grid_10 prefix_7 suffix_7"
   end
 
+
+  def wall
+    @person = Person.find_by_username(params[:username])
+  end
   def create
     domain = @current_community ? @current_community.full_url : "#{request.protocol}#{request.host_with_port}"
     error_redirect_path = domain + sign_up_path
@@ -118,7 +125,7 @@ class PeopleController < Devise::RegistrationsController
     end
 
     # Check that the email is allowed for current community
-    if @current_community && ! @current_community.email_allowed?(params[:person][:email])
+    if @current_community && !@current_community.email_allowed?(params[:person][:email])
       flash[:error] = t("people.new.email_not_allowed")
       redirect_to error_redirect_path and return
     end
@@ -169,20 +176,20 @@ class PeopleController < Devise::RegistrationsController
 
   def create_facebook_based
     username = UserService::API::Users.username_from_fb_data(
-      username: session["devise.facebook_data"]["username"],
-      given_name: session["devise.facebook_data"]["given_name"],
-      family_name: session["devise.facebook_data"]["family_name"],
-      community_id: @current_community.id)
+        username: session["devise.facebook_data"]["username"],
+        given_name: session["devise.facebook_data"]["given_name"],
+        family_name: session["devise.facebook_data"]["family_name"],
+        community_id: @current_community.id)
 
     person_hash = {
-      :username => username,
-      :given_name => session["devise.facebook_data"]["given_name"],
-      :family_name => session["devise.facebook_data"]["family_name"],
-      :facebook_id => session["devise.facebook_data"]["id"],
-      :locale => I18n.locale,
-      :test_group_number => 1 + rand(4),
-      :password => Devise.friendly_token[0,20],
-      community_id: @current_community.id
+        :username => username,
+        :given_name => session["devise.facebook_data"]["given_name"],
+        :family_name => session["devise.facebook_data"]["family_name"],
+        :facebook_id => session["devise.facebook_data"]["id"],
+        :locale => I18n.locale,
+        :test_group_number => 1 + rand(4),
+        :password => Devise.friendly_token[0, 20],
+        community_id: @current_community.id
     }
     @person = Person.create!(person_hash)
     # We trust that Facebook has already confirmed these and save the user few clicks
@@ -213,7 +220,7 @@ class PeopleController < Devise::RegistrationsController
     end
 
     #Check that people don't exploit changing email to be confirmed to join an email restricted community
-    if params["request_new_email_confirmation"] && @current_community && ! @current_community.email_allowed?(params[:person][:email])
+    if params["request_new_email_confirmation"] && @current_community && !@current_community.email_allowed?(params[:person][:email])
       flash[:error] = t("people.new.email_not_allowed")
       redirect_to :back and return
     end
@@ -222,31 +229,31 @@ class PeopleController < Devise::RegistrationsController
 
     begin
       person_params = params.require(:person).permit(
-        :given_name,
-        :family_name,
-        :street_address,
-        :phone_number,
-        :image,
-        :description,
-        { location: [:address, :google_address, :latitude, :longitude] },
-        :password,
-        :password2,
-        { send_notifications: [] },
-        { email_attributes: [:address] },
-        :min_days_between_community_updates,
-        { preferences: [
-          :email_from_admins,
-          :email_about_new_messages,
-          :email_about_new_comments_to_own_listing,
-          :email_when_conversation_accepted,
-          :email_when_conversation_rejected,
-          :email_about_new_received_testimonials,
-          :email_about_confirm_reminders,
-          :email_about_testimonial_reminders,
-          :email_about_completed_transactions,
-          :email_about_new_payments,
-          :email_about_new_listings_by_followed_people,
-        ] }
+          :given_name,
+          :family_name,
+          :street_address,
+          :phone_number,
+          :image,
+          :description,
+          {location: [:address, :google_address, :latitude, :longitude]},
+          :password,
+          :password2,
+          {send_notifications: []},
+          {email_attributes: [:address]},
+          :min_days_between_community_updates,
+          {preferences: [
+              :email_from_admins,
+              :email_about_new_messages,
+              :email_about_new_comments_to_own_listing,
+              :email_when_conversation_accepted,
+              :email_when_conversation_rejected,
+              :email_about_new_received_testimonials,
+              :email_about_confirm_reminders,
+              :email_about_testimonial_reminders,
+              :email_about_completed_transactions,
+              :email_about_new_payments,
+              :email_about_new_listings_by_followed_people,
+          ]}
       )
 
       Maybe(person_params)[:location].each { |loc|
@@ -274,8 +281,8 @@ class PeopleController < Devise::RegistrationsController
 
         # Send new confirmation email, if was changing for that
         if params["request_new_email_confirmation"]
-            target_user.send_confirmation_instructions(request.host_with_port, @current_community)
-            flash[:notice] = t("layouts.notifications.email_confirmation_sent_to_new_address")
+          target_user.send_confirmation_instructions(request.host_with_port, @current_community)
+          flash[:notice] = t("layouts.notifications.email_confirmation_sent_to_new_address")
         end
       else
         flash[:error] = t("layouts.notifications.#{target_user.errors.first}")
@@ -343,14 +350,13 @@ class PeopleController < Devise::RegistrationsController
   end
 
 
-
   private
 
   # Create a new person by params and current community
   def new_person(params, current_community)
     person = Person.new
 
-    params[:person][:locale] =  params[:locale] || APP_CONFIG.default_locale
+    params[:person][:locale] = params[:locale] || APP_CONFIG.default_locale
     params[:person][:test_group_number] = 1 + rand(4)
     params[:person][:community_id] = current_community.id
 

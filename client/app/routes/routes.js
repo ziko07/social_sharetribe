@@ -1265,6 +1265,9 @@ Based on Rails routes of Kassi::Application
 // posting_allowed_admin_community_community_memberships => (/:locale)/admin/communities/:community_id/community_memberships/posting_allowed(.:format)
   // function(community_id, options)
   posting_allowed_admin_community_community_memberships_path: Utils.route(["community_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"community_id",false],[2,[7,"/",false],[2,[6,"community_memberships",false],[2,[7,"/",false],[2,[6,"posting_allowed",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]]]], {}),
+// posts => /posts(.:format)
+  // function(options)
+  posts_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"posts",false],[1,[2,[8,".",false],[3,"format",false]],false]]], {}),
 // preauthorize_payment => (/:locale)/listings/:listing_id/preauthorize(.:format)
   // function(listing_id, options)
   preauthorize_payment_path: Utils.route(["listing_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"listing_id",false],[2,[7,"/",false],[2,[6,"preauthorize",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
@@ -1412,6 +1415,9 @@ Based on Rails routes of Kassi::Application
 // verify_account_person_stripe_account => (/:locale)/:person_id/stripe_account/verify_account(.:format)
   // function(person_id, options)
   verify_account_person_stripe_account_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"stripe_account",false],[2,[7,"/",false],[2,[6,"verify_account",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// wall_person => (/:locale)/:username/wall(.:format)
+  // function(username, options)
+  wall_person_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"username",false],[2,[7,"/",false],[2,[6,"wall",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
 // webhooks_plans => /webhooks/plans(.:format)
   // function(options)
   webhooks_plans_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"webhooks",false],[2,[7,"/",false],[2,[6,"plans",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),

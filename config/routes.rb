@@ -33,8 +33,8 @@ Kassi::Application.routes.draw do
   get "/listings/new/:type" => "listings#new", :as => :new_request_without_locale # needed for some emails, where locale part is already set
   get "/change_locale" => "i18n#change_locale", :as => :change_locale
 
-resources :posts
-resources :post_comments
+  resources :posts
+  resources :post_comments
   # Prettier link for admin panel
   namespace :admin do
     get '' => "getting_started_guide#index"
@@ -377,7 +377,11 @@ resources :post_comments
       get "/signup" => "people#new", :as => :sign_up
       get '/people/auth/:provider/setup' => 'sessions#facebook_setup' #needed for devise setup phase hook to work
 
-      resources :people, param: :username, :path => "", :only => :show, :constraints => {:username => /[_a-z0-9]{3,20}/}
+      resources :people, param: :username, :path => "", :only => :show, :constraints => {:username => /[_a-z0-9]{3,20}/} do
+        member do
+          get :wall
+        end
+      end
 
       resources :people, except: [:show] do
         collection do
@@ -463,6 +467,9 @@ resources :post_comments
 
     end # devise scope person
 
+    # resources :friendships, only: [] do
+    #
+    # end
 
 
     post '/people/:username/add_friend' => "friendships#add_friend", :as => :add_friend

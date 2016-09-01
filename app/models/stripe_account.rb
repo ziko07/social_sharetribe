@@ -50,4 +50,32 @@ class StripeAccount < ActiveRecord::Base
       'Switzerland' => 'CH'
   }
 
+  CURRENCY_MAP = {
+      'AU' => 'AUD',
+      'CA' => 'CAD',
+      'DK' => 'GBP',
+      'FI' => 'EUR',
+      'FR' => 'USD',
+      'IE' => 'USD',
+      'NO' => 'NOK',
+      'SE' => 'SEK',
+      'GB' => 'USD',
+      'US' => 'USD',
+      'AT' => 'USD',
+      'BE' => 'USD',
+      'DE' => 'USD',
+      'HK' => 'HKD',
+      'IT' => 'EUR',
+      'JP' => 'JPY',
+      'LU' => 'USD',
+      'NL' => 'USD',
+      'PT' => 'USD',
+      'SG' => 'SGD',
+      'ES' => 'USD',
+      'BR' => 'BRL',
+      'MX' => 'MXN',
+      'NZ' => 'NZD',
+      'CH' => 'CHF'
+  }
+
 end

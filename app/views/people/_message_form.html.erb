@@ -1,8 +1,10 @@
 <div>
-  <a href="javascript:void(0);" id="send-message"> Send message </a>
+  <div style="margin-top: 15px"></div>
+  <a href="javascript:void(0);" id="send-message" class="btn">
+    <i class="fa fa-commenting-o"></i> Send message </a>
   <%= content_for :extra_javascript do %>
       <script type="text/javascript">
-          function replaceAtMentionsWithLinks ( text ) {
+          function replaceAtMentionsWithLinks(text) {
               return text.replace(/@([a-z\d_]+)/ig, '<a href="http://twitter.com/$1">@$1</a>');
           }
           $(function () {
@@ -10,7 +12,7 @@
                   $('#new-message-form').lightbox_me({centered: true, zIndex: 1000000});
               });
 
-              $('textarea.mention').mentionsInput({
+              $('textarea.mentionx').mentionsInput({
                   onDataRequest: function (mode, query, callback) {
                       var data = [
                           {

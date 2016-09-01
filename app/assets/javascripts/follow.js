@@ -16,7 +16,7 @@ window.ST.onFollowButtonAjaxComplete = function(event, xhr) {
 
 $('#description').focus(function(){
     $('.attachment-submit').show();
-})
+});
 
 $( ".likelink" ).click(function() {
     alert( "Handler for .click() called." );

@@ -1,0 +1,127 @@
+<%= render :partial => 'layouts/head' %>
+<body class="social">
+<%= render partial: 'layouts/global_header', locals: header_props() %>
+<div class="container">
+  <div class="social-wrapper content-container clearfix">
+    <div class="social-left-section">
+      <div class="social-header">
+        <%#= image_tag 'bg.jpg', class: 'profile-bg' %>
+        <div class="item-header-cover ">
+          <div class="table-cell">
+            <div class="cover-content">
+              <div class="table-cell">
+                <div class="pull-left">
+                  <div style="background: url('<%= huge_avatar_thumb_url(@person) %>');" class="social-avatar"></div>
+                  <div class="follow-unfollow-wrapper">
+                    <%= render :partial => "people/friend_request_button", :locals => {:person => @person} if @current_user.present? %>
+                  </div>
+                </div>
+                <div class="pull-left user-social-link" style="color: #ffffff;">
+                  <h3>
+                    <%= link_to @person.given_name_or_username, person_path(username: @person.username) %>
+                  </h3>
+
+                  <div class="divider"></div>
+                  <div class="btn-group social">
+
+                    <a class="btn facebook" href="https://facebook.com/buddybossWP" title="Facebook" target="_blank">
+                      <i class="fa fa-facebook"></i>
+                    </a>
+                    <a class="btn twitter" href="https://twitter.com/BuddyBossWP" title="Twitter" target="_blank">
+                      <i class="fa fa-twitter"></i>
+                    </a>
+                    <a class="btn youtube" href="https://www.youtube.com/c/BuddybossWP" title="YouTube" target="_blank">
+                      <i class="fa fa-youtube-play"></i>
+                    </a>
+                  </div>
+                  <%= render 'people/message_form' if @current_user.present? %>
+                </div>
+              </div>
+              <div class="table-cell">
+                <div id="item-statistics">
+                  <div class="numbers">
+                    <span>
+					  <p>
+                        <%= @person.invited.count %>
+                      </p>
+					  <p>Following</p>
+					</span>
+                    <span>
+                        <p><%= @person.invited_by.count %></p>
+                        <p>Followers</p>
+                    </span>
+                  </div>
+                  <div id="item-buttons" class="profile" style="display: none;">
+                    <div id="main-button" class="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%= render partial: 'social/social_nav', locals: header_props() %>
+      <%= yield :social_left_section %>
+    </div>
+    <div class="social-right-section">
+      <%= yield :social_right_section %>
+    </div>
+    <div style="clear: both;"></div>
+    <div class="footer-section">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    window.I18n = {};
+</script>
+<%= javascript_include_tag "i18n/#{I18n.locale}" %>
+<%= javascript_include_tag 'application' %>
+<script type="text/javascript">
+    window.ST.jsonTranslations = <%= raw JSONTranslations.get(I18n.locale) %>;
+</script>
+<% if @analytics_event %>
+    <script type="text/javascript">
+        report_analytics_event.apply(null, '<%= @analytics_event %>');
+    </script>
+<% end %>
+<% if @gtm_datalayer %>
+    <script type="text/javascript">
+        if (window.ST != null && typeof window.ST.gtmPush === 'function') {
+            window.ST.gtmPush('<%= @gtm_datalayer.to_json%>');
+        }
+    </script>
+<% end %>
+<script type="text/javascript">
+    $(function () {
+        if ('touchAction' in document.body.style) {
+            document.body.style.touchAction = 'manipulation';
+        } else {
+            window.FastClick.attach(document.body, {excludeNode: '^pac-'});
+        }
+    });
+</script>
+<% if Rails.env.test? %>
+    <script type="text/javascript">
+        $(function () {
+            $.transit.enabled = false;
+        });
+    </script>
+<% end %>
+<%= content_for :extra_javascript %>
+<script>
+    $(document).ready(function () {
+        initialize_defaults("<%= I18n.locale %>");
+        <%= yield :javascript %>
+    });
+</script>
+
+</body>
+<footer>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+</footer>
+</html>

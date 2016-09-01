@@ -1,24 +1,18 @@
 <div class="follow-button-container">
   <% if @current_user.friend_with? person %>
-      <%= link_to remove_friend_path(person.username), :method => "post", :remote => true, :class => "follow-button unfollow button-hoverable" do %>
-          <div class="content default-content">
-            Remove Friend
-          </div>
+      <%= link_to remove_friend_path(person.username), :method => "post", :remote => true, :class => "btn follow-button unfollow" do %>
+          Remove Friend
       <% end %>
   <% else %>
       <% if person.invited_by? @current_user %>
-         <span class="follow-button"> Friend Request Sent </span>
-      <% elsif @current_user.invited_by? person  %>
-          <%= link_to accept_friend_path(person.username), :method => "post", :remote => true, :class => "follow-button button-hoverable" do %>
-              <div class="content">
-                Accept Friend Request
-              </div>
+          <span class="follow-button"> Friend Request Sent </span>
+      <% elsif @current_user.invited_by? person %>
+          <%= link_to accept_friend_path(person.username), :method => "post", :remote => true, :class => "btn follow-button" do %>
+              Accept Request
           <% end %>
       <% else %>
-          <%= link_to add_friend_path(person.username), :method => "post", :remote => true, :class => "follow-button unfollow button-hoverable" do %>
-              <div class="content">
-                Add Friend
-              </div>
+          <%= link_to add_friend_path(person.username), :method => "post", :remote => true, :class => "btn follow-button unfollow" do %>
+              <i class="fa fa-user-plus"></i> Add Friend
           <% end %>
       <% end %>
   <% end %>

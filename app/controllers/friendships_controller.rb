@@ -5,8 +5,8 @@ class FriendshipsController < ApplicationController
     person = Person.find_by_username(params[:username])
     @current_user.invite person
     respond_to do |format|
+      format.js { render layout: false, locals: {person: person} }
       format.html { redirect_to :back }
-      format.js { render :partial => "people/friend_request_button", :locals => { :person => person } }
     end
   end
 
@@ -15,7 +15,7 @@ class FriendshipsController < ApplicationController
     @current_user.approve person
     respond_to do |format|
       format.html { redirect_to :back }
-      format.js { render :partial => "people/friend_request_button", :locals => { :person => person } }
+      format.js { render layout: false, locals: {person: person} }
     end
   end
 
@@ -24,16 +24,16 @@ class FriendshipsController < ApplicationController
     @current_user.remove_friendship person
     respond_to do |format|
       format.html { redirect_to :back }
-      format.js { render :partial => "people/friend_request_button", :locals => { :person => person } }
+      format.js { render layout: false, locals: {person: person} }
     end
   end
 
 
-   def friend_list
-     person = Person.find_by_username(params[:username])
-     @friends = person.friends
-     @mutual_friends = person.common_friends_with(@current_user)
-     @follower = person.invited_by
-     @following = person.invited
-   end
+  def friend_list
+    person = Person.find_by_username(params[:username])
+    @friends = person.friends
+    @mutual_friends = person.common_friends_with(@current_user)
+    @follower = person.invited_by
+    @following = person.invited
+  end
 end
