@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160830082513) do
+ActiveRecord::Schema.define(version: 20160901043915) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string   "token",            limit: 255
@@ -378,7 +378,6 @@ ActiveRecord::Schema.define(version: 20160830082513) do
 
   add_index "emails", ["address", "community_id"], name: "index_emails_on_address_and_community_id", unique: true, using: :btree
   add_index "emails", ["address"], name: "index_emails_on_address", using: :btree
-  add_index "emails", ["community_id"], name: "index_emails_on_community_id", using: :btree
   add_index "emails", ["person_id"], name: "index_emails_on_person_id", using: :btree
 
   create_table "feature_flags", force: :cascade do |t|
@@ -413,6 +412,15 @@ ActiveRecord::Schema.define(version: 20160830082513) do
   add_index "follower_relationships", ["follower_id"], name: "index_follower_relationships_on_follower_id", using: :btree
   add_index "follower_relationships", ["person_id", "follower_id"], name: "index_follower_relationships_on_person_id_and_follower_id", unique: true, using: :btree
   add_index "follower_relationships", ["person_id"], name: "index_follower_relationships_on_person_id", using: :btree
+
+  create_table "friendships", force: :cascade do |t|
+    t.string  "friendable_id", limit: 255
+    t.string  "friend_id",     limit: 255
+    t.string  "blocker_id",    limit: 255
+    t.boolean "pending",                   default: true
+  end
+
+  add_index "friendships", ["friendable_id", "friend_id"], name: "index_friendships_on_friendable_id_and_friend_id", unique: true, using: :btree
 
   create_table "invitations", force: :cascade do |t|
     t.string   "code",         limit: 255
@@ -449,6 +457,14 @@ ActiveRecord::Schema.define(version: 20160830082513) do
   end
 
   add_index "landing_pages", ["community_id"], name: "index_landing_pages_on_community_id", unique: true, using: :btree
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "likeable_id",   limit: 4
+    t.string   "likeable_type", limit: 255
+    t.string   "person_id",     limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
   create_table "listing_followers", id: false, force: :cascade do |t|
     t.string  "person_id",  limit: 255
@@ -873,6 +889,31 @@ ActiveRecord::Schema.define(version: 20160830082513) do
   add_index "people", ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
   add_index "people", ["username", "community_id"], name: "index_people_on_username_and_community_id", unique: true, using: :btree
   add_index "people", ["username"], name: "index_people_on_username", using: :btree
+
+  create_table "post_attachments", force: :cascade do |t|
+    t.integer  "attachmentable_id",   limit: 4
+    t.string   "attachmentable_type", limit: 255
+    t.string   "attachment",          limit: 255
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  create_table "post_comments", force: :cascade do |t|
+    t.integer  "commentable_id",   limit: 4
+    t.string   "commentable_type", limit: 255
+    t.text     "comment",          limit: 65535
+    t.string   "person_id",        limit: 255
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string   "person_id",   limit: 255
+    t.string   "post_to_id",  limit: 255
+    t.text     "description", limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
   create_table "prospect_emails", force: :cascade do |t|
     t.string   "email",      limit: 255

@@ -14,6 +14,15 @@ window.ST.onFollowButtonAjaxComplete = function(event, xhr) {
   $(".follow-button", newButtonContainer).on("ajax:complete", window.ST.onFollowButtonAjaxComplete);
 };
 
+$('#description').focus(function(){
+    $('.attachment-submit').show();
+})
+
+$( ".likelink" ).click(function() {
+    alert( "Handler for .click() called." );
+});
+
+
 window.ST.initializeFollowButtons = function() {
   $(".follow-button").on("ajax:complete", window.ST.onFollowButtonAjaxComplete);
 };

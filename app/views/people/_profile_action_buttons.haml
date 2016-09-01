@@ -7,3 +7,6 @@
       
 - if @current_community.follow_in_use? && @current_user && !current_user?(@person)
   = render :partial => "follow_button", :locals => { :person => @person }
+- if @current_user && !current_user?(@person)
+  = render :partial => "friend_request_button", :locals => { :person => @person }
+  = render :partial => "friendship_status", :locals => { :person => @person }

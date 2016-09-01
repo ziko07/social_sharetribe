@@ -549,8 +549,8 @@ module ApplicationHelper
   # on the number of new notifications
   def get_badge_class(count)
     case count
-    when 1..9
-      ""
+    when 0..9
+      "badge"
     when 10..99
       "big-badge"
     else
@@ -636,6 +636,13 @@ module ApplicationHelper
     PathHelpers.search_url(
       community_id: @current_community.id,
       opts: opts)
+  end
+
+  def get_all_post(user)
+    friends = user.friends.map(&:id)
+    friends = friends << user.id
+    all_post = Post.where(person_id: friends)
+    return all_post
   end
 
   def search_mode

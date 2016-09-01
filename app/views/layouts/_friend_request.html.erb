@@ -1,0 +1,10 @@
+<div class="header-right visible-tablet">
+  <%= link_to '#', title: t("layouts.conversations.messages"), :id => "inbox-link", :class => "header-text-link header-hover header-inbox-link" do %>
+      <%= icon_map_tag(icons, "user", ["icon-with-text"]) %>
+      <% if @current_user.pending_invited_by.count > 0 %>
+          <div class="<%= get_badge_class(@current_user.pending_invited_by.count) %> badge">
+            <%= @current_user.pending_invited_by.count %>
+          </div>
+      <% end %>
+  <% end %>
+</div>

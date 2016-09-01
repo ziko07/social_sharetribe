@@ -61,6 +61,7 @@
         - if received_testimonials.size > 0
           #profile-testimonials-list
             = render :partial => "testimonials", :locals => {:received_testimonials => received_testimonials, :limit => 3}
+    = render 'wall_posts'
 
   .col-4
     .row

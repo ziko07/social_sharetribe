@@ -21,7 +21,7 @@
 
   &.unfollow:hover:not(.button-disable-hover) {
     background: $red;
-    color: white;
+    color: white !important;
   }
 
 }
@@ -30,4 +30,143 @@
   &, &:hover {
     background-color: $border;
   }
+}
+
+.friends_count {
+  position: relative;
+  .badge {
+    position: absolute;
+    top: 20px; // Magic, just looks good
+    left: 115px; // Magic, just looks good
+    background: $link;
+    color: $background;
+    @include badge(20px);
+  }
+
+  .big-badge {
+    position: absolute;
+    top: 16px; // Magic, just looks good
+    left: 115px; // Magic, just looks good
+    background: $link;
+    color: $background;
+    @include badge(26px);
+  }
+   .huge-badge {
+     position: absolute;
+     top: 12px; // Magic, just looks good
+     left: 115px; // Magic, just looks good
+     background: $link;
+     color: $background;
+     @include badge(32px);
+  }
+}
+
+.friends-status {
+  padding-bottom: 10px;
+}
+
+.friend-item {
+  width: 49%;
+  display: inline-block;
+}
+
+
+.fileUpload {
+  background-color: #42adbe;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 10px;
+  padding-top: 10px;
+  position: relative;
+  width: 49%;
+}
+
+.fileUpload input.upload {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+
+.attachment-submit {
+  width: 100%;
+  display: none;
+}
+
+.attchment {
+  width: 49%;
+  display: inline-block;
+}
+
+.submit-btn {
+  width: 49%;
+  display: inline-block;
+  float: right;
+}
+
+.btn_submit {
+  background-color: #42adbe;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 10px;
+  padding-top: 10px;
+  position: relative;
+  width: 49%;
+  float: right;
+}
+
+.post-btn {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background-color: #42adbe;
+  border-bottom-color: -moz-use-text-color;
+  border-bottom-style: none;
+  border-bottom-width: medium;
+  border-image-outset: 0 0 0 0;
+  border-image-repeat: stretch stretch;
+  border-image-slice: 100% 100% 100% 100%;
+  border-image-source: none;
+  border-image-width: 1 1 1 1;
+  border-left-color: -moz-use-text-color;
+  border-left-style: none;
+  border-left-width: medium;
+  border-right-color: -moz-use-text-color;
+  border-right-style: none;
+  border-right-width: medium;
+  border-top-color: -moz-use-text-color;
+  border-top-style: none;
+  border-top-width: medium;
+  color: white;
+  font-weight: bold;
+  padding-left: 23px;
+  text-align: center;
+
+}
+
+.wall_posts {
+  margin-top: 10px;
 }
