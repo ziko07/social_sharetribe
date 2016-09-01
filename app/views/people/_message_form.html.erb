@@ -1,0 +1,88 @@
+<div>
+  <a href="javascript:void(0);" id="send-message"> Send message </a>
+  <%= content_for :extra_javascript do %>
+      <script type="text/javascript">
+          function replaceAtMentionsWithLinks ( text ) {
+              return text.replace(/@([a-z\d_]+)/ig, '<a href="http://twitter.com/$1">@$1</a>');
+          }
+          $(function () {
+              $('#send-message').click(function () {
+                  $('#new-message-form').lightbox_me({centered: true, zIndex: 1000000});
+              });
+
+              $('textarea.mention').mentionsInput({
+                  onDataRequest: function (mode, query, callback) {
+                      var data = [
+                          {
+                              id: 1,
+                              name: 'Kenneth Auchenberg',
+                              'avatar': 'http://cdn0.4dots.com/i/customavatars/avatar7112_1.gif',
+                              'type': 'contact'
+                          },
+                          {
+                              id: 2,
+                              name: 'Jon Froda',
+                              'avatar': 'http://cdn0.4dots.com/i/customavatars/avatar7112_1.gif',
+                              'type': 'contact'
+                          },
+                          {
+                              id: 3,
+                              name: 'Anders Pollas',
+                              'avatar': 'http://cdn0.4dots.com/i/customavatars/avatar7112_1.gif',
+                              'type': 'contact'
+                          },
+                          {
+                              id: 4,
+                              name: 'Kasper Hulthin',
+                              'avatar': 'http://cdn0.4dots.com/i/customavatars/avatar7112_1.gif',
+                              'type': 'contact'
+                          },
+                          {
+                              id: 5,
+                              name: 'Andreas Haugstrup',
+                              'avatar': 'http://cdn0.4dots.com/i/customavatars/avatar7112_1.gif',
+                              'type': 'contact'
+                          },
+                          {
+                              id: 6,
+                              name: 'Pete Lacey',
+                              'avatar': 'http://cdn0.4dots.com/i/customavatars/avatar7112_1.gif',
+                              'type': 'contact'
+                          }
+                      ];
+
+                      data = _.filter(data, function (item) {
+                          return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1
+                      });
+
+                      callback.call(this, data);
+                  }
+              });
+          });
+      </script>
+  <% end %>
+
+  <div class="lightbox" id="new-message-form">
+    <div class="lightbox-content">
+      <div>
+        <a class="close lightbox-x" href="#" id="close_x">
+          <%= icon_tag('cross') %>
+        </a>
+      </div>
+      <div class="flash-message"></div>
+      <div class="centered-section" id="new_message_form">
+        <h2>
+          <%= t("conversations.new.send_message_to_user", :person => @person.given_name_or_username) %>
+        </h2>
+        <%= form_for Conversation.new, :url => person_person_messages_path(person_id: @person.username), remote: true do |form| %>
+            <%= fields_for "conversation[message_attributes]", Message.new do |message_form| %>
+                <%= message_form.label :content, t('conversations.new.message') %>
+                <%= message_form.text_area :content, :class => "text_area mention" %>
+            <% end %>
+            <%= form.button t("conversations.new.send_message"), :class => "send_button" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

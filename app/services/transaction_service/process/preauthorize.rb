@@ -9,10 +9,10 @@ module TransactionService::Process
       Transition.transition_to(tx[:id], :initiated)
 
       Gateway.unwrap_completion(
-        gateway_adapter.create_payment(
-          tx: tx,
-          gateway_fields: gateway_fields,
-          prefer_async: prefer_async)) do
+          gateway_adapter.create_payment(
+              tx: tx,
+              gateway_fields: gateway_fields,
+              prefer_async: prefer_async)) do
 
         Transition.transition_to(tx[:id], :preauthorized)
       end
@@ -20,7 +20,7 @@ module TransactionService::Process
 
     def reject(tx:, message:, sender_id:, gateway_adapter:)
       res = Gateway.unwrap_completion(
-        gateway_adapter.reject_payment(tx: tx, reason: "")) do
+          gateway_adapter.reject_payment(tx: tx, reason: "")) do
 
         Transition.transition_to(tx[:id], :rejected)
       end
@@ -34,7 +34,7 @@ module TransactionService::Process
 
     def complete_preauthorization(tx:, message:, sender_id:, gateway_adapter:)
       res = Gateway.unwrap_completion(
-        gateway_adapter.complete_preauthorization(tx: tx)) do
+          gateway_adapter.complete_preauthorization(tx: tx)) do
 
         Transition.transition_to(tx[:id], :paid)
       end

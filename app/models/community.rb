@@ -123,6 +123,7 @@ class Community < ActiveRecord::Base
   has_many :listings
 
   has_one :paypal_account # Admin paypal account
+  has_one :stripe_account # Admin paypal account
 
   has_many :custom_fields, :dependent => :destroy
   has_many :custom_dropdown_fields, -> { where("type = 'DropdownField'") }, :class_name => "CustomField", :dependent => :destroy
@@ -152,17 +153,17 @@ class Community < ActiveRecord::Base
 
   has_attached_file :logo,
                     :styles => {
-                      :header => "192x192#",
-                      :header_icon => "40x40#",
-                      :header_icon_highres => "80x80#",
-                      :apple_touch => "152x152#",
-                      :original => "600x600>"
+                        :header => "192x192#",
+                        :header_icon => "40x40#",
+                        :header_icon_highres => "80x80#",
+                        :apple_touch => "152x152#",
+                        :original => "600x600>"
                     },
                     :convert_options => {
-                      # iOS makes logo background black if there's an alpha channel
-                      # And the options has to be in correct order! First background, then flatten. Otherwise it will
-                      # not work.
-                      :apple_touch => "-background white -flatten"
+                        # iOS makes logo background black if there's an alpha channel
+                        # And the options has to be in correct order! First background, then flatten. Otherwise it will
+                        # not work.
+                        :apple_touch => "-background white -flatten"
                     },
                     :keep_old_files => true
 
@@ -175,14 +176,14 @@ class Community < ActiveRecord::Base
 
   has_attached_file :wide_logo,
                     :styles => {
-                      :header => "168x40#",
-                      :paypal => "190x60>", # This logo is shown in PayPal checkout page. It has to be 190x60 according to PayPal docs.
-                      :header_highres => "336x80#",
-                      :original => "600x600>"
+                        :header => "168x40#",
+                        :paypal => "190x60>", # This logo is shown in PayPal checkout page. It has to be 190x60 according to PayPal docs.
+                        :header_highres => "336x80#",
+                        :original => "600x600>"
                     },
                     :convert_options => {
-                      # The size for paypal logo will be exactly 190x60. No cropping, instead the canvas is extended with white background
-                      :paypal => "-background white -gravity center -extent 190x60"
+                        # The size for paypal logo will be exactly 190x60. No cropping, instead the canvas is extended with white background
+                        :paypal => "-background white -gravity center -extent 190x60"
                     },
                     :keep_old_files => true
 
@@ -195,11 +196,11 @@ class Community < ActiveRecord::Base
 
   has_attached_file :cover_photo,
                     :styles => {
-                      :header => "1600x195#",
-                      :hd_header => "1920x450#",
-                      :original => "3840x3840>"
+                        :header => "1600x195#",
+                        :hd_header => "1920x450#",
+                        :original => "3840x3840>"
                     },
-                    :default_url => ->(_){ ActionController::Base.helpers.asset_path("cover_photos/header/default.jpg") },
+                    :default_url => ->(_) { ActionController::Base.helpers.asset_path("cover_photos/header/default.jpg") },
                     :keep_old_files => true
 
   validates_attachment_content_type :cover_photo,
@@ -211,9 +212,9 @@ class Community < ActiveRecord::Base
 
   has_attached_file :small_cover_photo,
                     :styles => {
-                      :header => "1600x195#",
-                      :hd_header => "1920x96#",
-                      :original => "3840x3840>"
+                        :header => "1600x195#",
+                        :hd_header => "1920x96#",
+                        :original => "3840x3840>"
                     },
                     :default_url => ->(_) { ActionController::Base.helpers.asset_path("cover_photos/header/default.jpg") },
                     :keep_old_files => true
@@ -227,11 +228,11 @@ class Community < ActiveRecord::Base
 
   has_attached_file :favicon,
                     :styles => {
-                      :favicon => "32x32#"
+                        :favicon => "32x32#"
                     },
                     :default_style => :favicon,
                     :convert_options => {
-                      :favicon => "-depth 32 -strip",
+                        :favicon => "-depth 32 -strip",
                     },
                     :default_url => ->(_) { ActionController::Base.helpers.asset_path("favicon.ico") }
 
@@ -255,7 +256,7 @@ class Community < ActiveRecord::Base
 
   validates_format_of :twitter_handle, with: /\A[A-Za-z0-9_]{1,15}\z/, allow_nil: true
 
-  validates :facebook_connect_id, numericality: { only_integer: true }, allow_nil: true
+  validates :facebook_connect_id, numericality: {only_integer: true}, allow_nil: true
   validates :facebook_connect_id, length: {maximum: 16}, allow_nil: true
 
   validates_format_of :facebook_connect_secret, with: /\A[a-f0-9]{32}\z/, allow_nil: true
@@ -358,7 +359,7 @@ class Community < ActiveRecord::Base
   end
 
   def locales
-   if settings && !settings["locales"].blank?
+    if settings && !settings["locales"].blank?
       return settings["locales"]
     else
       # if locales not set, return the short locales from the default list
@@ -368,7 +369,7 @@ class Community < ActiveRecord::Base
 
   # Returns the emails of admins in an array
   def admin_emails
-    admins.collect { |p| p.confirmed_notification_email_addresses } .flatten
+    admins.collect { |p| p.confirmed_notification_email_addresses }.flatten
   end
 
   def allows_user_to_send_invitations?(user)
@@ -397,12 +398,12 @@ class Community < ActiveRecord::Base
 
   def self.with_customizations
     customization_columns = [
-      "custom_color1",
-      "custom_color2",
-      "cover_photo_file_name",
-      "small_cover_photo_file_name",
-      "wide_logo_file_name",
-      "logo_file_name"
+        "custom_color1",
+        "custom_color2",
+        "cover_photo_file_name",
+        "small_cover_photo_file_name",
+        "wide_logo_file_name",
+        "logo_file_name"
     ]
 
     sql = customization_columns.map { |column_name| column_name + " IS NOT NULL" }.join(" OR ")
@@ -483,28 +484,28 @@ class Community < ActiveRecord::Base
     latest = person.last_community_updates_at
 
     selected_listings = listings
-      .currently_open
-      .where("updates_email_at > ? AND updates_email_at > created_at", latest)
-      .order("updates_email_at DESC")
-      .to_a
+                            .currently_open
+                            .where("updates_email_at > ? AND updates_email_at > created_at", latest)
+                            .order("updates_email_at DESC")
+                            .to_a
 
     additional_listings = 10 - selected_listings.length
     new_listings =
-      if additional_listings > 0
-        listings
-          .currently_open
-          .where("updates_email_at > ? AND updates_email_at = created_at", latest)
-          .order("updates_email_at DESC")
-          .limit(additional_listings)
-          .to_a
-      else
-        []
-      end
+        if additional_listings > 0
+          listings
+              .currently_open
+              .where("updates_email_at > ? AND updates_email_at = created_at", latest)
+              .order("updates_email_at DESC")
+              .limit(additional_listings)
+              .to_a
+        else
+          []
+        end
 
-     selected_listings
-      .concat(new_listings)
-      .sort_by { |listing| listing.updates_email_at}
-      .reverse
+    selected_listings
+        .concat(new_listings)
+        .sort_by { |listing| listing.updates_email_at }
+        .reverse
   end
 
   def self.find_by_allowed_email(email)
@@ -555,11 +556,12 @@ class Community < ActiveRecord::Base
   end
 
   def default_currency
-    if available_currencies
-      available_currencies.gsub(" ","").split(",").first
-    else
-      MoneyRails.default_currency
-    end
+    # if available_currencies
+    #   available_currencies.gsub(" ","").split(",").first
+    # else
+    #   MoneyRails.default_currency
+    # end
+    'USD'
   end
 
   def self.all_with_custom_fb_login
@@ -586,15 +588,15 @@ class Community < ActiveRecord::Base
 
   def images_processing?
     logo.processing? ||
-    wide_logo.processing? ||
-    cover_photo.processing? ||
-    small_cover_photo.processing? ||
-    favicon.processing?
+        wide_logo.processing? ||
+        cover_photo.processing? ||
+        small_cover_photo.processing? ||
+        favicon.processing?
   end
 
   private
 
   def initialize_settings
-    update_attribute(:settings,{"locales"=>[APP_CONFIG.default_locale]}) if self.settings.blank?
+    update_attribute(:settings, {"locales" => [APP_CONFIG.default_locale]}) if self.settings.blank?
   end
 end

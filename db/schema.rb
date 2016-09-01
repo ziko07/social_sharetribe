@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823120845) do
+ActiveRecord::Schema.define(version: 20160830082513) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string   "token",            limit: 255
@@ -904,6 +904,33 @@ ActiveRecord::Schema.define(version: 20160823120845) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.string   "country_code",      limit: 8
+  end
+
+  create_table "stripe_accounts", force: :cascade do |t|
+    t.string   "person_id",    limit: 255
+    t.integer  "community_id", limit: 4
+    t.string   "account_id",   limit: 255
+    t.text     "token",        limit: 65535
+    t.text     "public_key",   limit: 65535
+    t.text     "secret_key",   limit: 65535
+    t.string   "state",        limit: 255
+    t.string   "country",      limit: 255
+    t.boolean  "active",                     default: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
+
+  create_table "stripe_payments", force: :cascade do |t|
+    t.integer  "transaction_id", limit: 4
+    t.integer  "community_id",   limit: 4
+    t.string   "status",         limit: 255
+    t.string   "payer_id",       limit: 255
+    t.string   "recipient_id",   limit: 255
+    t.string   "currency",       limit: 255
+    t.string   "customer_id",    limit: 255
+    t.integer  "sum_cents",      limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "testimonials", force: :cascade do |t|

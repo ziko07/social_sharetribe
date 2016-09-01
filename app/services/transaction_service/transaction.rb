@@ -8,11 +8,13 @@ module TransactionService::Transaction
 
   SETTINGS_ADAPTERS = {
     paypal: TransactionService::Gateway::PaypalSettingsAdapter.new,
+    stripe: TransactionService::Gateway::StripeSettingsAdapter.new,
     none: TransactionService::Gateway::FreeSettingsAdapter.new
   }
 
   GATEWAY_ADAPTERS = {
     paypal: TransactionService::Gateway::PaypalAdapter.new,
+    stripe: TransactionService::Gateway::StripeAdapter.new,
     none: TransactionService::Gateway::FreeAdapter.new,
   }
 
@@ -97,7 +99,8 @@ module TransactionService::Transaction
   end
 
   def reject(community_id:, transaction_id:, message: nil, sender_id: nil)
-    tx = TxStore.get_in_community(community_id: community_id, transaction_id: transaction_id)
+    #tx = TxStore.get_in_community(community_id: community_id, transaction_id: transaction_id)
+    tx = TransactionService::API::Api.transactions.query(transaction_id)
 
     tx_process = tx_process(tx[:payment_process])
     gw = gateway_adapter(tx[:payment_gateway])
@@ -110,7 +113,8 @@ module TransactionService::Transaction
 
 
   def complete_preauthorization(community_id:, transaction_id:, message: nil, sender_id: nil)
-    tx = TxStore.get_in_community(community_id: community_id, transaction_id: transaction_id)
+    #tx = TxStore.get_in_community(community_id: community_id, transaction_id: transaction_id)
+    tx = TransactionService::API::Api.transactions.query(transaction_id)
 
     tx_process = tx_process(tx[:payment_process])
     gw = gateway_adapter(tx[:payment_gateway])

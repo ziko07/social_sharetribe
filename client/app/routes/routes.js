@@ -590,9 +590,15 @@ Based on Rails routes of Kassi::Application
 // billing_agreement_cancel_person_paypal_account => (/:locale)/:person_id/paypal_account/billing_agreement_cancel(.:format)
   // function(person_id, options)
   billing_agreement_cancel_person_paypal_account_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"paypal_account",false],[2,[7,"/",false],[2,[6,"billing_agreement_cancel",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// billing_agreement_cancel_person_stripe_account => (/:locale)/:person_id/stripe_account/billing_agreement_cancel(.:format)
+  // function(person_id, options)
+  billing_agreement_cancel_person_stripe_account_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"stripe_account",false],[2,[7,"/",false],[2,[6,"billing_agreement_cancel",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
 // billing_agreement_success_person_paypal_account => (/:locale)/:person_id/paypal_account/billing_agreement_success(.:format)
   // function(person_id, options)
   billing_agreement_success_person_paypal_account_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"paypal_account",false],[2,[7,"/",false],[2,[6,"billing_agreement_success",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// billing_agreement_success_person_stripe_account => (/:locale)/:person_id/stripe_account/billing_agreement_success(.:format)
+  // function(person_id, options)
+  billing_agreement_success_person_stripe_account_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"stripe_account",false],[2,[7,"/",false],[2,[6,"billing_agreement_success",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
 // book => (/:locale)/listings/:listing_id/book(.:format)
   // function(listing_id, options)
   book_path: Utils.route(["listing_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"listing_id",false],[2,[7,"/",false],[2,[6,"book",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
@@ -674,6 +680,9 @@ Based on Rails routes of Kassi::Application
 // contact_to_listing => (/:locale)/listings/:listing_id/contact(.:format)
   // function(listing_id, options)
   contact_to_listing_path: Utils.route(["listing_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"listing_id",false],[2,[7,"/",false],[2,[6,"contact",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// create_account_person_stripe_account => (/:locale)/:person_id/stripe_account/create_account(.:format)
+  // function(person_id, options)
+  create_account_person_stripe_account_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"stripe_account",false],[2,[7,"/",false],[2,[6,"create_account",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
 // create_contact => (/:locale)/listings/:listing_id/create_contact(.:format)
   // function(listing_id, options)
   create_contact_path: Utils.route(["listing_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"listing_id",false],[2,[7,"/",false],[2,[6,"create_contact",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
@@ -1136,6 +1145,9 @@ Based on Rails routes of Kassi::Application
 // permissions_verified_person_paypal_account => (/:locale)/:person_id/paypal_account/permissions_verified(.:format)
   // function(person_id, options)
   permissions_verified_person_paypal_account_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"paypal_account",false],[2,[7,"/",false],[2,[6,"permissions_verified",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// permissions_verified_person_stripe_account => (/:locale)/:person_id/stripe_account/permissions_verified(.:format)
+  // function(person_id, options)
+  permissions_verified_person_stripe_account_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"stripe_account",false],[2,[7,"/",false],[2,[6,"permissions_verified",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
 // person => (/:locale)/:username(.:format)
   // function(username, options)
   person_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"username",false],[1,[2,[8,".",false],[3,"format",false]],false]]]], {}),
@@ -1223,6 +1235,12 @@ Based on Rails routes of Kassi::Application
 // posting_allowed_admin_community_community_memberships => (/:locale)/admin/communities/:community_id/community_memberships/posting_allowed(.:format)
   // function(community_id, options)
   posting_allowed_admin_community_community_memberships_path: Utils.route(["community_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"community_id",false],[2,[7,"/",false],[2,[6,"community_memberships",false],[2,[7,"/",false],[2,[6,"posting_allowed",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]]]], {}),
+// preauthorize_payment => (/:locale)/listings/:listing_id/preauthorize(.:format)
+  // function(listing_id, options)
+  preauthorize_payment_path: Utils.route(["listing_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"listing_id",false],[2,[7,"/",false],[2,[6,"preauthorize",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// preauthorized_payment => (/:locale)/listings/:listing_id/preauthorized(.:format)
+  // function(listing_id, options)
+  preauthorized_payment_path: Utils.route(["listing_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"listing_id",false],[2,[7,"/",false],[2,[6,"preauthorized",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
 // preferences_update_admin_community_paypal_preferences => (/:locale)/admin/communities/:community_id/paypal_preferences/preferences_update(.:format)
   // function(community_id, options)
   preferences_update_admin_community_paypal_preferences_path: Utils.route(["community_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"community_id",false],[2,[7,"/",false],[2,[6,"paypal_preferences",false],[2,[7,"/",false],[2,[6,"preferences_update",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]]]], {}),
@@ -1358,6 +1376,9 @@ Based on Rails routes of Kassi::Application
 // verification_required_listings => (/:locale)/listings/verification_required(.:format)
   // function(options)
   verification_required_listings_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[6,"verification_required",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
+// verify_account_person_stripe_account => (/:locale)/:person_id/stripe_account/verify_account(.:format)
+  // function(person_id, options)
+  verify_account_person_stripe_account_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"stripe_account",false],[2,[7,"/",false],[2,[6,"verify_account",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
 // webhooks_plans => /webhooks/plans(.:format)
   // function(options)
   webhooks_plans_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"webhooks",false],[2,[7,"/",false],[2,[6,"plans",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),

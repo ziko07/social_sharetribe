@@ -129,19 +129,19 @@
     },
     "topbar": {
       "admin_dashboard": "管理員控制台",
-      "inbox": "收件箱",
-      "language": "语言",
-      "login": "登录",
-      "logout": "退出",
-      "manage_listings": "信息管理",
-      "menu": "菜单",
-      "more": "更多",
-      "profile": "个人主页",
+      "inbox": "Inbox",
+      "language": "Language",
+      "login": "Log in",
+      "logout": "Log out",
+      "manage_listings": "Manage listings",
+      "menu": "Menu",
+      "more": "More",
+      "profile": "Profile",
       "search_location_placeholder": "Location",
-      "search_placeholder": "搜索...",
-      "settings": "设置",
-      "signup": "注册",
-      "user": "用户"
+      "search_placeholder": "Search...",
+      "settings": "Settings",
+      "signup": "Sign up",
+      "user": "User"
     }
   }
 };

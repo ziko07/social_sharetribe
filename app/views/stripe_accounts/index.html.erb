@@ -1,0 +1,103 @@
+<%= content_for :title_header do %>
+    <h1>
+      <%= t("layouts.no_tribe.settings") %>
+    </h1>
+<% end %>
+
+<%= render :partial => "layouts/left_hand_navigation", :locals => {:links => left_hand_navigation_links} %>
+<div class="left-navi-section settings-section payment-settings">
+  <% if community_ready_for_payments %>
+      <% if next_action == :create_account %>
+          <div>
+            <p> Create Stripe account, Marketplace currency <b><%= currency %> </b> and commission from
+              seller <b> <%= commission_from_seller %> </b></p>
+
+            <p>
+              Select Country and connect stripe account, Be careful about choose country, You could not change it in
+              future
+            </p>
+          </div>
+          <%= form_for my_account, url: create_account_person_stripe_account_path(@current_user) do |f| %>
+              <div class="row">
+                <%= f.label :country %>
+                <%= f.select :country, options_for_select(StripeAccount::SUPPORTED_COUNTRY.collect { |key, val| [key, val] }, f.object.country) %>
+              </div>
+
+              <p> Provide your personal information that are required to verify stripe account </p>
+
+              <div class="row">
+                <%= f.label :first_name %>
+                <%= f.text_field :first_name, required: 'required' %>
+              </div>
+
+              <div class="row">
+                <%= f.label :last_name %>
+                <%= f.text_field :last_name, required: 'required' %>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <div class="col-4">
+                    <%= f.label :dob_day %>
+                    <%= f.select :dob_day, options_for_select(31.times.collect { |x| [x + 1] }, f.object.dob_day), {}, {class: 'full-width'} %>
+                  </div>
+                  <div class="col-4">
+                    <%= f.label :dob_month %>
+                    <%= f.select :dob_month, options_for_select(12.times.collect { |x| [x + 1] }, f.object.dob_month), {}, {class: 'full-width'} %>
+                  </div>
+                  <div class="col-4">
+                    <%= f.label :dob_year %>
+                    <%= f.select :dob_year, options_for_select(((Date.today.year - 50)..Date.today.year), f.object.dob_year), {}, {class: 'full-width'} %>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <%= f.label :address %>
+                  <%= f.text_area :address, class: 'min-height', required: 'required' %>
+                </div>
+                <div class="col-6">
+                  <%= f.label :city %>
+                  <%= f.text_field :city, required: 'required' %>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6">
+                  <%= f.label :state_line, 'State' %>
+                  <%= f.text_field :state_line, required: 'required' %>
+                </div>
+                <div class="col-6">
+                  <%= f.label :zip %>
+                  <%= f.text_field :zip, required: 'required' %>
+                </div>
+              </div>
+
+              <p>
+                Provide bank account and routing numbers carefully, entering them incorrectly will cause payment
+                transfers to <b>fail</b>
+              </p>
+
+              <div class="row">
+                <%= f.label :account_number, 'Account Number' %>
+                <%= f.text_field :account_number, required: 'required' %>
+              </div>
+              <div>
+                <%= f.label :routing_number, 'Routing Number' %>
+                <%= f.text_field :routing_number, required: 'required' %>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <%= f.button t("admin.stripe_accounts.create_stripe") %>
+                </div>
+              </div>
+          <% end %>
+      <% elsif next_action == :verify_account %>
+          <%= render 'verification_form', verification: verification_form, account_id: my_account.account_id %>
+      <% elsif next_action == :none %>
+          Your Stripe account is connected and active now you can sell your service
+      <% end %>
+  <% else %>
+      <%= t("paypal_accounts.admin_account_not_connected", contact_admin_link: link_to(t("paypal_accounts.contact_admin_link_text"), new_user_feedback_path)).html_safe %>
+  <% end %>
+</div>

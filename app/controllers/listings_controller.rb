@@ -609,7 +609,7 @@ class ListingsController < ApplicationController
        minimum_commission: Money.new(0, currency),
        commission_from_seller: 0,
        minimum_price_cents: 0}
-    when matches([:paypal])
+    when matches([:stripe, :preauthorize])
       p_set = Maybe(payment_settings_api.get_active(community_id: community.id))
         .select {|res| res[:success]}
         .map {|res| res[:data]}

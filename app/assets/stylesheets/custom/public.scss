@@ -1,0 +1,9 @@
+.full-width {
+  width: 100%;
+}
+
+textarea {
+  &.min-height {
+    height: 3.5em;
+  }
+}

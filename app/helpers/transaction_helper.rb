@@ -292,7 +292,7 @@ module TransactionHelper
           ]
         } }
       }
-
+puts "C status: #{conversation.status.to_sym}"
       Maybe(status_hash)[conversation.status.to_sym]
         .map { |s| s.call }
         .map { |s| Maybe(is_author ? s[:author] : s[:starter]).or_else { s[:both] } }

@@ -16,10 +16,20 @@ class PersonMessagesController < ApplicationController
     }.on_success { |conversation|
       flash[:notice] = t("layouts.notifications.message_sent")
       Delayed::Job.enqueue(MessageSentJob.new(conversation.messages.last.id, @current_community.id))
-      redirect_to @recipient
+      respond_to do |format|
+        format.js { render :layout => false, locals: {status: true, message: t("layouts.notifications.message_sent")} }
+        format.html do
+          redirect_to @recipient
+        end
+      end
     }.on_error {
       flash[:error] = t("layouts.notifications.message_not_sent")
-      redirect_to search_path
+      respond_to do |format|
+        format.js { render :layout => false, locals: {status: false, message: t("layouts.notifications.message_not_sent")} }
+        format.html do
+          redirect_to search_path
+        end
+      end
     }
   end
 
@@ -27,8 +37,8 @@ class PersonMessagesController < ApplicationController
 
   def validate(params)
     content_present = Maybe(params)[:conversation][:message_attributes][:content]
-                      .map(&:present?)
-                      .or_else(false)
+                          .map(&:present?)
+                          .or_else(false)
 
     if content_present
       Result::Success.new(params)
@@ -48,7 +58,7 @@ class PersonMessagesController < ApplicationController
 
   def new_conversation(params)
     conversation_params = params.require(:conversation).permit(
-      message_attributes: :content
+        message_attributes: :content
     )
     conversation_params[:message_attributes][:sender_id] = @current_user.id
 

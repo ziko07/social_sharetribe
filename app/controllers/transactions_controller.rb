@@ -31,6 +31,8 @@ class TransactionsController < ApplicationController
 
       transaction_params = HashUtils.symbolize_keys({listing_id: listing_model.id}.merge(params.slice(:start_on, :end_on, :quantity, :delivery)))
 
+      puts [process[:process], gateway, booking]
+
       case [process[:process], gateway, booking]
       when matches([:none])
         render_free(listing_model: listing_model, author_model: author_model, community: @current_community, params: transaction_params)
@@ -38,6 +40,8 @@ class TransactionsController < ApplicationController
         redirect_to book_path(transaction_params)
       when matches([:preauthorize, :paypal])
         redirect_to initiate_order_path(transaction_params)
+      when matches([:preauthorize, :stripe])
+          redirect_to preauthorize_payment_path(transaction_params)
       else
         opts = "listing_id: #{listing_id}, payment_gateway: #{gateway}, payment_process: #{process}, booking: #{booking}"
         raise ArgumentError.new("Cannot find new transaction path to #{opts}")

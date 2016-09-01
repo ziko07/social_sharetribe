@@ -5,37 +5,37 @@ module MarketplaceService
 
     module Entity
       Transaction = EntityUtils.define_entity(
-        :id,
-        :community_id,
-        :last_transition,
-        :last_transition_at,
-        :listing,
-        :listing_title,
-        :status,
-        :author_skipped_feedback,
-        :starter_skipped_feedback,
-        :starter_id,
-        :testimonials,
-        :transitions,
-        :payment_total,
-        :payment_gateway,
-        :commission_from_seller,
-        :conversation,
-        :booking,
-        :created_at,
-        :__model
+          :id,
+          :community_id,
+          :last_transition,
+          :last_transition_at,
+          :listing,
+          :listing_title,
+          :status,
+          :author_skipped_feedback,
+          :starter_skipped_feedback,
+          :starter_id,
+          :testimonials,
+          :transitions,
+          :payment_total,
+          :payment_gateway,
+          :commission_from_seller,
+          :conversation,
+          :booking,
+          :created_at,
+          :__model
       )
 
       Transition = EntityUtils.define_entity(
-        :to_state,
-        :created_at,
-        :metadata
+          :to_state,
+          :created_at,
+          :metadata
       )
 
       Testimonial = EntityUtils.define_entity(
-        :author_id,
-        :receiver_id,
-        :grade
+          :author_id,
+          :receiver_id,
+          :grade
       )
 
       ConversationEntity = MarketplaceService::Conversation::Entity
@@ -59,17 +59,19 @@ module MarketplaceService
       # - max_date_at (max date, e.g. booking ending)
       def preauth_expires_at(gateway_expires_at, max_date_at=nil)
         [gateway_expires_at,
-         Maybe(max_date_at).map {|d| (d + 2.day).to_time(:utc)}.or_else(nil)
+         Maybe(max_date_at).map { |d| (d + 2.day).to_time(:utc) }.or_else(nil)
         ].compact.min
       end
 
       def authorization_expiration_period(payment_type)
         # TODO These configs should be moved to Paypal services
         case payment_type
-        when :paypal
-          APP_CONFIG.paypal_expiration_period.to_i
-        else
-          raise ArgumentError.new("Unknown payment_type: '#{payment_type}'")
+          when :paypal
+            APP_CONFIG.paypal_expiration_period.to_i
+          when :stripe
+            APP_CONFIG.paypal_expiration_period.to_i
+          else
+            raise ArgumentError.new("Unknown payment_type: '#{payment_type}'")
         end
       end
 
@@ -84,30 +86,30 @@ module MarketplaceService
         payment_gateway = transaction_model.payment_gateway.to_sym
 
         Transaction[EntityUtils.model_to_hash(transaction_model).merge({
-          status: transaction_model.current_state,
-          last_transition_at: Maybe(transaction_model.transaction_transitions.last).created_at.or_else(nil),
-          listing: listing,
-          testimonials: transaction_model.testimonials.map { |testimonial|
-            Testimonial[EntityUtils.model_to_hash(testimonial)]
-          },
-          starter_id: transaction_model.starter_id,
-          transitions: transaction_model.transaction_transitions.map { |transition|
-            Transition[EntityUtils.model_to_hash(transition)]
-          },
-          payment_total: calculate_total(transaction_model),
-          booking: transaction_model.booking,
-          __model: transaction_model
-        })]
+                                                                           status: transaction_model.current_state,
+                                                                           last_transition_at: Maybe(transaction_model.transaction_transitions.last).created_at.or_else(nil),
+                                                                           listing: listing,
+                                                                           testimonials: transaction_model.testimonials.map { |testimonial|
+                                                                             Testimonial[EntityUtils.model_to_hash(testimonial)]
+                                                                           },
+                                                                           starter_id: transaction_model.starter_id,
+                                                                           transitions: transaction_model.transaction_transitions.map { |transition|
+                                                                             Transition[EntityUtils.model_to_hash(transition)]
+                                                                           },
+                                                                           payment_total: calculate_total(transaction_model),
+                                                                           booking: transaction_model.booking,
+                                                                           __model: transaction_model
+                                                                       })]
       end
 
       def transaction_with_conversation(transaction_model, community_id)
         transaction = Entity.transaction(transaction_model)
         transaction[:conversation] = if transaction_model.conversation
-          ConversationEntity.conversation(transaction_model.conversation, community_id)
-        else
-          # placeholder for deleted conversation to keep transaction list working
-          ConversationEntity.deleted_conversation_placeholder
-        end
+                                       ConversationEntity.conversation(transaction_model.conversation, community_id)
+                                     else
+                                       # placeholder for deleted conversation to keep transaction list working
+                                       ConversationEntity.deleted_conversation_placeholder
+                                     end
         transaction
       end
 
@@ -120,9 +122,9 @@ module MarketplaceService
       def calculate_total(transaction_model)
         m_transaction = Maybe(transaction_model)
 
-        unit_price       = m_transaction.unit_price.or_else(0)
-        quantity         = m_transaction.listing_quantity.or_else(1)
-        shipping_price   = m_transaction.shipping_price.or_else(0)
+        unit_price = m_transaction.unit_price.or_else(0)
+        quantity = m_transaction.listing_quantity.or_else(1)
+        shipping_price = m_transaction.shipping_price.or_else(0)
 
         (unit_price * quantity) + shipping_price
       end
@@ -131,12 +133,12 @@ module MarketplaceService
     module Command
 
       NewTransactionOptions = EntityUtils.define_builder(
-        [:community_id, :fixnum, :mandatory],
-        [:listing_id, :fixnum, :mandatory],
-        [:starter_id, :string, :mandatory],
-        [:author_id, :string, :mandatory],
-        [:content, :string, :optional],
-        [:commission_from_seller, :fixnum, :optional]
+          [:community_id, :fixnum, :mandatory],
+          [:listing_id, :fixnum, :mandatory],
+          [:starter_id, :string, :mandatory],
+          [:author_id, :string, :mandatory],
+          [:content, :string, :optional],
+          [:commission_from_seller, :fixnum, :optional]
       )
 
       module_function
@@ -145,29 +147,29 @@ module MarketplaceService
         opts = NewTransactionOptions[transaction_opts]
 
         transaction = TransactionModel.new({
-            community_id: opts[:community_id],
-            listing_id: opts[:listing_id],
-            starter_id: opts[:starter_id],
-            commission_from_seller: opts[:commission_from_seller]})
+                                               community_id: opts[:community_id],
+                                               listing_id: opts[:listing_id],
+                                               starter_id: opts[:starter_id],
+                                               commission_from_seller: opts[:commission_from_seller]})
 
         conversation = transaction.build_conversation(
-          community_id: opts[:community_id],
-          listing_id: opts[:listing_id])
+            community_id: opts[:community_id],
+            listing_id: opts[:listing_id])
 
         conversation.participations.build({
-            person_id: opts[:author_id],
-            is_starter: false,
-            is_read: false})
+                                              person_id: opts[:author_id],
+                                              is_starter: false,
+                                              is_read: false})
 
         conversation.participations.build({
-            person_id: opts[:starter_id],
-            is_starter: true,
-            is_read: true})
+                                              person_id: opts[:starter_id],
+                                              is_starter: true,
+                                              is_read: true})
 
         if opts[:content].present?
           conversation.messages.build({
-              content: opts[:content],
-              sender_id: opts[:starter_id]})
+                                          content: opts[:content],
+                                          sender_id: opts[:starter_id]})
         end
 
         transaction.save!
@@ -185,18 +187,18 @@ module MarketplaceService
       # Deprecated! No need to call from outside tx service in the new process model.
       def mark_as_unseen_by_other(transaction_id, person_id)
         TransactionModel.find(transaction_id)
-          .conversation
-          .participations
-          .where("person_id != '#{person_id}'")
-          .update_all(is_read: false)
+            .conversation
+            .participations
+            .where("person_id != '#{person_id}'")
+            .update_all(is_read: false)
       end
 
       def mark_as_seen_by_current(transaction_id, person_id)
         TransactionModel.find(transaction_id)
-          .conversation
-          .participations
-          .where("person_id = '#{person_id}'")
-          .update_all(is_read: true)
+            .conversation
+            .participations
+            .where("person_id = '#{person_id}'")
+            .update_all(is_read: true)
       end
 
       def transition_to(transaction_id, new_status, metadata = nil)
@@ -218,11 +220,10 @@ module MarketplaceService
       def save_transition(transaction, new_status, metadata = nil)
         transaction.current_state = new_status
         transaction.save!
-
         metadata_hash = Maybe(metadata)
-          .map { |data| TransactionService::DataTypes::TransitionMetadata.create_metadata(data) }
-          .map { |data| HashUtils.compact(data) }
-          .or_else(nil)
+                            .map { |data| TransactionService::DataTypes::TransitionMetadata.create_metadata(data) }
+                            .map { |data| HashUtils.compact(data) }
+                            .or_else(nil)
 
         state_machine = TransactionProcessStateMachine.new(transaction, transition_class: TransactionTransition)
         state_machine.transition_to!(new_status, metadata_hash)
@@ -240,37 +241,37 @@ module MarketplaceService
 
       def transaction(transaction_id)
         Maybe(TransactionModel.where(id: transaction_id, deleted: false).first)
-          .map { |m| Entity.transaction(m) }
-          .or_else(nil)
+            .map { |m| Entity.transaction(m) }
+            .or_else(nil)
       end
 
       def transaction_with_conversation(transaction_id:, person_id: nil, community_id:)
         rel = TransactionModel.joins(:listing)
-          .where(id: transaction_id, deleted: false)
-          .where(community_id: community_id)
-          .includes(:booking)
+                  .where(id: transaction_id, deleted: false)
+                  .where(community_id: community_id)
+                  .includes(:booking)
 
         with_person = Maybe(person_id)
-          .map { |p_id|
-            [rel.where("starter_id = ? OR listings.author_id = ?", p_id, p_id)]
-          }
-          .or_else { [rel] }
-          .first
+                          .map { |p_id|
+          [rel.where("starter_id = ? OR listings.author_id = ?", p_id, p_id)]
+        }
+                          .or_else { [rel] }
+                          .first
 
         Maybe(with_person.first)
-          .map { |tx_model|
-            Entity.transaction_with_conversation(tx_model, community_id)
-          }
-          .or_else(nil)
+            .map { |tx_model|
+          Entity.transaction_with_conversation(tx_model, community_id)
+        }
+            .or_else(nil)
       end
 
       def transactions_for_community_sorted_by_column(community_id, sort_column, sort_direction, limit, offset)
         transactions = TransactionModel
-          .where(community_id: community_id, deleted: false)
-          .includes(:listing)
-          .limit(limit)
-          .offset(offset)
-          .order("#{sort_column} #{sort_direction}")
+                           .where(community_id: community_id, deleted: false)
+                           .includes(:listing)
+                           .limit(limit)
+                           .offset(offset)
+                           .order("#{sort_column} #{sort_direction}")
 
         transactions = transactions.map { |txn|
           Entity.transaction_with_conversation(txn, community_id)
@@ -314,8 +315,8 @@ module MarketplaceService
         "
       end
 
-      @construct_last_transition_to_sql = ->(params){
-      "
+      @construct_last_transition_to_sql = ->(params) {
+        "
         SELECT id, transaction_id, to_state, created_at FROM transaction_transitions WHERE transaction_id in (#{params[:transaction_ids].join(',')})
       "
       }
@@ -335,14 +336,16 @@ module MarketplaceService
       def preauthorized(transaction, payment_type)
         expiration_period = Entity.authorization_expiration_period(payment_type)
         gateway_expires_at = case payment_type
-                             when :paypal
-                               # expiration period in PayPal is an estimate,
-                               # which should be quite accurate. We can get
-                               # the exact time from Paypal through IPN notification. In this case,
-                               # we take the 3 days estimate and add 10 minute buffer
-                               expiration_period.days.from_now - 10.minutes
-                             else
-                               raise ArgumentError.new("Unknown payment_type: '#{payment_type}'")
+                               when :paypal
+                                 # expiration period in PayPal is an estimate,
+                                 # which should be quite accurate. We can get
+                                 # the exact time from Paypal through IPN notification. In this case,
+                                 # we take the 3 days estimate and add 10 minute buffer
+                                 expiration_period.days.from_now - 10.minutes
+                               when :stripe
+                                 expiration_period.days.from_now - 10.minutes
+                               else
+                                 raise ArgumentError.new("Unknown payment_type: '#{payment_type}'")
                              end
 
         booking_ends_on = Maybe(transaction)[:booking][:end_on].or_else(nil)

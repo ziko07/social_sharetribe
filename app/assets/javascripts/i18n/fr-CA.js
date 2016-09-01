@@ -4,144 +4,144 @@
     "admin": {
       "onboarding": {
         "guide": {
-          "back_to_todo": "Revenir à la liste des étapes à compléter",
+          "back_to_todo": "Back to to-do list",
           "cover_photo": {
-            "add_your_own": "Télécharger une photo de couverture",
+            "add_your_own": "Add cover photo",
             "advice": {
-              "alt": "Comment obtenir de belles photos de couvertures, des logos, des favicon, des images de profil et d'annonces?",
-              "content1": "Jetez un oeil à %{link} pour trouver de superbes images libres de droits.",
-              "content2": "Note : la photo sera redimensionnée en %{width}x%{height} pixels. Si elle est trop grande, les parties hautes et basses de l'image seront coupées.",
-              "link": "notre guide"
+              "alt": "How to get good-looking cover photos, logos, favicon, profiles and listing pictures?",
+              "content1": "Check out %{link} on where to find good-looking images that are free to use.",
+              "content2": "Note: the photo will be resized to %{width}x%{height} pixels. The top and bottom sections of images that are taller will be cropped.",
+              "link": "our guide"
             },
-            "description": "Une belle photo de couverture peut faire la différence lorsqu'un nouveau visiteur hésite entre s'inscrire ou non à votre place de marché.",
-            "info_image_alt": "Copie d'écran d'une page d'accueil avec une photo de couverture",
-            "title": "Étape 3 : télécharger une photo de couverture"
+            "description": "A good cover photo can make the difference between a new visitor joining or leaving your marketplace.",
+            "info_image_alt": "A screenshot of homepage with big cover photo",
+            "title": "Step 3: Add a cover photo"
           },
           "filter": {
-            "add_fields_and_filters": "Ajouter des champs et des filtres",
+            "add_fields_and_filters": "Add fields & filters",
             "advice": {
-              "content": "Les filtres sont particulièrement utiles, mais %{not_too_many_link}. Les utilisateurs seront perdus s'il y a trop de filtres et chaque filtre est un champ supplémentaire à remplir pour vos vendeurs.",
-              "not_too_many_link": "vous devriez éviter d'en ajouter trop"
+              "content": "Filters are very handy, but %{not_too_many_link}. Customers will be overwhelmed by having too many filters, and each filter is an additional field for your suppliers to fill in.",
+              "not_too_many_link": "you shouldn't add too many"
             },
             "description": {
-              "content": "Les champs d'annonces structurent votre place de marché. Par exemple, si vous créez une place de marché pour vendre des chaussures d'occasion, vous devriez probablement ajouter un champ pour la pointure. Le vendeur devra alors préciser la taille de ses chaussures lors du dépôt d'une nouvelle annonce. Si vous souhaitez permettre à vos utilisateurs de filtrer les annonces par pointure, vous pouvez cocher la case %{display_on_homepage} lors de la création du champ.",
-              "display_on_homepage": "Afficher un filtre basé sur ce champ sur la page d'accueil"
+              "content": "Listing fields determine the structure of your marketplace. For example, if you are building a marketplace for selling used shoes, you probably want to add a field for shoe size. The seller will then need to add the size of their shoes when creating a new shoe listing. If you wish to allow your customers to filter listings based on shoe size, you can check the box %{display_on_homepage} when creating the field.",
+              "display_on_homepage": "Display a filter based on this field on the homepage"
             },
-            "info_image_alt": "Copie d'écrance de la page des champs d'annonces et filtres",
-            "title": "Étape 4 : ajouter des champs d'annonces et des filtres"
+            "info_image_alt": "A screenshot from fields and filters page",
+            "title": "Step 4: Add listing fields & filters"
           },
           "invitation": {
-            "advice": "Commencer par inviter vos amis et recueillez leurs avis.",
+            "advice": "Invite your friends first and gather feedback from them.",
             "description": {
-              "content": "Satisfait du rendu et fonctionnement de votre place de marché ? Peut-être %{preview_link} ? Si tout est prêt, commencez à inviter des utilisateurs !",
-              "preview_link": "un dernier coup d'oeil",
-              "preview_link_alt": "Prévisualiser"
+              "content": "Happy with what marketplace looks like and how it works? Maybe %{preview_link}? If you're ready, let's start inviting users!",
+              "preview_link": "one last preview",
+              "preview_link_alt": "Check preview"
             },
-            "info_image_alt": "Image d'utilisateurs",
-            "invite_users": "Inviter des utilisateurs",
-            "title": "Étape 7 : inviter des utilisateurs"
+            "info_image_alt": "Users illustration",
+            "invite_users": "Invite users",
+            "title": "Step 7: Inviting users"
           },
           "listing": {
             "advice": {
-              "close_listing": "Clore l'annonce",
-              "content": "Supprimer une annonce est tout aussi simple : ouvrez l'annonce et choisissez %{close_listing}."
+              "close_listing": "Close listing",
+              "content": "Removing a listing is easy: simply click on the listing and choose %{close_listing}."
             },
-            "description": "Les annonces sont le coeur de votre place de marché : ce sont les produits ou services que vos utilisateurs proposent. Pour rendre votre place de marché un peu moins vide et voir comment fonctionne l'ajout d'une annonce, déposez en une vous même !",
-            "info_image_alt": "Copie d'écran de la page de dépôt d'une nouvelle annonce",
-            "post_your_first_listing": "Déposer votre première annonce",
-            "title": "Étape 6 : déposer votre première annonce"
+            "description": "Listings are the content of your marketplace: the products or services your providers are offering. To make your marketplace look less empty and test how the process of creating a new listing works, add one yourself!",
+            "info_image_alt": "A screenshot from Post a new listing page",
+            "post_your_first_listing": "Post your first listing",
+            "title": "Step 6: Add your first listing"
           },
           "next_step": {
-            "cover_photo": "Télécharger une photo de couverture",
-            "filter": "Ajouter des champs et des filtres",
-            "invitation": "Inviter des utilisateurs",
-            "listing": "Déposer votre première annonce",
-            "paypal": "Configurer les paiements",
-            "slogan_and_description": "Écrire un slogan et une description"
+            "cover_photo": "Add a cover photo",
+            "filter": "Add fields & filters",
+            "invitation": "Invite users",
+            "listing": "Post your first listing",
+            "paypal": "Accept payments",
+            "slogan_and_description": "Add a slogan & description"
           },
           "paypal": {
             "advice": {
-              "content": "Vous pouvez en apprendre plus sur la désactivation du système de paiement dans %{disable_payments_link}.",
+              "content": "You can read more about disabling payments from %{disable_payments_link}.",
               "disable_payments_alt": "How to disable payments or add free listings to your marketplace",
-              "disable_payments_link": "cet article"
+              "disable_payments_link": "this article"
             },
-            "cta_separator": "ou",
-            "description_p1": "Si vous voulez permettre à vos utilisateurs de recevoir des paiements, vous devez connecter votre compte PayPal (vous recevrez une commission sur chaque transaction). Une fois connecté, vous devrez choisir un montant minimal de transaction et vos frais de service.",
-            "description_p2": "Si vous préférez, vous pouvez désactiver le système de paiement pour le moment.",
-            "disable_payments": "Désactiver les paiements",
-            "info_image_alt": "Une copie d'écran de la page de configuration des paiements",
-            "setup_payments": "Configurer les paiements",
-            "title": "Étape 5 : configurer le système de paiement"
+            "cta_separator": "or",
+            "description_p1": "If you want to allow your providers to accept online payments, you need to connect your PayPal account (you will receive a fee from each transaction). Once connected, you need to choose a minimum transaction size and your transaction fee.",
+            "description_p2": "Alternatively, you can disable online payments for now.",
+            "disable_payments": "Disable payments",
+            "info_image_alt": "A screenshot from payments page",
+            "setup_payments": "Set up payments",
+            "title": "Step 5: Set up online payments"
           },
           "slogan_and_description": {
-            "add_your_own": "Écrire un slogan et une description",
+            "add_your_own": "Add slogan & description",
             "advice": {
-              "content": "Utilisez le slogan pour expliquer rapidement ce que propose votre place de marché. %{food_from_locals_slogan} ou %{guitar_lessons_slogan} sont de bons exemples. Dans le texte de description vous pouvez détailler les principaux avantages. %{food_from_locals_description} ou %{guitar_lessons_description} fonctionnent plutôt bien.",
-              "food_from_locals_description": "\"FoodMarket est la solution la plus simple pour commander des repas préparés par vos voisins\"",
-              "food_from_locals_slogan": "\"Achetez des repas auprès de particuliers\"",
-              "guitar_lessons_description": "\"GuitarePro est le meilleur site pour comparer et trouver un professeur de guitare\"",
-              "guitar_lessons_slogan": "\"Apprenez la guitare avec un pro\""
+              "content": "Use the slogan to quickly tell visitors what your marketplace is about. %{food_from_locals_slogan} or %{guitar_lessons_slogan} are good examples. Use the description to share your main value proposition. %{food_from_locals_description} or %{guitar_lessons_description} are good examples.",
+              "food_from_locals_description": "\"FoodMarket is the easiest way to order produce directly from local providers\"",
+              "food_from_locals_slogan": "\"Buy food from locals\"",
+              "guitar_lessons_description": "\"GuitarPro is the best place to compare music teachers\"",
+              "guitar_lessons_slogan": "\"Get guitar lessons from a pro\""
             },
-            "description": "Le slogan et la description aident les nouveaux visiteurs à comprendre ce qu'est votre place de marché. C'est la première chose que verront vos utilisateurs en arrivant sur votre site, donc essayez de les rendre clairs et percutants.",
-            "info_image_alt": "Copie d'écran mettant en évidence le slogan et la description d'une page d'accueil.",
-            "title": "Étape 2 : écrire un slogan et une description"
+            "description": "The slogan and description help new visitors understand what your marketplace is about. They are the first thing visitors notice when they land on your site, so try to make them compact but descriptive.",
+            "info_image_alt": "A screenshot of homepage showing slogan and description.",
+            "title": "Step 2: Add a Slogan & Description"
           },
           "status_page": {
             "congratulation_p1": {
-              "content": "Vous avez réussi ! Votre place de marché est lancée. Mais ce n'est que le commencement. Vous n'avez aperçu qu'une petite partie des possibilités de personnalisation offertes par Sharetribe. Pour en apprendre plus sur comment configurer votre place de marché, parcourez %{knowledge_base_link}.",
+              "content": "You did it! Your marketplace is now up and running. However, this is just the beginning. You've only seen a fraction of the customization options that Sharetribe offers. To read more about how to customize your marketplace further, check out %{knowledge_base_link}.",
               "knowledge_base_alt": "knowledge base",
-              "knowledge_base_link": "notre base de connaissance"
+              "knowledge_base_link": "our knowledge base"
             },
             "congratulation_p2": {
-              "content": "Si vous souhaitez apprendre comment faire de votre place de marché une réussite, nous recommandons notre %{marketplace_guide_link} (en anglais).",
+              "content": "If you wish to learn more about how to build your marketplace business, we recommend our %{marketplace_guide_link}.",
               "marketplace_guide_alt": "link to marketplace academy",
-              "marketplace_guide_link": "guide pratique pour créer une place de marché"
+              "marketplace_guide_link": "practical guide for building an online marketplace business"
             },
             "congratulation_p3": {
-              "contact_support_link": "contacter notre support",
+              "contact_support_link": "contact our support",
               "contact_support_title": "Support",
-              "content": "Si vous avez la moindre questions, n'hésitez pas à %{contact_support_link}, nous serons ravis de vous aider !"
+              "content": "If you have any questions, don't hesitate to %{contact_support_link}, we're always happy to help!"
             },
-            "cover_photo": "Télécharger une photo de couverture",
-            "create_your_marketplace": "Créer votre place de marché",
-            "description_p1": "Pour bien démarrer votre place de marché, il y a quelques étapes importantes à suivre, détaillées ci-dessous.",
-            "description_p2": "Une fois celles-ci complétées, votre place de marché sera prête à recevoir ses premiers visiteurs !",
-            "filter": "Ajouter des champs et des filtres",
-            "invitation": "Inviter des utilisateurs",
-            "listing": "Déposer une annonce",
-            "paypal": "Configurer les paiements",
-            "slogan_and_description": "Écrire un slogan et une description",
-            "title": "Bienvenue dans votre place de marché, %{name}",
-            "title_done": "Terminé !"
+            "cover_photo": "Upload a cover photo",
+            "create_your_marketplace": "Create your marketplace",
+            "description_p1": "To get your marketplace up and running, there are a few essential steps you need to take, as listed below.",
+            "description_p2": "Once finished, your marketplace will be ready to receive its first visitors!",
+            "filter": "Add fields & filters",
+            "invitation": "Invite users",
+            "listing": "Post a listing",
+            "paypal": "Set up online payments",
+            "slogan_and_description": "Add a slogan & description",
+            "title": "Welcome to your marketplace, %{name}",
+            "title_done": "All done!"
           }
         },
         "topbar": {
-          "cover_photo": "Télécharger une photo de couverture",
-          "filter": "Ajouter des champs et des filtres",
-          "invitation": "Inviter des utilisateurs",
-          "listing": "Déposer une annonce",
-          "next_step": "Prochaine étape",
-          "paypal": "Configurer les paiements",
-          "progress_label": "Avancement",
-          "slogan_and_description": "Écrire un slogan et une description"
+          "cover_photo": "Upload a cover photo",
+          "filter": "Add fields & filters",
+          "invitation": "Invite users",
+          "listing": "Post a listing",
+          "next_step": "Next",
+          "paypal": "Accept payments",
+          "progress_label": "Marketplace progress",
+          "slogan_and_description": "Add a slogan & description"
         }
       }
     },
     "topbar": {
-      "admin_dashboard": "Panneau d'administration",
-      "inbox": "Messagerie",
-      "language": "Langue",
-      "login": "Se connecter",
-      "logout": "Déconnexion",
-      "manage_listings": "Gérer les annonces",
+      "admin_dashboard": "Admin dashboard",
+      "inbox": "Inbox",
+      "language": "Language",
+      "login": "Log in",
+      "logout": "Log out",
+      "manage_listings": "Manage listings",
       "menu": "Menu",
-      "more": "Plus",
-      "profile": "Profil",
-      "search_location_placeholder": "Où ?",
-      "search_placeholder": "Rechercher...",
-      "settings": "Paramètres",
-      "signup": "S'inscrire",
-      "user": "Utilisateur"
+      "more": "More",
+      "profile": "Profile",
+      "search_location_placeholder": "Location",
+      "search_placeholder": "Search...",
+      "settings": "Settings",
+      "signup": "Sign up",
+      "user": "User"
     }
   }
 };

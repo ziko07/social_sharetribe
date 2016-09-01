@@ -104,6 +104,8 @@ Kassi::Application.routes.draw do
     get "/transactions/new" => "transactions#new", as: :new_transaction
 
     # preauthorize flow
+    get "/listings/:listing_id/preauthorize" => "preauthorize_transactions#preauthorize", :as => :preauthorize_payment
+    get "/listings/:listing_id/preauthorized" => "preauthorize_transactions#preauthorized", :as => :preauthorized_payment
     get "/listings/:listing_id/book" => "preauthorize_transactions#book", :as => :book
     post "/listings/:listing_id/booked" => "preauthorize_transactions#booked", :as => :booked
     get "/listings/:listing_id/initiate" => "preauthorize_transactions#initiate", :as => :initiate_order
@@ -428,6 +430,17 @@ Kassi::Application.routes.draw do
             get :billing_agreement_cancel
           end
         end
+
+        resource :stripe_account, only: [:index] do
+          member do
+            post :create_account
+            post :verify_account
+            get :permissions_verified
+            get :billing_agreement_success
+            get :billing_agreement_cancel
+          end
+        end
+
         resources :transactions, only: [:show, :new, :create]
         resource :settings do
           member do

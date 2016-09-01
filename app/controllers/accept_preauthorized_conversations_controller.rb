@@ -45,6 +45,8 @@ class AcceptPreauthorizedConversationsController < ApplicationController
     case payment_type
       when :paypal
         render_paypal_form("reject")
+      when :stripe
+        render_paypal_form("reject")
       else
         raise ArgumentError.new("Unknown payment type: #{payment_type}")
     end
@@ -77,9 +79,9 @@ class AcceptPreauthorizedConversationsController < ApplicationController
   private
 
   def accept_or_reject_tx(community_id, tx_id, status, message, sender_id)
-    if (status == :paid)
+    if status == :paid
       accept_tx(community_id, tx_id, message, sender_id)
-    elsif (status == :rejected)
+    elsif status == :rejected
       reject_tx(community_id, tx_id, message, sender_id)
     else
       {flow: :unknown, success: false}

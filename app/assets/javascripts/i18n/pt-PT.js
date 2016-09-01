@@ -128,20 +128,20 @@
       }
     },
     "topbar": {
-      "admin_dashboard": "Painel de administração",
-      "inbox": "Caixa de Entrada",
-      "language": "Idioma",
-      "login": "Login",
-      "logout": "Sair",
-      "manage_listings": "Gerenciar anúncios",
+      "admin_dashboard": "Admin dashboard",
+      "inbox": "Inbox",
+      "language": "Language",
+      "login": "Log in",
+      "logout": "Log out",
+      "manage_listings": "Manage listings",
       "menu": "Menu",
-      "more": "Mais",
-      "profile": "Perfil",
+      "more": "More",
+      "profile": "Profile",
       "search_location_placeholder": "Location",
-      "search_placeholder": "Busca...",
-      "settings": "Configurações",
-      "signup": "Criar conta",
-      "user": "Usuário"
+      "search_placeholder": "Search...",
+      "settings": "Settings",
+      "signup": "Sign up",
+      "user": "User"
     }
   }
 };
