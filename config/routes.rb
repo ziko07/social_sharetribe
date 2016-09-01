@@ -33,8 +33,9 @@ Kassi::Application.routes.draw do
   get "/listings/new/:type" => "listings#new", :as => :new_request_without_locale # needed for some emails, where locale part is already set
   get "/change_locale" => "i18n#change_locale", :as => :change_locale
 
-  resources :posts
-  resources :post_comments
+resources :posts
+resources :post_comments
+resources :likes
   # Prettier link for admin panel
   namespace :admin do
     get '' => "getting_started_guide#index"

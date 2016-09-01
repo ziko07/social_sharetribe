@@ -25,11 +25,20 @@
         <% post.post_attachments.each do |attachment| %>
         <%= video_tag  attachment.attachment_url, size: "80" %>
         <%end%>
-        <%= link_to post.likes.where(person_id: @person.id).present? ? 'unlike' : 'like', '#', class: 'likelink',:'data-id' => post.id ,'data-type' => 'post'%>
+        <% if  post.likes.where(person_id: @person.id).present? %>
+            <%= link_to 'unlike', like_path(post.likes.where(person_id: @person.id).first.id),id: "post_#{post.id}",:remote => true, method: 'delete'%>
+        <% else %>
+            <%= link_to 'like', likes_path(likeable_id: post.id, likeable_type: 'post'),id: "post_#{post.id}",:remote => true, method: 'post'%>
+        <% end %>
+
         <% post.post_comments.each do |comment| %>
             <%= comment.person.given_name + ' ' + comment.person.family_name%>
         <%= comment.comment %>
-        <%= link_to post.likes.where(person_id: @person.id).present? ? 'unlike' : 'like', '#', class: 'likelink',:'data-id' => comment.id, 'data-type' => 'comments'  %>
+            <% if  comment.likes.where(person_id: @person.id).present? %>
+                <%= link_to 'unlike', like_path(comment.likes.where(person_id: @person.id).first.id),id: "comment_#{comment.id}",:remote => true, method: 'delete'%>
+            <% else %>
+                <%= link_to 'like', likes_path(likeable_id: comment.id, likeable_type: 'comment'),id: "comment_#{comment.id}",:remote => true, method: 'post'%>
+            <% end %>
         <% end %>
         <%= form_tag ('/post_comments') do%>
          <%= hidden_field_tag 'post_id','', value: post.id %>

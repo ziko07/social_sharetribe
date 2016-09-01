@@ -746,6 +746,9 @@ Based on Rails routes of Kassi::Application
 // edit_invitation => (/:locale)/invitations/:id/edit(.:format)
   // function(id, options)
   edit_invitation_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"invitations",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"edit",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// edit_like => /likes/:id/edit(.:format)
+  // function(id, options)
+  edit_like_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"likes",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"edit",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]], {}),
 // edit_listing => (/:locale)/listings/:id/edit(.:format)
   // function(id, options)
   edit_listing_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"edit",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
@@ -926,6 +929,12 @@ Based on Rails routes of Kassi::Application
 // landing_page_without_locale => /
   // function(options)
   landing_page_without_locale_path: Utils.route([], [], [7,"/",false], {}),
+// like => /likes/:id(.:format)
+  // function(id, options)
+  like_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"likes",false],[2,[7,"/",false],[2,[3,"id",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
+// likes => /likes(.:format)
+  // function(options)
+  likes_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"likes",false],[1,[2,[8,".",false],[3,"format",false]],false]]], {}),
 // listing => (/:locale)/listings/:id(.:format)
   // function(id, options)
   listing_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"id",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
@@ -1031,6 +1040,9 @@ Based on Rails routes of Kassi::Application
 // new_invitation => (/:locale)/invitations/new(.:format)
   // function(options)
   new_invitation_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"invitations",false],[2,[7,"/",false],[2,[6,"new",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
+// new_like => /likes/new(.:format)
+  // function(options)
+  new_like_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"likes",false],[2,[7,"/",false],[2,[6,"new",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
 // new_listing => (/:locale)/listings/new(.:format)
   // function(options)
   new_listing_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[6,"new",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
