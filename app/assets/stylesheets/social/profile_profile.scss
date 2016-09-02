@@ -461,3 +461,18 @@ body.social {
     margin-bottom: 0;
   }
 }
+
+.liked {
+  color: #4dcadd;
+}
+
+.comments-wrapper {
+  padding-left: 100px;
+  .comment-owner {
+    display: inline-block;
+    width: 60px;
+  }
+  .comment-text {
+    display: inline-block;
+  }
+}

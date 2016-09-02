@@ -1,3 +1,3 @@
 $("#<%= params[:likeable_type] %>_<%= params[:likeable_id] %>").prop("href","<%= like_path(@like.id) %>");
 $("#<%= params[:likeable_type] %>_<%= params[:likeable_id] %>").attr("data-method","delete");
-$("#<%= params[:likeable_type] %>_<%= params[:likeable_id] %>").text("unlike");
+$("#<%= params[:likeable_type] %>_<%= params[:likeable_id] %>").find('.fa-thumbs-o-up').addClass('liked')

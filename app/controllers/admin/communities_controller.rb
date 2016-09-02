@@ -367,6 +367,13 @@ class Admin::CommunitiesController < ApplicationController
 
   end
 
+
+
+  #################################################Social Code#################################################################
+  def all_posts
+      @posts = Post.all.order(id: :desc)
+  end
+  #################################################Social Code#################################################################
   private
 
   def enqueue_status_sync!(address)

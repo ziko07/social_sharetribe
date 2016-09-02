@@ -1,0 +1,2 @@
+$('.wall-posts').find('.wall-post-item').before(("<%= escape_javascript(render(:partial => 'people/wall_post_item',  :locals => { :post => @post })) %>"));
+$('#description').val('');

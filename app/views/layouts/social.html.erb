@@ -11,7 +11,7 @@
             <div class="cover-content">
               <div class="table-cell">
                 <div class="pull-left">
-                  <div style="background: url('<%= huge_avatar_thumb_url(@person) %>');" class="social-avatar"></div>
+                  <div style="background: url('<%= huge_avatar_thumb(@person) %>');" class="social-avatar"></div>
                   <div class="follow-unfollow-wrapper">
                     <%= render :partial => "people/friend_request_button", :locals => {:person => @person} if @current_user.present? %>
                   </div>
