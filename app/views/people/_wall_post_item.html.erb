@@ -24,7 +24,7 @@
     </div>
     <ul class="post-actions">
       <li>
-        <a href="#"><i class="fa fa-reply"></i></a>
+        <a href="#" class="view_comments"><i class="fa fa-reply"></i></a>
       </li>
       <li>
         <% if  post.likes.where(person_id: @person.id).present? %>
@@ -40,33 +40,35 @@
       <li>
         <a href="#"><i class="fa fa-trash"></i></a>
       </li>
-      <li>
-        <a href="#"><i class="fa fa-lock"></i></a>
-      </li>
     </ul>
   </div>
-  <!--<div class="comments-wrapper">-->
-    <!--<%# if post.post_comments.present?  %>-->
-    <!--<ul class="comments-list">-->
-      <!--<%#@ post.post_comments.each do |comment| %>-->
-          <!--<li id="comment_<%#= comment.id %>" style="display: list-item;">-->
-            <!--<div class="comments-owner">-->
-              <!--<%#=  small_avatar_thumb(comment.person) %>-->
-            <!--</div>-->
-            <!--<div class="comment-text">-->
-              <!--<%#= comment.comment %>-->
-            <!--</div>-->
-            <!--<ul class="post-actions">-->
-              <!--<li>-->
-                <!--<a href="#"> <i class="fa fa-thumbs-o-up"></i></a>-->
-              <!--</li>-->
-              <!--<li>-->
-                <!--<a href="#"><i class="fa fa-trash"></i></a>-->
-              <!--</li>-->
-            <!--</ul>-->
-          <!--</li>-->
-      <!--<%# end %>-->
-    <!--</ul>-->
-    <!--<%# end %>-->
-  <!--</div>-->
+  <div class="comments-wrapper">
+    <ul class="comments-list">
+     <% if post.post_comments.present?  %>
+      <% post.post_comments.each do |comment| %>
+          <li id="comment_<%= comment.id %>" style="display: list-item;">
+            <div class="comments-owner">
+              <%=  small_avatar_thumb(comment.person) %>
+            </div>
+            <div class="comment-text">
+              <%= comment.comment %>
+            </div>
+            <ul class="post-actions">
+              <li>
+                <a href="#"> <i class="fa fa-thumbs-o-up"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-trash"></i></a>
+              </li>
+            </ul>
+          </li>
+          <% end %>
+      <% end %>
+      <%= form_tag ('/post_comments') do%>
+          <%= hidden_field_tag 'post_id','', value: post.id %>
+          <%= text_area_tag :comment %>
+          <%= submit_tag 'comment'%>
+      <% end %>
+    </ul>
+  </div>
 </li>

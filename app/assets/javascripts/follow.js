@@ -18,6 +18,11 @@ $('#description').focus(function(){
     $('.attachment-submit').show();
 });
 
+$('.view_comments').click(function() {
+    $('.wall-post-item').children('.comments-wrapper').hide();
+    $(this).parents('.wall-post-item').children('.comments-wrapper').show();
+});
+
 window.ST.initializeFollowButtons = function() {
   $(".follow-button").on("ajax:complete", window.ST.onFollowButtonAjaxComplete);
 };
