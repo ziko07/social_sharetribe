@@ -161,6 +161,7 @@ Kassi::Application.routes.draw do
       # Settings
       get "/settings" => "communities#settings", as: :settings
       patch "/settings" => "communities#update_settings", as: :update_settings
+      get "/all_posts" => "communities#all_posts", as: :all_posts
 
       # Guide
       get "getting_started_guide" => "getting_started_guide#index", as: :getting_started_guide

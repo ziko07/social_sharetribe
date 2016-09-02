@@ -458,6 +458,9 @@ Based on Rails routes of Kassi::Application
 // admin => /admin(.:format)
   // function(options)
   admin_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"admin",false],[1,[2,[8,".",false],[3,"format",false]],false]]], {}),
+// admin_all_posts => (/:locale)/admin/all_posts(.:format)
+  // function(options)
+  admin_all_posts_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"all_posts",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
 // admin_categories => (/:locale)/admin/categories(.:format)
   // function(options)
   admin_categories_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"categories",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),

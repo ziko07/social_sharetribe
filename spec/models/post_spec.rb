@@ -8,6 +8,8 @@
 #  description :text(65535)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  purpose     :string(255)
+#  update_time :integer
 #
 
 require 'rails_helper'

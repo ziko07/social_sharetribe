@@ -1,19 +1,31 @@
 <%= content_for :social_left_section do %>
     <div class="user-profile-content-wrapper">
-      <div class="spacing-btwn-divs">
+      <div class="spacing-btwn-divs wall-post-wrapper">
         <h4>Whats new <%= link_to @person.given_name_or_username, person_path(username: @person.username) %>?</h4>
 
-        <form role="form">
-          <div class="form-group">
-            <textarea class="form-control" rows="2" id="comment"></textarea>
-          </div>
-        </form>
+        <%= form_tag('/posts', multipart: true) do %>
+            <%= text_area_tag :description, '', placeholder: "What's on your mind?" %>
+            <div class="attachment-submit">
+              <div class="attchment">
+                <div class="fileUpload btn btn-default">
+                  <span>Upload Image</span>
+                  <%= file_field_tag :attachment, :multiple => true, name: "attachments[attachment][]", class: 'upload' %>
+                </div>
+              </div>
+              <%= hidden_field_tag 'post_to_id', '', value: current_user?(@person) ? '' : @person.id %>
+              <div class="submit-btn">
+                <div class="btn_submit">
+                  <%= submit_tag 'Create Post', class: 'post-btn' %>
+                </div>
+              </div>
+            </div>
+        <% end %>
       </div>
 
       <div class="wall-posts">
-        <ul>
-          <% 5.times.each do |index| %>
-              <%= render 'people/wall_post_item', index: index + 1 %>
+        <ul class="all_post">
+          <% Post.all.each do |post| %>
+              <%= render 'people/wall_post_item', post: post %>
           <% end %>
         </ul>
       </div>

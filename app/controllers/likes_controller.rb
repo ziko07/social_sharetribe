@@ -17,7 +17,7 @@ class LikesController < ApplicationController
   def destroy
     like = Like.find_by_id(params[:id])
     @likeable_id = like.likeable_id
-    @likeable_type = like.likeable_type
+    @likeable_type = like.likeable_type.downcase
     like.destroy
     respond_to do |format|
       format.js { render :layout => false}

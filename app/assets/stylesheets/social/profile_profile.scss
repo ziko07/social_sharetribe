@@ -316,13 +316,14 @@ body.social {
             display: inline-block;
             width: 48%;
             margin-right: 10px;
+            height: 150px;
           }
         }
       }
     }
     .post-actions {
       list-style-type: none;
-      margin: 10px 0;
+      margin: 5px 0;
       padding: 0;
       li {
         float: left;
@@ -461,3 +462,39 @@ body.social {
     margin-bottom: 0;
   }
 }
+
+.liked {
+  color: #4dcadd;
+}
+
+.post-comments-wrapper {
+  padding-left: 20px;
+  .comments-owner {
+    a {
+      img {
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        border: solid 1px #4dcadd;
+        width: 45px;
+        height: 45px;
+      }
+    }
+  }
+  .comment-text {
+    display: inline-block;
+    p {
+      margin-top: 10px;
+    }
+  }
+}
+
+.comments-wrapper {
+  display: none;
+  .comment-owner {
+    display: inline-block;
+    width: 60px;
+  }
+}
+
+

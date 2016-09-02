@@ -1,43 +1,85 @@
 <li class="profile-list-section wall-post-item clearfix">
   <div class="profile-pic">
     <a href="#">
-      <%= image_tag 'profile.jpg' %>
+      <%= small_avatar_thumb(post.person) %>
     </a>
   </div>
   <div class="wall-post-content-wrapper">
     <div class="post-title">
-      <span class="name"><%= link_to @person.given_name_or_username, person_path(username: @person.username) %></span>
+      <span class="name"><%= link_to post.person.given_name_or_username, person_path(username: post.person.username) %></span>
       commented on the doc <span class="event">  Planet Dog Foundation  </span>
-      <span class="times"> 5 month, 3 weeks ago </span>
+      <span class="times"> <%= time_ago_in_words(post.created_at) %> ago </i> </span>
     </div>
     <div class="post-content">
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur.
+        <%= post.description %>
       </p>
-
-      <% if index % 2 == 0 %>
+      <% if post.post_attachments.present? %>
           <div class="post-photos-wrapper">
-            <%= image_tag('post.jpg') %>
-            <%= image_tag('post1.jpg') %>
+            <% post.post_attachments.each do |attachment| %>
+                <%= image_tag(attachment.attachment_url) %>
+            <% end %>
           </div>
       <% end %>
     </div>
-    <ul class="post-actions">
+    <ul class="post-actions clearfix">
       <li>
-        <a href="#"><i class="fa fa-reply"></i></a>
+        <a href="javascript:void(0);" class="reply-comments"><i class="fa fa-reply"></i></a>
       </li>
       <li>
-        <a href="#"><i class="fa fa-thumbs-o-up"></i></a>
+        <% if post.likes.where(person_id: @person.id).present? %>
+            <%= link_to like_path(post.likes.where(person_id: @person.id).first.id), id: "post_#{post.id}", :remote => true, method: 'delete' do %>
+                <i class="fa fa-thumbs-o-up liked"></i>
+            <% end %>
+        <% else %>
+            <%= link_to likes_path(likeable_id: post.id, likeable_type: 'post'), id: "post_#{post.id}", :remote => true, method: 'post' do %>
+                <i class="fa fa-thumbs-o-up"></i>
+            <% end %>
+        <% end %>
       </li>
       <li>
         <a href="#"><i class="fa fa-trash"></i></a>
       </li>
-      <li>
-        <a href="#"><i class="fa fa-lock"></i></a>
-      </li>
     </ul>
+    <div class="post-comments-wrapper">
+      <ul class="comments-list clearfix">
+        <% if post.post_comments.present? %>
+            <% post.post_comments.each do |comment| %>
+                <li id="comment_<%= comment.id %>" style="display: list-item;">
+                  <div class="clearfix">
+                    <div class="comments-owner col-sm-1">
+                      <%= small_avatar_thumb(comment.person) %>
+                    </div>
+                    <div class="comment-text col-sm-11">
+                      <p>
+                        <%= comment.comment %>
+                      </p>
+                    </div>
+                  </div>
+                  <ul class="post-actions clearfix">
+                    <li>
+                      <a href="#"> <i class="fa fa-thumbs-o-up"></i></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-trash"></i></a>
+                    </li>
+                  </ul>
+                </li>
+            <% end %>
+        <% end %>
+      </ul>
+      <div class="comments-wrapper clearfix">
+        <ul class="comments-list clearfix">
+          <%= form_tag ('/post_comments') do %>
+              <%= hidden_field_tag 'post_id', '', value: post.id %>
+              <%= text_area_tag :comment %>
+              <%= submit_tag 'comment', class: 'btn btn-default' %>
+              <%= link_to 'javascript:void(0);', class: 'cancel-comments btn btn-default' do %>
+                  Cancel
+              <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
 </li>

@@ -44,7 +44,7 @@ module StripeService
                   external_account: {
                       object: 'bank_account',
                       country: account_params[:country],
-                      currency: StripeAccount::CURRENCY_MAP[account_params[:country].upcase],
+                      currency: 'AUD', #community.default_currency,
                       routing_number: account_params[:routing_number],
                       account_number: account_params[:account_number]
                   },

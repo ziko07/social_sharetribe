@@ -273,6 +273,15 @@ class Person < ActiveRecord::Base
     end
   end
 
+  def self.given_name_or_username_by_id(person)
+    person = Person.find_by_id(person)
+    if person.given_name.present?
+      return person.given_name
+    else
+      return person.username
+    end
+  end
+
   def set_given_name(name)
     update_attributes({:given_name => name })
   end
