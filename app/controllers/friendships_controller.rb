@@ -27,13 +27,4 @@ class FriendshipsController < ApplicationController
       format.js { render layout: false, locals: {person: person} }
     end
   end
-
-
-  def friend_list
-    person = Person.find_by_username(params[:username])
-    @friends = person.friends
-    @mutual_friends = person.common_friends_with(@current_user)
-    @follower = person.invited_by
-    @following = person.invited
-  end
 end

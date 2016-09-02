@@ -1,0 +1,96 @@
+.left-section {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.11);
+  color: transparent;
+}
+
+.left-section li:first-child {
+  float: left;
+  margin-left: 0;
+  margin-bottom: 10px;
+}
+
+.left-section li:last-child {
+  float: right;
+  margin-right: 0%;
+  margin-bottom: 10px;
+}
+
+.btn-cancel {
+  border: 2px solid #4dcadd;
+  color: #4dcadd;
+  font-size: 15px;
+  margin: 10px;
+  padding: 10px 25px;
+  word-spacing: 5px;
+
+}
+
+.btn-follow {
+  border: 2px solid #4dcadd;
+  color: #4dcadd;
+  font-size: 15px;
+  margin: 10px;
+  padding: 10px 25px;
+  word-spacing: 5px;
+  background-color: #4dcadd;
+  color: white;
+}
+
+.follow-button {
+  width: auto !important;
+}
+
+.friendship-header {
+  margin: 0;
+  padding: 8px;
+  border-bottom: solid 2px #ccc;
+}
+
+.friend-request-list, .friend-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.11);
+    padding: 5px 0;
+    &:last-child {
+      border-bottom: none;
+    }
+    .profile-pic {
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      a img {
+        border: 2px solid #7ed9e6;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        width: 60px;
+        height: 55px;
+      }
+    }
+    .profile-info {
+      display: inline-block;
+      vertical-align: middle;
+      width: calc(100% - 85px);
+      margin-left: 19px;
+      .mutual-friend {
+        color: #90949c;
+        font-size: 13px;
+      }
+    }
+    .friend-request-action {
+      text-align: right;
+      a.btn {
+        &.accept-request {
+          color: #0b97c4;
+          width: auto;
+        }
+        &.remove-request, &.cancel-friendship {
+          color: #660000;
+          width: auto;
+        }
+      }
+    }
+  }
+}

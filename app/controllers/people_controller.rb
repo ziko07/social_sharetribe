@@ -5,7 +5,7 @@ class PeopleController < Devise::RegistrationsController
   skip_before_filter :verify_authenticity_token, :only => [:creates]
   skip_before_filter :require_no_authentication, :only => [:new]
 
-  layout 'social', only: [:show, :wall]
+  layout 'social', only: [:show, :wall, :friend]
 
   before_filter EnsureCanAccessPerson.new(
                     :id, error_message_key: "layouts.notifications.you_are_not_authorized_to_view_this_content"), only: [:update, :destroy]
@@ -92,6 +92,15 @@ class PeopleController < Devise::RegistrationsController
   def wall
     @person = Person.find_by_username(params[:username])
   end
+
+  def friend
+    @person = Person.find_by_username(params[:username])
+    @friends = @person.friends
+    @mutual_friends = @person.common_friends_with(@current_user)
+    @friend_request = @person.pending_invited_by
+    @following = @person.invited
+  end
+
   def create
     domain = @current_community ? @current_community.full_url : "#{request.protocol}#{request.host_with_port}"
     error_redirect_path = domain + sign_up_path

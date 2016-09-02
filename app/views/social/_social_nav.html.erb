@@ -14,10 +14,10 @@
         <span class="<%= get_badge_class(@person.friends.count) %>"><%= unread_count %></span></a>
     </li>
     <li>
-      <a href="#">Friends<span class="<%= get_badge_class(@person.friends.count) %>"><%= @person.friends.count %></span></a>
-    </li>
-    <li>
-      <a href="#">Following<span class="<%= get_badge_class(@person.invited.count) %>"><%= @person.invited.count %></span></a>
+      <%= link_to friend_person_path(@person.username), class: "#{'active' if action_name == 'friend' && controller_name == 'people' }" do %>
+          <% total_friend = @person == @current_user ? @person.pending_invited_by.count : @person.friends.count %>
+          Friends <span class="<%= get_badge_class(total_friend) %>"><%= total_friend %></span>
+      <% end %>
     </li>
   </ul>
 </div>

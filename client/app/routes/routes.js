@@ -848,9 +848,9 @@ Based on Rails routes of Kassi::Application
 // follow_listing => (/:locale)/listings/:id/follow(.:format)
   // function(id, options)
   follow_listing_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"follow",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
-// friend_list => (/:locale)/people/:username/friend_list(.:format)
+// friend_person => (/:locale)/:username/friend(.:format)
   // function(username, options)
-  friend_list_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"people",false],[2,[7,"/",false],[2,[3,"username",false],[2,[7,"/",false],[2,[6,"friend_list",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+  friend_person_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"username",false],[2,[7,"/",false],[2,[6,"friend",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
 // getting_started_admin_community => (/:locale)/admin/communities/:id/getting_started(.:format)
   // function(id, options)
   getting_started_admin_community_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"getting_started",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),

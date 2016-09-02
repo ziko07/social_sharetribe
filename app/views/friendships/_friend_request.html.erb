@@ -1,0 +1,6 @@
+<h3 class="friendship-header"> Respond to Your 7 Friend Requests </h3>
+<ul class="friend-request-list">
+  <% friend_request.each do |request| %>
+      <%= render 'friendships/friend_item', friend: request, person: @person %>
+  <% end %>
+</ul>

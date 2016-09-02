@@ -388,7 +388,7 @@ production: &production_settings
   <<: *default_settings
 
   eager_load: true
-
+  skip_email_confirmation: true
   log_level: INFO
 
 staging:

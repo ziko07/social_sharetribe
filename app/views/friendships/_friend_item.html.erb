@@ -1,0 +1,20 @@
+<li class="clearfix friend-item-<%= friend.id %>">
+  <div class="col-sm-8">
+    <div class="profile-pic">
+      <%= link_to person_path(friend.username) do %>
+          <%= huge_avatar_thumb(friend) %>
+      <% end %>
+    </div>
+    <div class="profile-info">
+      <%= link_to person_path(friend.username) do %>
+          <%= friend.given_name_or_username %>
+      <% end %>
+      <p class="mutual-friend">
+        <%= friend.common_friends_with(person).count %> mutual friends
+      </p>
+    </div>
+  </div>
+  <div class="col-sm-4 friend-request-action">
+    <%= render 'people/friend_request_button', person: friend %>
+  </div>
+</li>

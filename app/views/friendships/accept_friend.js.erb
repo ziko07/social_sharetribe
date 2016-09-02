@@ -1,1 +1,3 @@
 $('.follow-unfollow-wrapper').html("<%= escape_javascript(render 'people/friend_request_button', :person => person).html_safe %>");
+$(".friend-item-<%= person.id %>").remove();
+$(".friend-list").append("<%= escape_javascript(render 'friendships/friend_item', friend: person, person: @current_user) %>");

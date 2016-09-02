@@ -33,9 +33,9 @@ Kassi::Application.routes.draw do
   get "/listings/new/:type" => "listings#new", :as => :new_request_without_locale # needed for some emails, where locale part is already set
   get "/change_locale" => "i18n#change_locale", :as => :change_locale
 
-resources :posts
-resources :post_comments
-resources :likes
+  resources :posts
+  resources :post_comments
+  resources :likes
   # Prettier link for admin panel
   namespace :admin do
     get '' => "getting_started_guide#index"
@@ -381,6 +381,7 @@ resources :likes
       resources :people, param: :username, :path => "", :only => :show, :constraints => {:username => /[_a-z0-9]{3,20}/} do
         member do
           get :wall
+          get :friend
         end
       end
 
@@ -476,7 +477,6 @@ resources :likes
     post '/people/:username/add_friend' => "friendships#add_friend", :as => :add_friend
     post '/people/:username/accept_friend' => "friendships#accept_friend", :as => :accept_friend
     post '/people/:username/remove_friend' => "friendships#remove_friend", :as => :remove_friend
-    get '/people/:username/friend_list' => "friendships#friend_list", :as => :friend_list
 
     get "/:person_id/messages/:conversation_type/:id" => "conversations#show", :as => :single_conversation
 

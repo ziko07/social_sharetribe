@@ -1,0 +1,11 @@
+<%= content_for :social_left_section do %>
+    <div class="friendship-wrapper">
+      <%= render 'friendships/friend_request', friend_request: @friend_request %>
+      <div class="friend-list-wrapper">
+        <h3 class="friendship-header"> You have 12 friends </h3>
+        <ul class="friend-list">
+          <%= render 'people/friend_list', friends: @friends, person: @person %>
+        </ul>
+      </div>
+    </div>
+<% end %>

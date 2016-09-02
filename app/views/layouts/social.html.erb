@@ -3,18 +3,19 @@
 <%= render partial: 'layouts/global_header', locals: header_props() %>
 <div class="container">
   <div class="social-wrapper content-container clearfix">
-    <div class="social-left-section">
+    <div class="social-left-section col-sm-9 reset-padding">
       <div class="social-header">
-        <%#= image_tag 'bg.jpg', class: 'profile-bg' %>
         <div class="item-header-cover ">
           <div class="table-cell">
             <div class="cover-content">
               <div class="table-cell">
                 <div class="pull-left">
                   <div style="background: url('<%= huge_avatar_thumb_url(@person) %>');" class="social-avatar"></div>
-                  <div class="follow-unfollow-wrapper">
-                    <%= render :partial => "people/friend_request_button", :locals => {:person => @person} if @current_user.present? %>
-                  </div>
+                  <% if @current_user.present? && @current_user != @person %>
+                      <div class="follow-unfollow-wrapper">
+                        <%= render :partial => "people/friend_request_button", :locals => {:person => @person} %>
+                      </div>
+                  <% end %>
                 </div>
                 <div class="pull-left user-social-link" style="color: #ffffff;">
                   <h3>
@@ -34,7 +35,7 @@
                       <i class="fa fa-youtube-play"></i>
                     </a>
                   </div>
-                  <%= render 'people/message_form' if @current_user.present? %>
+                  <%= render 'people/message_form' if @current_user.present? && @current_user != @person %>
                 </div>
               </div>
               <div class="table-cell">
@@ -64,7 +65,7 @@
       <%= render partial: 'social/social_nav', locals: header_props() %>
       <%= yield :social_left_section %>
     </div>
-    <div class="social-right-section">
+    <div class="social-right-section col-sm-3 reset-padding">
       <%= yield :social_right_section %>
     </div>
     <div style="clear: both;"></div>

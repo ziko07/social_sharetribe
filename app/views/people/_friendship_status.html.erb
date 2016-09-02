@@ -1,12 +1,12 @@
 <div class="friends-status">
-  <%= link_to friend_list_path(person.username), :method => "get", class: 'friends_count' do %>
+  <%= link_to friend_person_path(person.username), :method => "get", class: 'friends_count' do %>
       <div>
         Friends <span class="<%= get_badge_class(person.friends.count) %>"><%= person.friends.count %></span>
       </div>
   <% end %>
 </div>
 <div class="friends-status">
-  <%= link_to friend_list_path(person.username), :method => "get", class: 'friends_count' do %>
+  <%= link_to friend_person_path(person.username), :method => "get", class: 'friends_count' do %>
       <div>
         Mutual Friends
         <span class="<%= get_badge_class(person.common_friends_with(@current_user).count) %>"><%= person.common_friends_with(@current_user).count %></span>
@@ -16,7 +16,7 @@
 
 
 <div class="friends-status">
-  <%= link_to friend_list_path(person.username), :method => "get", class: 'friends_count' do %>
+  <%= link_to friend_person_path(person.username), :method => "get", class: 'friends_count' do %>
       <div>
         Followers <span class="<%= get_badge_class(person.invited_by.count) %>"><%= person.invited_by.count %></span>
       </div>
@@ -24,7 +24,7 @@
 </div>
 
 <div class="friends-status">
-  <%= link_to friend_list_path(person.username), :method => "get", class: 'friends_count' do %>
+  <%= link_to friend_person_path(person.username), :method => "get", class: 'friends_count' do %>
       <div>
         Following <span class="<%= get_badge_class(person.invited.count) %>"><%= person.invited.count %></span>
       </div>
