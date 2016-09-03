@@ -6,12 +6,43 @@
   background: #4a90e2 !important;
 }
 
-#new_message_form {
+#new-message-form {
   width: 450px;
+  #new_conversation {
+    padding-bottom: 0;
+  }
+  h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
 }
 
 .wall-post-wrapper {
   #description {
     height: 45px;
+  }
+}
+
+.attachment-submit {
+  width: 100%;
+  display: none;
+  text-align: right;
+}
+
+#new-attachment-modal-form {
+  width: 500px;
+  max-width: 100% !important;
+  background: #f9f9f9;
+  .lightbox-content {
+    background: transparent;
+    padding: 0;
+  }
+  a.lightbox-x {
+    padding: 0 !important;
+    top: 5px;
+    right: -20px;
+  }
+  .post-attachment-description {
+    background: transparent;
   }
 }

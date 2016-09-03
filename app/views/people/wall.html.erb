@@ -3,21 +3,14 @@
       <div class="spacing-btwn-divs wall-post-wrapper">
         <h4>Whats new <%= link_to @person.given_name_or_username, person_path(username: @person.username) %>?</h4>
 
-        <%= form_tag('/posts', multipart: true) do %>
+        <%= form_tag '/posts', multipart: true, remote: true do %>
             <%= text_area_tag :description, '', placeholder: "What's on your mind?" %>
-            <div class="attachment-submit">
-              <div class="attchment">
-                <div class="fileUpload btn btn-default">
-                  <span>Upload Image</span>
-                  <%= file_field_tag :attachment, :multiple => true, name: "attachments[attachment][]", class: 'upload' %>
-                </div>
-              </div>
-              <%= hidden_field_tag 'post_to_id', '', value: current_user?(@person) ? '' : @person.id %>
-              <div class="submit-btn">
-                <div class="btn_submit">
-                  <%= submit_tag 'Create Post', class: 'post-btn' %>
-                </div>
-              </div>
+            <%= hidden_field_tag 'post_to_id', '', value: current_user?(@person) ? '' : @person.id %>
+            <div class="attachment-submit clearfix">
+              <a href="javascript:void(0);" class="btn btn-info" id="attachment-update-post">
+                <i class="fa fa-camera"></i>
+              </a>
+              <%= submit_tag 'Post Update', class: 'btn btn-info' %>
             </div>
         <% end %>
       </div>
@@ -25,7 +18,7 @@
       <div class="wall-posts">
         <ul class="all_post">
           <% Post.all.each do |post| %>
-              <%= render 'people/wall_post_item', post: post %>
+              <%= render 'people/wall_post_item', post: post, person: @current_user %>
           <% end %>
         </ul>
       </div>
@@ -139,12 +132,19 @@
             </p>
           </div>
         </li>
-
-
       </ul>
-
     </div>
 <% end %>
+
+<%= content_for :extra_javascript do %>
+    <script type="text/javascript">
+        $('#attachment-update-post').click(function () {
+            $('#new-attachment-modal-form').lightbox_me({centered: true, zIndex: 1000000});
+        });
+    </script>
+<% end %>
+
+<%= render 'posts/post_with_attachment_modal', person: @person %>
 
 <div class="row footer">
   <div class="footer-left">

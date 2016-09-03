@@ -15,14 +15,14 @@ window.ST.onFollowButtonAjaxComplete = function (event, xhr) {
 };
 
 $('#description').focus(function () {
-    $('.attachment-submit').show();
+    $('.attachment-submit').slideDown('fast');
     $(this).animate({
         height: "65"
     }, 500, function () {
     });
 });
 
-$('.reply-comments').click(function () {
+$(document).on('click', '.reply-comments', function () {
     commentsWrapper = $(this).parents('.wall-post-content-wrapper').find('.comments-wrapper');
     if (!commentsWrapper.is(':visible')) {
         $('.comments-wrapper').slideUp('fast');
@@ -30,9 +30,17 @@ $('.reply-comments').click(function () {
     }
 });
 
-$('.cancel-comments').click(function () {
+$(document).on('click', '.cancel-comments', function () {
     $(this).parents('.comments-wrapper').slideUp('fast');
 });
+
+//$('.reply-comments').click(function () {
+//
+//});
+
+//$('.cancel-comments').click(function () {
+//    $(this).parents('.comments-wrapper').slideUp('fast');
+//});
 
 window.ST.initializeFollowButtons = function () {
     $(".follow-button").on("ajax:complete", window.ST.onFollowButtonAjaxComplete);

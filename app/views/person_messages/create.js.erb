@@ -1,2 +1,5 @@
 $('.flash-message').html("<%= message %>");
-$('.close').trigger('click');
+alert("<%= message %>");
+if (<%= status %>) {
+    $('.close').trigger('click');
+}

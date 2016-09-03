@@ -89,4 +89,5 @@
 //= require radio_buttons
 //= require social/jquery.mentionsInput
 //= require social/jquery.elastic
+//= require social/dropzone.min
 //= require_self

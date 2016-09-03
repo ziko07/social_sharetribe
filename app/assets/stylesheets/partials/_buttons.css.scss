@@ -51,13 +51,13 @@
     color: $background;
     @include badge(26px);
   }
-   .huge-badge {
-     position: absolute;
-     top: 12px; // Magic, just looks good
-     left: 115px; // Magic, just looks good
-     background: $link;
-     color: $background;
-     @include badge(32px);
+  .huge-badge {
+    position: absolute;
+    top: 12px; // Magic, just looks good
+    left: 115px; // Magic, just looks good
+    background: $link;
+    color: $background;
+    @include badge(32px);
   }
 }
 
@@ -69,7 +69,6 @@
   width: 49%;
   display: inline-block;
 }
-
 
 .fileUpload {
   background-color: #42adbe;
@@ -99,23 +98,6 @@
   cursor: pointer;
   opacity: 0;
   filter: alpha(opacity=0);
-}
-
-
-.attachment-submit {
-  width: 100%;
-  display: none;
-}
-
-.attchment {
-  width: 49%;
-  display: inline-block;
-}
-
-.submit-btn {
-  width: 49%;
-  display: inline-block;
-  float: right;
 }
 
 .btn_submit {

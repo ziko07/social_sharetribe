@@ -1,4 +1,4 @@
-<li class="profile-list-section wall-post-item clearfix">
+<li class="profile-list-section wall-post-item clearfix wall-post-item-<%= post.id %>">
   <div class="profile-pic">
     <a href="#">
       <%= small_avatar_thumb(post.person) %>
@@ -27,8 +27,8 @@
         <a href="javascript:void(0);" class="reply-comments"><i class="fa fa-reply"></i></a>
       </li>
       <li>
-        <% if post.likes.where(person_id: @person.id).present? %>
-            <%= link_to like_path(post.likes.where(person_id: @person.id).first.id), id: "post_#{post.id}", :remote => true, method: 'delete' do %>
+        <% if post.likes.where(person_id: person.id).present? %>
+            <%= link_to like_path(post.likes.where(person_id: person.id).first.id), id: "post_#{post.id}", :remote => true, method: 'delete' do %>
                 <i class="fa fa-thumbs-o-up liked"></i>
             <% end %>
         <% else %>

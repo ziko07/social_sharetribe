@@ -1,7 +1,4 @@
 <div>
-  <div style="margin-top: 15px"></div>
-  <a href="javascript:void(0);" id="send-message" class="btn">
-    <i class="fa fa-commenting-o"></i> Send message </a>
   <%= content_for :extra_javascript do %>
       <script type="text/javascript">
           function replaceAtMentionsWithLinks(text) {
@@ -64,29 +61,63 @@
       </script>
   <% end %>
 
-  <div class="lightbox" id="new-message-form">
+  <div class="lightbox" id="new-attachment-modal-form">
+    <a class="close lightbox-x" href="#" id="close_x">
+      <%= icon_tag('cross') %>
+    </a>
+
     <div class="lightbox-content">
-      <div>
-        <a class="close lightbox-x" href="#" id="close_x">
-          <%= icon_tag('cross') %>
-        </a>
-      </div>
       <div class="flash-message"></div>
-      <div class="centered-section" id="new_message_form">
-        <h2>
-          <%= t("conversations.new.send_message_to_user", :person => @person.given_name_or_username) %>
-        </h2>
-        <%= form_for Conversation.new, :url => person_person_messages_path(person_id: @person.username), remote: true do |form| %>
-            <%= fields_for "conversation[message_attributes]", Message.new do |message_form| %>
-                <%#= message_form.label :content, t('conversations.new.message') %>
-                <%= message_form.text_area :content, :class => "text_area mention", placeholder: 'Write your message...' %>
-            <% end %>
-            <div style="margin-top: 10px;" class="clearfix">
-              <%= form.button t("conversations.new.send_message"), :class => "btn-primary btn pull-right" %>
+      <%= form_tag '/posts', remote: true do %>
+          <%= text_area_tag :description, '', class: 'post-attachment-description', placeholder: 'Say something about the photo(s)...', id: 'attachment-description' %>
+          <div id="upload-post-attachment" class="dropzone">
+            <div class="dz-message needsclick">
+              <b> Drop </b> files here or <b> click </b> to upload.
             </div>
-        <% end %>
-      </div>
+          </div>
+          <%= hidden_field_tag 'post_to_id', '', value: current_user?(person) ? '' : person.id %>
+          <%= hidden_field_tag :attachment_list, '', id: 'attachmnet_list_uploaded' %>
+          <input type="submit" id="aw-whats-new-submit-bbmedia" class="btn btn-large btn-block btn-info" value="Post Update">
+      <% end %>
     </div>
   </div>
 </div>
+<%= content_for :extra_javascript do %>
+    <script type="text/javascript">
+        $(function () {
+            Dropzone.autoDiscover = false;
+            var uploadAttachment = [];
+            var attachmentForm = $("#new-attachment-modal-form form");
+            var postDescription = attachmentForm.find('.post-attachment-description');
+            var myDropzone = new Dropzone("div#upload-post-attachment", {
+                url: "<%= upload_attachment_posts_path %>",
+                addRemoveLinks: true,
+                success: function (file, res) {
+                    uploadAttachment.push(res.attachment_id);
+                    file.attachmentId = res.attachment_id;
+                },
+                removedfile: function (file) {
+                    $.ajax({
+                        url: '/posts/remove_attachmnet?attachment_id=' + file.attachmentId,
+                        type: 'delete',
+                        dataType: 'json',
+                        success: function (res) {
+                            $(file.previewElement).remove();
+                        }
+                    });
+                }
+            });
+
+            attachmentForm.submit(function (event) {
+                event.preventDefault();
+                $('#attachmnet_list_uploaded').val(uploadAttachment);
+                if (postDescription.val() == '') {
+                    postDescription.focus();
+                    return false;
+                }
+            });
+        })
+        ;
+    </script>
+<% end %>
 

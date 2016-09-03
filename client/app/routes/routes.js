@@ -1322,6 +1322,9 @@ Based on Rails routes of Kassi::Application
 // remove_admin_category => (/:locale)/admin/categories/:id/remove(.:format)
   // function(id, options)
   remove_admin_category_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"categories",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"remove",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),
+// remove_attachmnet_posts => /posts/remove_attachmnet(.:format)
+  // function(options)
+  remove_attachmnet_posts_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"posts",false],[2,[7,"/",false],[2,[6,"remove_attachmnet",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
 // remove_friend => (/:locale)/people/:username/remove_friend(.:format)
   // function(username, options)
   remove_friend_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"people",false],[2,[7,"/",false],[2,[3,"username",false],[2,[7,"/",false],[2,[6,"remove_friend",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
@@ -1418,6 +1421,9 @@ Based on Rails routes of Kassi::Application
 // update_settings_admin_community => (/:locale)/admin/communities/:id/update_settings(.:format)
   // function(id, options)
   update_settings_admin_community_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"update_settings",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),
+// upload_attachment_posts => /posts/upload_attachment(.:format)
+  // function(options)
+  upload_attachment_posts_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"posts",false],[2,[7,"/",false],[2,[6,"upload_attachment",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
 // user_feedback => (/:locale)/user_feedbacks/:id(.:format)
   // function(id, options)
   user_feedback_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"user_feedbacks",false],[2,[7,"/",false],[2,[3,"id",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
