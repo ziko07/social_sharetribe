@@ -52,13 +52,15 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    post = Post.where("id = ? AND (person_id = ? OR post_to_id = ?)",params[:id], @current_user.id, @current_user.id).first
+    post = Post.where("id = ? AND (person_id = ? OR post_to_id = ?)", params[:id], @current_user.id, @current_user.id).first
     if post.present?
-      @id = "post-#{post.id}"
+      status = true
       post.destroy
+    else
+      status = false
     end
     respond_to do |format|
-      format.js { render :layout => false}
+      format.js { render :layout => false, locals: {status: status, id: post.id} }
     end
   end
 end
