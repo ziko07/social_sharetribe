@@ -1,3 +1,4 @@
 $("#<%= @likeable_type %>_<%= @likeable_id %>").prop("href","<%= likes_path(likeable_id: @likeable_id, likeable_type: @likeable_type) %>");
 $("#<%= @likeable_type %>_<%= @likeable_id %>").attr("data-method","post");
-$("#<%=  @likeable_type %>_<%= @likeable_id %>").find('.fa-thumbs-o-up').removeClass('liked')
+$("#<%=  @likeable_type %>_<%= @likeable_id %>").find('.fa-thumbs-o-up').removeClass('liked');
+$("#like-counts-<%= @likeable_type %>-<%=  @likeable_id %>").html(<%= @count %>);

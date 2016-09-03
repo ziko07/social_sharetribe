@@ -636,6 +636,20 @@ module ApplicationHelper
     params[:sort].eql?(column) && params[:direction].eql?("asc") ? "desc" : "asc"
   end
 
+  def can_delete_post(post)
+    if current_user?(post.person)
+      return true
+    elsif(post.post_to_id).present?
+      if current_user?(Person.find_by_id(post.post_to_id))
+        return true
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
+
   def search_path(opts = {})
     PathHelpers.search_path(
       community_id: @current_community.id,
