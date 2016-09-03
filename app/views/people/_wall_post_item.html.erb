@@ -1,4 +1,4 @@
-<li class="profile-list-section wall-post-item clearfix">
+<li class="profile-list-section wall-post-item clearfix" id="post-<%= post.id %>">
   <div class="profile-pic">
     <a href="#">
       <%= small_avatar_thumb(post.person) %>
@@ -27,6 +27,12 @@
         <a href="javascript:void(0);" class="reply-comments"><i class="fa fa-reply"></i></a>
       </li>
       <li>
+
+         <span id="like-counts-post-<%= post.id %>">
+           <% unless post.likes.count == 0 %>
+           <%= post.likes.count %>
+           <% end %>
+           </span>
         <% if post.likes.where(person_id: @person.id).present? %>
             <%= link_to like_path(post.likes.where(person_id: @person.id).first.id), id: "post_#{post.id}", :remote => true, method: 'delete' do %>
                 <i class="fa fa-thumbs-o-up liked"></i>
@@ -38,19 +44,28 @@
         <% end %>
       </li>
       <li>
-        <a href="#"><i class="fa fa-trash"></i></a>
+        <% if can_delete_post(post) %>
+            <%= link_to post, method: :delete, remote: true, data: {confirm: 'Are you sure?'} do %>
+                <i class="fa fa-trash"></i>
+            <% end %>
+        <% end %>
       </li>
     </ul>
     <div class="post-comments-wrapper">
       <ul class="comments-list clearfix">
         <% if post.post_comments.present? %>
             <% post.post_comments.each do |comment| %>
-                <li id="comment_<%= comment.id %>" style="display: list-item;">
+                <li id="comment-<%= comment.id %>" style="display: list-item;">
                   <div class="clearfix">
                     <div class="comments-owner col-sm-1">
                       <%= small_avatar_thumb(comment.person) %>
                     </div>
                     <div class="comment-text col-sm-11">
+                      <div class="post-title">
+                        <span class="name"><%= link_to comment.person.given_name_or_username, person_path(username: post.person.username) %></span>
+                        commented on the doc <span class="event">  Planet Dog Foundation  </span>
+                        <span class="times"> <%= time_ago_in_words(post.created_at) %> ago </i> </span>
+                      </div>
                       <p>
                         <%= comment.comment %>
                       </p>
@@ -58,10 +73,27 @@
                   </div>
                   <ul class="post-actions clearfix">
                     <li>
-                      <a href="#"> <i class="fa fa-thumbs-o-up"></i></a>
+                       <span id="like-counts-comment-<%= comment.id %>">
+           <% unless comment.likes.count == 0 %>
+           <%= comment.likes.count %>
+           <% end %>
+           </span>
+                      <% if comment.likes.where(person_id: @person.id).present? %>
+                          <%= link_to like_path(comment.likes.where(person_id: @person.id).first.id), id: "comment_#{comment.id}", :remote => true, method: 'delete' do %>
+                              <i class="fa fa-thumbs-o-up liked"></i>
+                          <% end %>
+                      <% else %>
+                          <%= link_to likes_path(likeable_id: comment.id, likeable_type: 'comment'), id: "comment_#{comment.id}", :remote => true, method: 'post' do %>
+                              <i class="fa fa-thumbs-o-up"></i>
+                          <% end %>
+                      <% end %>
                     </li>
                     <li>
-                      <a href="#"><i class="fa fa-trash"></i></a>
+                      <% if current_user?(@person) %>
+                          <%= link_to comment, method: :delete, remote: true, data: {confirm: 'Are you sure?'} do %>
+                              <i class="fa fa-trash"></i>
+                          <% end %>
+                      <% end %>
                     </li>
                   </ul>
                 </li>

@@ -10,4 +10,15 @@ class PostCommentsController < ApplicationController
     end
     redirect_to :back
   end
+
+  def destroy
+    comment = @current_user.post_comments.find_by_id(params[:id]);
+    if comment.present?
+      @id = "comment-#{comment.id}"
+      comment.destroy
+    end
+    respond_to do |format|
+      format.js { render :layout => false}
+    end
+  end
 end
