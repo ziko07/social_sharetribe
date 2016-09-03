@@ -33,8 +33,8 @@
            <%= post.likes.count %>
            <% end %>
            </span>
-        <% if post.likes.where(person_id: @person.id).present? %>
-            <%= link_to like_path(post.likes.where(person_id: @person.id).first.id), id: "post_#{post.id}", :remote => true, method: 'delete' do %>
+        <% if post.likes.where(person_id: person.id).present? %>
+            <%= link_to like_path(post.likes.where(person_id: person.id).first.id), id: "post_#{post.id}", :remote => true, method: 'delete' do %>
                 <i class="fa fa-thumbs-o-up liked"></i>
             <% end %>
         <% else %>
@@ -77,8 +77,8 @@
                            <%= comment.likes.count %>
                          <% end %>
                        </span>
-                          <% if comment.likes.where(person_id: @person.id).present? %>
-                              <%= link_to like_path(comment.likes.where(person_id: @person.id).first.id), id: "comment_#{comment.id}", :remote => true, method: 'delete' do %>
+                          <% if comment.likes.where(person_id: person.id).present? %>
+                              <%= link_to like_path(comment.likes.where(person_id: person.id).first.id), id: "comment_#{comment.id}", :remote => true, method: 'delete' do %>
                                   <i class="fa fa-thumbs-o-up liked"></i>
                               <% end %>
                           <% else %>
@@ -88,7 +88,7 @@
                           <% end %>
                         </li>
                         <li>
-                          <% if current_user?(@person) %>
+                          <% if current_user?(person) %>
                               <%= link_to comment, method: :delete, remote: true, data: {confirm: 'Are you sure?'} do %>
                                   <i class="fa fa-trash"></i>
                               <% end %>
