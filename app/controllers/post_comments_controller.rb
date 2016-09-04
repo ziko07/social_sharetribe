@@ -8,7 +8,9 @@ class PostCommentsController < ApplicationController
     else
       flash[:notice] = 'Something Worng Please try latter'
     end
-    redirect_to :back
+    respond_to do |format|
+      format.js { render :layout => false,locals: {comment: comment,post: post}}
+    end
   end
 
   def destroy

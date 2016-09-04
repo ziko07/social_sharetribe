@@ -1,4 +1,5 @@
-$("#<%= @likeable_type %>_<%= @likeable_id %>").prop("href","<%= likes_path(likeable_id: @likeable_id, likeable_type: @likeable_type) %>");
-$("#<%= @likeable_type %>_<%= @likeable_id %>").attr("data-method","post");
-$("#<%=  @likeable_type %>_<%= @likeable_id %>").find('.fa-thumbs-o-up').removeClass('liked');
-$("#like-counts-<%= @likeable_type %>-<%=  @likeable_id %>").html(<%= @count %>);
+<% if @likeable_type == 'post'  %>
+$(".like-post-<%= @likeable_id %>").html("<%= escape_javascript(like_unlike_link(@post, @current_user, 'post')) %>");
+<% else %>
+$(".like-comment-<%= @likeable_id %>").html("<%= escape_javascript(like_unlike_link(@comment, @current_user, 'comment')) %>");
+<% end %>

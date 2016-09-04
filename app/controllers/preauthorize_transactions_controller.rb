@@ -251,6 +251,8 @@ class PreauthorizeTransactionsController < ApplicationController
       return render_error_response(request.xhr?, error, {action: :book, start_on: TransactionViewUtils.stringify_booking_date(start_on), end_on: TransactionViewUtils.stringify_booking_date(end_on)})
     end
 
+    post =  Post.create(person_id: @current_user.id,listings_ids: @listing.id, description: "I Have Purchased this listing")
+
     transaction_id = transaction_response[:data][:transaction][:id]
 
     case payment_type

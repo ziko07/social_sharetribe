@@ -1,0 +1,3 @@
+$('.wall-post-item-<%= post.id %>').find(".comments-list").append("<%= escape_javascript( render 'people/comments_item',comment: comment,post: post).html_safe %>");
+$('.comments-wrapper').slideUp('fast');
+$('#comment').val('');

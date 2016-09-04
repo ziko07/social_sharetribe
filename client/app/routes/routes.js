@@ -968,6 +968,9 @@ Based on Rails routes of Kassi::Application
 // listing_listing_images => (/:locale)/listings/:listing_id/listing_images(.:format)
   // function(listing_id, options)
   listing_listing_images_path: Utils.route(["listing_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"listing_id",false],[2,[7,"/",false],[2,[6,"listing_images",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// listing_lists_listings => (/:locale)/listings/listing_lists(.:format)
+  // function(options)
+  listing_lists_listings_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[6,"listing_lists",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
 // listings => (/:locale)/listings(.:format)
   // function(options)
   listings_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[1,[2,[8,".",false],[3,"format",false]],false]]]], {}),

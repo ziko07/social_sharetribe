@@ -328,6 +328,7 @@ Kassi::Application.routes.draw do
         get :browse
         get :locations_json
         get :verification_required
+        get :listing_lists
       end
       resources :comments, :only => [:create, :destroy]
       resources :listing_images do

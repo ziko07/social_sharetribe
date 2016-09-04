@@ -94,8 +94,9 @@ class PeopleController < Devise::RegistrationsController
   end
 
   def find_mention
+    people = Person.where("lower(given_name) like '%#{params[:search].downcase}%' OR lower(family_name) like '%#{params[:search].downcase}%'")
     respond_to do |format|
-      format.json { render json: Person.all.collect { |people| {id: people.id, name: people.given_name_or_username, type: 'people'} } }
+      format.json { render json: people.collect { |people| {id: people.username, name: people.full_name, type: 'people', avatar: people.image.present? ? people.image.url(:thumb) : 'profile_image/thumb/missing.png'} } }
     end
   end
 

@@ -910,13 +910,14 @@ ActiveRecord::Schema.define(version: 20160904080323) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.string   "person_id",   limit: 255
-    t.string   "post_to_id",  limit: 255
-    t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "purpose",     limit: 255
-    t.integer  "update_time", limit: 4
+    t.string   "person_id",    limit: 255
+    t.string   "post_to_id",   limit: 255
+    t.text     "description",  limit: 65535
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "purpose",      limit: 255
+    t.integer  "update_time",  limit: 4
+    t.string   "listings_ids", limit: 255
   end
 
   create_table "prospect_emails", force: :cascade do |t|
