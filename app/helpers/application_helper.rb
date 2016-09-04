@@ -745,7 +745,12 @@ module ApplicationHelper
           attachment_item << link_to(raw("<i class='fa fa-download fa-1x'></i>"), attachment.attachment_url, class: 'download-attachment', title: 'Download video')
         else
           ext = attachment.attachment_url.split('/').last
-          attachment_item = link_to(ext, attachment.attachment_url, class: 'post-attachment-link')
+          if ext.include? '.mp4'
+            attachment_item << video_tag(attachment.attachment_url, :controls => true)
+            attachment_item << link_to(raw("<i class='fa fa-download fa-1x'></i>"), attachment.attachment_url, class: 'download-attachment', title: 'Download video')
+          else
+            attachment_item << link_to(ext, attachment.attachment_url, class: 'post-attachment-link')
+          end
       end
       attachment_wrapper << attachment_item.to_s << '</div>'
     end
