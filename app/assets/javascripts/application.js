@@ -90,4 +90,5 @@
 //= require social/jquery.mentionsInput
 //= require social/jquery.elastic
 //= require social/dropzone.min
+//= require jquery.tokeninput
 //= require_self

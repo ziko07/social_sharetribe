@@ -603,6 +603,24 @@ module ApplicationHelper
     end
   end
 
+  def like_unlike_link(object,person,type)
+    count = ''
+  unless object.likes.count == 0
+    count =  object.likes.count
+   end
+   html = "<span id='like-counts-comment-#{object.id}'> #{count}</span>&nbsp;&nbsp;"
+    if object.likes.where(person_id: person.id).present?
+     link_html =  link_to(like_path(object.likes.where(person_id: person.id).first.id), id: "#{type}#{object.id}", :remote => true, method: 'delete') do
+       content_tag(:i, "", class: "fa fa-thumbs-o-up liked")
+     end
+    else
+      link_html =  link_to(likes_path(likeable_id: object.id, likeable_type: type), id: "#{type}_#{object.id}", :remote => true, method: 'post') do
+        content_tag(:i, "", class: "fa fa-thumbs-o-up")
+      end
+    end
+    return raw html << link_html
+  end
+
   def community_description(truncate=true)
     if @community_customization && !@community_customization.description.blank?
       truncate ? truncate_html(@community_customization.description, length: 140, omission: "...") : @community_customization.description

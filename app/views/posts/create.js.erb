@@ -3,6 +3,7 @@ if (<%= status %>) {
     $('.wall-post-item-<%= post.id %>').effect("highlight", {}, 3000);
     $('#description, .attachment-description').val('');
     $('.close.lightbox-x').trigger('click');
+    $('#tokenfield').tokenInput('clear');
 }
 else {
     alert("<%= message %>");

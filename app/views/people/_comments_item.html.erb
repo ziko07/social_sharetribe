@@ -1,0 +1,30 @@
+<li id="comment-<%= comment.id %>" style="display: list-item;">
+  <div class="clearfix">
+    <div class="comments-owner col-sm-1">
+      <%= small_avatar_thumb(comment.person) %>
+    </div>
+    <div class="comment-text col-sm-11">
+      <div class="post-title">
+                        <span class="name">
+                          <%= link_to comment.person.given_name_or_username, person_path(username: comment.person.username) %>
+                        </span>
+        <span class="times"> <%= time_ago_in_words(post.created_at) %> ago </i> </span>
+      </div>
+      <p>
+        <%= comment.comment %>
+      </p>
+      <ul class="post-actions clearfix">
+        <li class="like-comment-<%= comment.id %>">
+          <%= like_unlike_link(comment, @current_user, 'comment') %>
+        </li>
+        <li>
+          <% if current_user?(comment.person) %>
+              <%= link_to comment, method: :delete, remote: true, data: {confirm: 'Are you sure?'} do %>
+                  <i class="fa fa-trash"></i>
+              <% end %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</li>

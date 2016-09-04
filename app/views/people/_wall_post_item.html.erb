@@ -7,7 +7,6 @@
   <div class="wall-post-content-wrapper">
     <div class="post-title">
       <span class="name"><%= link_to post.person.given_name_or_username, person_path(username: post.person.username) %></span>
-      commented on the doc <span class="event">  Planet Dog Foundation  </span>
       <span class="times"> <%= time_ago_in_words(post.created_at) %> ago </i> </span>
     </div>
     <div class="post-content">
@@ -26,22 +25,8 @@
       <li>
         <a href="javascript:void(0);" class="reply-comments"><i class="fa fa-reply"></i></a>
       </li>
-      <li>
-
-         <span id="like-counts-post-<%= post.id %>">
-           <% unless post.likes.count == 0 %>
-           <%= post.likes.count %>
-           <% end %>
-           </span>
-        <% if post.likes.where(person_id: person.id).present? %>
-            <%= link_to like_path(post.likes.where(person_id: person.id).first.id), id: "post_#{post.id}", :remote => true, method: 'delete' do %>
-                <i class="fa fa-thumbs-o-up liked"></i>
-            <% end %>
-        <% else %>
-            <%= link_to likes_path(likeable_id: post.id, likeable_type: 'post'), id: "post_#{post.id}", :remote => true, method: 'post' do %>
-                <i class="fa fa-thumbs-o-up"></i>
-            <% end %>
-        <% end %>
+      <li class="like-post-<%= post.id %>">
+        <%= like_unlike_link(post, @current_user, 'post') %>
       </li>
       <li>
         <% if can_delete_post(post) %>
@@ -55,55 +40,12 @@
       <ul class="comments-list clearfix">
         <% if post.post_comments.present? %>
             <% post.post_comments.each do |comment| %>
-                <li id="comment-<%= comment.id %>" style="display: list-item;">
-                  <div class="clearfix">
-                    <div class="comments-owner col-sm-1">
-                      <%= small_avatar_thumb(comment.person) %>
-                    </div>
-                    <div class="comment-text col-sm-11">
-                      <div class="post-title">
-                        <span class="name">
-                          <%= link_to comment.person.given_name_or_username, person_path(username: post.person.username) %>
-                        </span>
-                        <span class="times"> <%= time_ago_in_words(post.created_at) %> ago </i> </span>
-                      </div>
-                      <p>
-                        <%= comment.comment %>
-                      </p>
-                      <ul class="post-actions clearfix">
-                        <li>
-                       <span id="like-counts-comment-<%= comment.id %>">
-                         <% unless comment.likes.count == 0 %>
-                           <%= comment.likes.count %>
-                         <% end %>
-                       </span>
-                          <% if comment.likes.where(person_id: person.id).present? %>
-                              <%= link_to like_path(comment.likes.where(person_id: person.id).first.id), id: "comment_#{comment.id}", :remote => true, method: 'delete' do %>
-                                  <i class="fa fa-thumbs-o-up liked"></i>
-                              <% end %>
-                          <% else %>
-                              <%= link_to likes_path(likeable_id: comment.id, likeable_type: 'comment'), id: "comment_#{comment.id}", :remote => true, method: 'post' do %>
-                                  <i class="fa fa-thumbs-o-up"></i>
-                              <% end %>
-                          <% end %>
-                        </li>
-                        <li>
-                          <% if current_user?(person) %>
-                              <%= link_to comment, method: :delete, remote: true, data: {confirm: 'Are you sure?'} do %>
-                                  <i class="fa fa-trash"></i>
-                              <% end %>
-                          <% end %>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </li>
+                <%= render 'people/comments_item', comment: comment, post: post %>
             <% end %>
         <% end %>
       </ul>
       <div class="comments-wrapper clearfix">
-        <ul class="comments-list clearfix">
-          <%= form_tag ('/post_comments') do %>
+          <%= form_tag ('/post_comments') , :remote => true do %>
               <%= hidden_field_tag 'post_id', '', value: post.id %>
               <%= text_area_tag :comment %>
               <%= submit_tag 'comment', class: 'btn btn-default' %>
@@ -111,7 +53,6 @@
                   Cancel
               <% end %>
           <% end %>
-        </ul>
       </div>
     </div>
   </div>

@@ -2,7 +2,7 @@ class PostsController < ApplicationController
 
   def create
     status = true
-    @post = Post.new(person_id: @current_user.id, post_to_id: params[:post_to_id], description: params[:description])
+    @post = Post.new(person_id: @current_user.id, post_to_id: params[:post_to_id],listings_ids: params[:listings_ids], description: params[:description])
     @post.update_time = Time.now.to_i
     if @post.save
       if params[:attachment_list].present?
