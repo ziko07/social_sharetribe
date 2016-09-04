@@ -390,6 +390,9 @@ Kassi::Application.routes.draw do
           get :wall
           get :friend
         end
+        collection do
+          get 'find_mention'
+        end
       end
 
       resource :stripe_account, only: [] do

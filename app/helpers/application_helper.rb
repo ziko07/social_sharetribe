@@ -614,18 +614,18 @@ module ApplicationHelper
     end
   end
 
-  def like_unlike_link(object,person,type)
+  def like_unlike_link(object, person, type)
     count = ''
-  unless object.likes.count == 0
-    count =  object.likes.count
-   end
-   html = "<span id='like-counts-comment-#{object.id}'> #{count}</span>&nbsp;&nbsp;"
+    unless object.likes.count == 0
+      count = object.likes.count
+    end
+    html = "<span id='like-counts-comment-#{object.id}'> #{count}</span>&nbsp;&nbsp;"
     if object.likes.where(person_id: person.id).present?
-     link_html =  link_to(like_path(object.likes.where(person_id: person.id).first.id), id: "#{type}#{object.id}", :remote => true, method: 'delete') do
-       content_tag(:i, "", class: "fa fa-thumbs-o-up liked")
-     end
+      link_html = link_to(like_path(object.likes.where(person_id: person.id).first.id), id: "#{type}#{object.id}", :remote => true, method: 'delete') do
+        content_tag(:i, "", class: "fa fa-thumbs-o-up liked")
+      end
     else
-      link_html =  link_to(likes_path(likeable_id: object.id, likeable_type: type), id: "#{type}_#{object.id}", :remote => true, method: 'post') do
+      link_html = link_to(likes_path(likeable_id: object.id, likeable_type: type), id: "#{type}_#{object.id}", :remote => true, method: 'post') do
         content_tag(:i, "", class: "fa fa-thumbs-o-up")
       end
     end
@@ -732,26 +732,36 @@ module ApplicationHelper
 
   def render_post_attachment(attachments)
     attachment_wrapper = "<div class='post-attachment-wrapper'>"
-    if attachments.present?
-      attachments.each do |attachment|
-        attachment_item = "<div class='attachment-container'>"
-        case attachment.attachment_type
-          when 'image'
-            attachment_item << image_tag(attachment.attachment_url)
-          when 'audio'
-            attachment_item << audio_tag(attachment.attachment_url, controls: true)
-            attachment_item << link_to(raw("<i class='fa fa-cloud-download fa-1x'></i>"), attachment.attachment_url, class: 'download-attachment', title: 'Download video')
-          when 'video'
-            attachment_item << video_tag(attachment.attachment_url, :controls => true)
-            attachment_item << link_to(raw("<i class='fa fa-download fa-1x'></i>"), attachment.attachment_url, class: 'download-attachment', title: 'Download video')
-          else
-            ext = attachment.attachment_url.split('/').last
-            attachment_item = link_to(ext, attachment.attachment_url, class: 'post-attachment-link')
-        end
-        attachment_wrapper << attachment_item.to_s << '</div>'
+    attachments.each do |attachment|
+      attachment_item = "<div class='attachment-container'>"
+      case attachment.attachment_type
+        when 'image'
+          attachment_item << image_tag(attachment.attachment_url)
+        when 'audio'
+          attachment_item << audio_tag(attachment.attachment_url, controls: true)
+          attachment_item << link_to(raw("<i class='fa fa-cloud-download fa-1x'></i>"), attachment.attachment_url, class: 'download-attachment', title: 'Download video')
+        when 'video'
+          attachment_item << video_tag(attachment.attachment_url, :controls => true)
+          attachment_item << link_to(raw("<i class='fa fa-download fa-1x'></i>"), attachment.attachment_url, class: 'download-attachment', title: 'Download video')
+        else
+          ext = attachment.attachment_url.split('/').last
+          attachment_item = link_to(ext, attachment.attachment_url, class: 'post-attachment-link')
       end
+      attachment_wrapper << attachment_item.to_s << '</div>'
     end
     raw attachment_wrapper
+  end
+
+  def render_post_content(content)
+    #content
+    regx = /\[([^\]]+)\]\(([^)]+)\)/
+    mentions = content.scan(regx)
+    mentions.each do |mention|
+      full_name = mention.first
+      username = mention.last.present? ? mention.last.split(':').last : ''
+      content = content.gsub "[#{full_name}](#{mention.last})", "<a href='/#{username}'>#{full_name}</a>"
+    end
+    raw content
   end
 
 end

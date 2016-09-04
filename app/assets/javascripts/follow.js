@@ -15,11 +15,13 @@ window.ST.onFollowButtonAjaxComplete = function (event, xhr) {
 };
 
 $('#description').focus(function () {
-    $('.attachment-submit').slideDown('fast');
-    $(this).animate({
-        height: "65"
-    }, 500, function () {
-    });
+    if (!$('.attachment-submit').is(':visible')) {
+        $('.attachment-submit').slideDown('fast');
+        $(this).animate({
+            height: "65"
+        }, 500, function () {
+        });
+    }
 });
 
 $(document).on('click', '.reply-comments', function () {

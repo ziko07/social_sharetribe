@@ -15,7 +15,18 @@
 
 class Post < ActiveRecord::Base
   belongs_to :person
-  has_many :post_attachments,:as => :attachmentable,:dependent => :destroy
-  has_many :post_comments,:as => :commentable,:dependent => :destroy
-  has_many :likes,:as => :likeable,:dependent => :destroy
+  has_many :post_attachments, :as => :attachmentable, :dependent => :destroy
+  has_many :post_comments, :as => :commentable, :dependent => :destroy
+  has_many :likes, :as => :likeable, :dependent => :destroy
+
+  def mention_people(mention_params)
+    mention_person = mention_params.present? ? JSON.parse(mention_params) : []
+    mention_person.each do |mention|
+      people = Person.find_by_username(mention['id'])
+      if people.present?
+        puts "Mention user and create notification: #{people.inspect}"
+      end
+    end
+  end
+
 end

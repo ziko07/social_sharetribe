@@ -3,11 +3,13 @@
       <div class="spacing-btwn-divs wall-post-wrapper">
         <h4>Whats new <%= link_to @person.given_name_or_username, person_path(username: @person.username) %>?</h4>
 
-        <%= form_tag '/posts', multipart: true,class: 'post-form',  remote: true do %>
-            <%= text_area_tag :description, '', placeholder: "What's on your mind?" %>
+        <%= form_tag '/posts', multipart: true, class: 'post-form', remote: true do %>
+            <%= text_area_tag :write_description, '', placeholder: "What's on your mind?", class: 'mention', id: 'description' %>
+            <%= hidden_field_tag :description, '', id: 'post-description-field' %>
             <%= hidden_field_tag 'post_to_id', '', value: current_user?(@person) ? '' : @person.id %>
             <div class="attachment-submit clearfix">
               <%= text_field_tag :listings_ids, '', id: 'tokenfield', placeholder: 'Reference your listing...' %>
+              <%= hidden_field_tag :user_mention, '', id: 'user-mention' %>
               <a href="javascript:void(0);" class="btn btn-info" id="attachment-update-post">
                 <i class="fa fa-camera"></i>
               </a>
@@ -139,19 +141,45 @@
 
 <%= content_for :extra_javascript do %>
     <script type="text/javascript">
+        var mentionArea = $('textarea.mention');
+        var postArea = $('#description');
         $('#attachment-update-post').click(function () {
             $('#new-attachment-modal-form').lightbox_me({centered: true, zIndex: 1000000});
         });
-        $('.post-form').submit(function(){
-            if ($('#description').val() == '') {
-                $('#description').focus();
+
+        $('.post-form').submit(function () {
+            if (postArea.val() == '') {
+                postArea.focus();
                 return false;
             }
-        })
+            else {
+                mentionArea.mentionsInput('val', function (text) {
+                    $('#post-description-field').val(text);
+                });
+
+                mentionArea.mentionsInput('getMentions', function (data) {
+                    $('#user-mention').val(JSON.stringify(data));
+                });
+            }
+        });
+
         $('#tokenfield').tokenInput('/listings/listing_lists.json', {
             theme: "facebook",
             placeholder: 'Refer Your listings',
-            preventDuplicates: true,
+            preventDuplicates: true
+        });
+
+        $(function () {
+            mentionArea.mentionsInput({
+                onDataRequest: function (mode, query, callback) {
+                    $.getJSON('/find_mention.json', {search: query}, function (responseData) {
+                        responseData = _.filter(responseData, function (item) {
+                            return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1
+                        });
+                        callback.call(this, responseData);
+                    });
+                }
+            });
         });
     </script>
 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160904063119) do
+ActiveRecord::Schema.define(version: 20160904080323) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string   "token",            limit: 255
@@ -378,6 +378,7 @@ ActiveRecord::Schema.define(version: 20160904063119) do
 
   add_index "emails", ["address", "community_id"], name: "index_emails_on_address_and_community_id", unique: true, using: :btree
   add_index "emails", ["address"], name: "index_emails_on_address", using: :btree
+  add_index "emails", ["community_id"], name: "index_emails_on_community_id", using: :btree
   add_index "emails", ["person_id"], name: "index_emails_on_person_id", using: :btree
 
   create_table "feature_flags", force: :cascade do |t|
@@ -896,6 +897,7 @@ ActiveRecord::Schema.define(version: 20160904063119) do
     t.string   "attachment",          limit: 255
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.string   "attachment_type",     limit: 255
   end
 
   create_table "post_comments", force: :cascade do |t|
@@ -951,17 +953,18 @@ ActiveRecord::Schema.define(version: 20160904063119) do
   end
 
   create_table "stripe_accounts", force: :cascade do |t|
-    t.string   "person_id",    limit: 255
-    t.integer  "community_id", limit: 4
-    t.string   "account_id",   limit: 255
-    t.text     "token",        limit: 65535
-    t.text     "public_key",   limit: 65535
-    t.text     "secret_key",   limit: 65535
-    t.string   "state",        limit: 255
-    t.string   "country",      limit: 255
-    t.boolean  "active",                     default: false
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.string   "person_id",            limit: 255
+    t.integer  "community_id",         limit: 4
+    t.string   "account_id",           limit: 255
+    t.text     "token",                limit: 65535
+    t.text     "public_key",           limit: 65535
+    t.text     "secret_key",           limit: 65535
+    t.string   "state",                limit: 255
+    t.string   "country",              limit: 255
+    t.boolean  "active",                             default: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.text     "verification_details", limit: 65535
   end
 
   create_table "stripe_payments", force: :cascade do |t|

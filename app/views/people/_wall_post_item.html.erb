@@ -11,17 +11,17 @@
     </div>
     <div class="post-content">
       <p>
-        <%= post.description %>
+        <%= render_post_content(post.description) %>
       </p>
       <% if post.listings_ids.present? %>
           <div class='post-attachment-wrapper'>
-      <% post.listings_ids.split(',').each do |list| %>
-          <% listing =  get_posted_listing(list) %>
-              <div class='attachment-container'>
-                <%= image_tag listing.listing_images.first.image.url(:medium) %>
-              </div>
-      <% end %>
-      </div>
+            <% post.listings_ids.split(',').each do |list| %>
+                <% listing = get_posted_listing(list) %>
+                <div class='attachment-container'>
+                  <%= image_tag listing.listing_images.first.image.url(:medium) %>
+                </div>
+            <% end %>
+          </div>
       <% end %>
       <% if post.post_attachments.present? %>
           <%= render_post_attachment(post.post_attachments) %>
@@ -52,14 +52,14 @@
         <% end %>
       </ul>
       <div class="comments-wrapper clearfix">
-          <%= form_tag ('/post_comments') , :remote => true do %>
-              <%= hidden_field_tag 'post_id', '', value: post.id %>
-              <%= text_area_tag :comment %>
-              <%= submit_tag 'comment', class: 'btn btn-default' %>
-              <%= link_to 'javascript:void(0);', class: 'cancel-comments btn btn-default' do %>
-                  Cancel
-              <% end %>
-          <% end %>
+        <%= form_tag ('/post_comments'), :remote => true do %>
+            <%= hidden_field_tag 'post_id', '', value: post.id %>
+            <%= text_area_tag :comment %>
+            <%= submit_tag 'comment', class: 'btn btn-default' %>
+            <%= link_to 'javascript:void(0);', class: 'cancel-comments btn btn-default' do %>
+                Cancel
+            <% end %>
+        <% end %>
       </div>
     </div>
   </div>
