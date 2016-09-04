@@ -8,7 +8,7 @@
                         <span class="name">
                           <%= link_to comment.person.given_name_or_username, person_path(username: comment.person.username) %>
                         </span>
-        <span class="times"> <%= time_ago_in_words(post.created_at) %> ago </i> </span>
+        <span class="times"> <%= time_ago_in_words(comment.created_at) %> ago </i> </span>
       </div>
       <p>
         <%= comment.comment %>

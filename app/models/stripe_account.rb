@@ -2,18 +2,19 @@
 #
 # Table name: stripe_accounts
 #
-#  id           :integer          not null, primary key
-#  person_id    :string(255)
-#  community_id :integer
-#  account_id   :string(255)
-#  token        :text(65535)
-#  public_key   :text(65535)
-#  secret_key   :text(65535)
-#  state        :string(255)
-#  country      :string(255)
-#  active       :boolean          default(FALSE)
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id                   :integer          not null, primary key
+#  person_id            :string(255)
+#  community_id         :integer
+#  account_id           :string(255)
+#  token                :text(65535)
+#  public_key           :text(65535)
+#  secret_key           :text(65535)
+#  state                :string(255)
+#  country              :string(255)
+#  active               :boolean          default(FALSE)
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  verification_details :text(65535)
 #
 
 class StripeAccount < ActiveRecord::Base

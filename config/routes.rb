@@ -392,6 +392,12 @@ Kassi::Application.routes.draw do
         end
       end
 
+      resource :stripe_account, only: [] do
+        collection do
+          post :webhooks
+        end
+      end
+
       resources :people, except: [:show] do
         collection do
           get :check_username_availability
