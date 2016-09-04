@@ -14,13 +14,7 @@
       <p>
         <%= post.description %>
       </p>
-      <% if post.post_attachments.present? %>
-          <div class="post-photos-wrapper">
-            <% post.post_attachments.each do |attachment| %>
-                <%= image_tag(attachment.attachment_url) %>
-            <% end %>
-          </div>
-      <% end %>
+      <%= render_post_attachment(post.post_attachments) %>
     </div>
     <ul class="post-actions clearfix">
       <li>

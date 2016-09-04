@@ -29,7 +29,9 @@ class PostsController < ApplicationController
   end
 
   def upload_attachment
-    attachment = PostAttachment.create(attachment: params[:file])
+    mime = MIME::Types.type_for(params[:file].path).first.content_type
+    attachment_type = mime.present? ? mime.split('/').first : ''
+    attachment = PostAttachment.create(attachment: params[:file], attachment_type: attachment_type)
     respond_to do |format|
       format.json {
         render json: {status: true, attachment_id: attachment.id}

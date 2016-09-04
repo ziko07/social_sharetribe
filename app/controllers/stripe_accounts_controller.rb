@@ -1,9 +1,10 @@
 class StripeAccountsController < ApplicationController
-  before_filter do |controller|
+  before_filter except: [:webhooks] do |controller|
     controller.ensure_logged_in t("layouts.notifications.you_must_log_in_to_view_your_settings")
   end
 
-  before_filter :ensure_stripe_enabled
+  before_filter :ensure_stripe_enabled, except: [:webhooks]
+  skip_before_action :verify_authenticity_token, only: [:webhooks]
 
   def index
     @m_account = accounts_api(@current_user.id)
@@ -136,6 +137,11 @@ class StripeAccountsController < ApplicationController
 
     flash[:error] = t("paypal_accounts.new.billing_agreement_canceled")
     redirect_to paypal_account_settings_payment_path(@current_user.username)
+  end
+
+  def webhooks
+    StripeService::StripeApi.account_verification_status(params)
+    render nothing: true
   end
 
 

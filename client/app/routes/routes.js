@@ -1442,6 +1442,9 @@ Based on Rails routes of Kassi::Application
 // webhooks_plans => /webhooks/plans(.:format)
   // function(options)
   webhooks_plans_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"webhooks",false],[2,[7,"/",false],[2,[6,"plans",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
+// webhooks_stripe_account => (/:locale)/stripe_account/webhooks(.:format)
+  // function(options)
+  webhooks_stripe_account_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"stripe_account",false],[2,[7,"/",false],[2,[6,"webhooks",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
 // webhooks_trials => /webhooks/trials(.:format)
   // function(options)
   webhooks_trials_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"webhooks",false],[2,[7,"/",false],[2,[6,"trials",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {})}

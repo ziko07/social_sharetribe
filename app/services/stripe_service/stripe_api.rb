@@ -44,7 +44,7 @@ module StripeService
                   external_account: {
                       object: 'bank_account',
                       country: account_params[:country],
-                      currency: 'AUD', #community.default_currency,
+                      currency: StripeAccount::CURRENCY_MAP[account_params[:country].upcase],
                       routing_number: account_params[:routing_number],
                       account_number: account_params[:account_number]
                   },
@@ -89,6 +89,24 @@ module StripeService
           end
         rescue Exception => ex
           return {status: false, message: ex.message}
+        end
+      end
+
+      def account_verification_status(account_params)
+        obj_data = account_params['data']['object']
+        if obj_data.present?
+          legal_entity = obj_data['legal_entity']['verification']
+          user_account = StripeAccount.find_by_account_id(account_params['user_id'])
+          if legal_entity.present? && user_account.present?
+            user_account.state = legal_entity['status']
+            user_account.verification_details = legal_entity['details']
+            if user_account.state == 'verified'
+              user_account.active = true
+            else
+              user_account.active = false
+            end
+            user_account.save
+          end
         end
       end
 
