@@ -93,6 +93,12 @@ class PeopleController < Devise::RegistrationsController
     @person = Person.find_by_username(params[:username])
   end
 
+  def find_mention
+    respond_to do |format|
+      format.json { render json: Person.all.collect { |people| {id: people.id, name: people.given_name_or_username, type: 'people'} } }
+    end
+  end
+
   def friend
     @person = Person.find_by_username(params[:username])
     @friends = @person.friends

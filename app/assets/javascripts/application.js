@@ -87,7 +87,8 @@
 //= require transaction
 //= require listing_form
 //= require radio_buttons
-//= require social/jquery.mentionsInput
+//= require social/bootstrap-typeahead
 //= require social/jquery.elastic
+//= require social/jquery.mention
 //= require social/dropzone.min
 //= require_self

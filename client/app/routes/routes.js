@@ -848,6 +848,9 @@ Based on Rails routes of Kassi::Application
 // error_not_found => /404(.:format)
   // function(options)
   error_not_found_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"404",false],[1,[2,[8,".",false],[3,"format",false]],false]]], {}),
+// find_mention_people => (/:locale)/find_mention(.:format)
+  // function(options)
+  find_mention_people_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"find_mention",false],[1,[2,[8,".",false],[3,"format",false]],false]]]], {}),
 // follow_listing => (/:locale)/listings/:id/follow(.:format)
   // function(id, options)
   follow_listing_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"follow",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),

@@ -4,7 +4,7 @@
         <h4>Whats new <%= link_to @person.given_name_or_username, person_path(username: @person.username) %>?</h4>
 
         <%= form_tag '/posts', multipart: true, remote: true do %>
-            <%= text_area_tag :description, '', placeholder: "What's on your mind?" %>
+            <%= text_area_tag :description, '', placeholder: "What's on your mind?", class: 'mention' %>
             <%= hidden_field_tag 'post_to_id', '', value: current_user?(@person) ? '' : @person.id %>
             <div class="attachment-submit clearfix">
               <a href="javascript:void(0);" class="btn btn-info" id="attachment-update-post">
@@ -140,6 +140,22 @@
     <script type="text/javascript">
         $('#attachment-update-post').click(function () {
             $('#new-attachment-modal-form').lightbox_me({centered: true, zIndex: 1000000});
+        });
+        $(function () {
+            function replaceAtMentionsWithLinks(text) {
+                return text.replace(/@([a-z\d_]+)/ig, '<a href="http://twitter.com/$1">@$1</a>');
+            }
+
+            $('textarea.mention').mentionsInput({
+                onDataRequest: function (mode, query, callback) {
+                    $.getJSON('/find_mention.json', function (responseData) {
+                        responseData = _.filter(responseData, function (item) {
+                            return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1
+                        });
+                        callback.call(this, responseData);
+                    });
+                }
+            });
         });
     </script>
 <% end %>
