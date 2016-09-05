@@ -14,15 +14,7 @@
         <%= render_post_content(post.description) %>
       </p>
       <% if post.listings_ids.present? %>
-          <div class='post-attachment-wrapper'>
-            <% post.listings_ids.split(',').each do |list| %>
-                <% listing = get_posted_listing(list) %>
-                <div class='attachment-container'>
-                  <%= image_tag listing.listing_images.first.image.url(:medium) %>
-                  <p class="listing-link"><%= link_to listing.title, listing_path(listing) %></p>
-                </div>
-            <% end %>
-          </div>
+          <%= render_listing_item(post.listings_ids) %>
       <% end %>
       <% if post.post_attachments.present? %>
           <%= render_post_attachment(post.post_attachments) %>

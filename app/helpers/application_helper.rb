@@ -296,6 +296,10 @@ module ApplicationHelper
     return url
   end
 
+  def image_missing
+    image_tag 'image_not_found.jpg'
+  end
+
   # About view left hand navigation content
   def about_links
     links = [
@@ -767,6 +771,26 @@ module ApplicationHelper
       content = content.gsub "[#{full_name}](#{mention.last})", "<a href='/#{username}'>#{full_name}</a>"
     end
     raw content
+  end
+
+  def render_listing_item(ids)
+    listing_item = ''
+    listing_wrapper = "<div class='post-attachment-wrapper'>"
+    listings = Listing.where(id: ids.split(','))
+    listings.each do |listing|
+      if listing.listing_images.present?
+        listing_item << "<div class='attachment-container'>"
+        listing_item << "#{image_tag listing.listing_images.first.image.url(:medium)}"
+        listing_item << "<p class='listing-link'> #{link_to listing.title, listing_path(listing)}</p>"
+        listing_item << '</div>'
+      else
+        listing_item << "<div class='attachment-container'>"
+        listing_item << "#{image_missing}"
+        listing_item << "<p class='listing-link'> #{link_to listing.title, listing_path(listing)}</p>"
+        listing_item << '</div>'
+      end
+    end
+    raw listing_wrapper << listing_item << "<div>"
   end
 
 end
