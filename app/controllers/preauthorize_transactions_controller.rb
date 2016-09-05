@@ -252,7 +252,11 @@ class PreauthorizeTransactionsController < ApplicationController
     end
 
     post =  Post.create(person_id: @current_user.id,listings_ids: @listing.id, description: "I Have Purchased this listing")
-
+    if  @current_user.friends.present?
+      @current_user.friends.each do |friend|
+        UserNotification.send_notification(@current_user, friend,post,UserNotification::NOTIFICATION_TYPE[:purchase_listing])
+      end
+    end
     transaction_id = transaction_response[:data][:transaction][:id]
 
     case payment_type

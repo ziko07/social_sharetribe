@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160904080323) do
+ActiveRecord::Schema.define(version: 20160905055625) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string   "token",            limit: 255
@@ -378,7 +378,6 @@ ActiveRecord::Schema.define(version: 20160904080323) do
 
   add_index "emails", ["address", "community_id"], name: "index_emails_on_address_and_community_id", unique: true, using: :btree
   add_index "emails", ["address"], name: "index_emails_on_address", using: :btree
-  add_index "emails", ["community_id"], name: "index_emails_on_community_id", using: :btree
   add_index "emails", ["person_id"], name: "index_emails_on_person_id", using: :btree
 
   create_table "feature_flags", force: :cascade do |t|
@@ -1054,5 +1053,16 @@ ActiveRecord::Schema.define(version: 20160904080323) do
   add_index "transactions", ["deleted"], name: "index_transactions_on_deleted", using: :btree
   add_index "transactions", ["last_transition_at"], name: "index_transactions_on_last_transition_at", using: :btree
   add_index "transactions", ["listing_id"], name: "index_transactions_on_listing_id", using: :btree
+
+  create_table "user_notifications", force: :cascade do |t|
+    t.string   "sender",     limit: 255
+    t.string   "person_id",  limit: 255
+    t.text     "content",    limit: 65535
+    t.boolean  "is_read",                  default: false
+    t.string   "link",       limit: 255
+    t.string   "event",      limit: 255
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
 
 end

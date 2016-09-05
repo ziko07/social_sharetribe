@@ -8,3 +8,36 @@
       <% end %>
   <% end %>
 </div>
+
+
+<div class="header-right visible-tablet">
+  <div class=" toggle header-text-link header-hover header-inbox-link" data-toggle-anchor-position="left" data-toggle-position="absolute" data-toggle="#notification-list" id="header-user-desktop-anchor"><div id="header-user-mobile-anchor">
+      <div class="<%= get_badge_class(UserNotification.all.where(is_read: false).count) %> badge">
+        <%= UserNotification.all.where(is_read: false).count %>
+      </div>
+    <span class="">
+      <i class="fa fa-bell "></i>
+    </span>
+    </div>
+  </div>
+  <div class="toggle-menu header-toggle-menu-user hidden" id="notification-list" style="left: 712.844px; width: 450px; top: 143.375px;">
+    <ul style="list-style-type:none; color:white; word-break: break-all">
+     <% UserNotification.all.each do |notification| %>
+        <%= link_to notification.link do  %>
+              <li>
+            <%= notification.content %>
+            <div class="sender-picture">
+              <%= small_avatar_thumb(notification.notification_sender) %>
+              <span><%= link_to notification.notification_sender.given_name, person_path(notification.notification_sender.username) %></span>
+            </div>
+              </li>
+        <% end %>
+     <% end %>
+    </ul>
+  </div>
+</div>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+      integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
