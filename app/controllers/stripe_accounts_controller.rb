@@ -21,7 +21,8 @@ class StripeAccountsController < ApplicationController
 
     community_currency = @current_community.default_currency
     payment_settings = payment_settings_api.get_active(community_id: @current_community.id).maybe.get
-    verification_form = @m_account.new_record? ? [] : StripeHelper.generate_verification_form(@current_user)
+    stripe_account = StripeHelper.get_account(@current_user)
+    verification_form = stripe_account.present? ? StripeHelper.generate_verification_form(@current_user) : []
     render(locals: {
                next_action: next_action(@m_account.state),
                community_ready_for_payments: community_ready_for_payments,
@@ -33,7 +34,8 @@ class StripeAccountsController < ApplicationController
                commission_type: payment_settings[:commission_type],
                currency: community_currency,
                my_account: @m_account,
-               verification_form: verification_form
+               verification_form: verification_form,
+               stripe_account: stripe_account
            })
   end
 
@@ -42,7 +44,8 @@ class StripeAccountsController < ApplicationController
     @selected_left_navi_link = 'payments'
     community_currency = @current_community.default_currency
     payment_settings = payment_settings_api.get_active(community_id: @current_community.id).maybe.get
-    verification_form = @m_account.new_record? ? [] : StripeHelper.generate_verification_form(@current_user)
+    stripe_account = StripeHelper.get_account(@current_user)
+    verification_form = stripe_account.present? ? StripeHelper.generate_verification_form(@current_user) : []
     res = StripeService::StripeApi.create_merchant_account(stripe_params, @current_community, request.remote_ip)
     if res[:error]
       flash[:error] = res[:error]
