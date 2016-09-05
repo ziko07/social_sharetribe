@@ -41,13 +41,11 @@ module StripeHelper
     account_prepared?(community_id: community_id)
   end
 
-  def generate_verification_form(current_user, my_account = nil)
+  def generate_verification_form(account, my_account = nil)
     verification = {fields: [], error: nil, status: 'unverified'}
     begin
-      account = StripeHelper.get_account(current_user)
-      verification[:status] = account.legal_entity['verification']['status']
-      puts account.legal_entity.inspect
       if account.present?
+        verification[:status] = account.legal_entity['verification']['status']
         verification[:fields] = account.verification['fields_needed']
         if my_account.present? && account.legal_entity['verification']['status'] == 'verified'
           my_account.update_attributes({state: 'verified', active: true})

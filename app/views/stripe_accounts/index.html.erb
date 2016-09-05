@@ -54,7 +54,7 @@
               <div class="row">
                 <div class="col-6">
                   <%= f.label :address %>
-                  <%= f.text_area :address, value: (f.object.address.present? ? f.object.address : @current_user.location.address), class: 'min-height', required: 'required' %>
+                  <%= f.text_area :address, value: (f.object.address.present? ? f.object.address : (@current_user.location.present? ? @current_user.location.address : '')), class: 'min-height', required: 'required' %>
                 </div>
                 <div class="col-6">
                   <%= f.label :city %>
@@ -110,7 +110,7 @@
                     <%= t("paypal_accounts.can_receive_payments") %>
                   </div>
                 </div>
-                <%= render 'stripe_accounts/account_info', account: stripe_account %>
+                <%= render 'stripe_accounts/account_info', account: stripe_account if stripe_account.present? %>
                 <!--<div class="row paypal-first-steps-list">-->
                 <!--<div class="col-12">-->
                 <!--<%#= icon_tag("check", ["icon-fix", "paypal-success-mark"]) %>-->
