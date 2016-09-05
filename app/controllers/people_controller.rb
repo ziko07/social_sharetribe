@@ -91,6 +91,8 @@ class PeopleController < Devise::RegistrationsController
 
   def wall
     @person = Person.find_by_username(params[:username])
+    posts = Post.all.order('created_at desc')
+    render locals: {posts: posts}
   end
 
   def find_mention

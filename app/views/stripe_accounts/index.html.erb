@@ -27,12 +27,12 @@
 
               <div class="row">
                 <%= f.label :first_name %>
-                <%= f.text_field :first_name, required: 'required' %>
+                <%= f.text_field :first_name, value: (f.object.first_name.present? ? f.object.first_name : @current_user.given_name), required: 'required' %>
               </div>
 
               <div class="row">
                 <%= f.label :last_name %>
-                <%= f.text_field :last_name, required: 'required' %>
+                <%= f.text_field :last_name, value: (f.object.last_name.present? ? f.object.last_name : @current_user.family_name), required: 'required' %>
               </div>
 
               <div class="row">
@@ -54,7 +54,7 @@
               <div class="row">
                 <div class="col-6">
                   <%= f.label :address %>
-                  <%= f.text_area :address, class: 'min-height', required: 'required' %>
+                  <%= f.text_area :address, value: (f.object.address.present? ? f.object.address : (@current_user.location.present? ? @current_user.location.address : '')), class: 'min-height', required: 'required' %>
                 </div>
                 <div class="col-6">
                   <%= f.label :city %>
@@ -110,18 +110,19 @@
                     <%= t("paypal_accounts.can_receive_payments") %>
                   </div>
                 </div>
-                <div class="row paypal-first-steps-list">
-                  <div class="col-12">
-                    <%= icon_tag("check", ["icon-fix", "paypal-success-mark"]) %>
-                    Stripe account connected successfully
-                  </div>
-                </div>
-                <div class="row paypal-last-steps-list">
-                  <div class="col-12">
-                    <%= icon_tag("check", ["icon-fix", "paypal-success-mark"]) %>
-                    Permission for transaction fees granted
-                  </div>
-                </div>
+                <%= render 'stripe_accounts/account_info', account: stripe_account if stripe_account.present? %>
+                <!--<div class="row paypal-first-steps-list">-->
+                <!--<div class="col-12">-->
+                <!--<%#= icon_tag("check", ["icon-fix", "paypal-success-mark"]) %>-->
+                <!--Stripe account connected successfully-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row paypal-last-steps-list">-->
+                <!--<div class="col-12">-->
+                <!--<%#= icon_tag("check", ["icon-fix", "paypal-success-mark"]) %>-->
+                <!--Permission for transaction fees granted-->
+                <!--</div>-->
+                <!--</div>-->
               </div>
             </div>
           </div>

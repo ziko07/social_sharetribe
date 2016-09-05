@@ -1,0 +1,79 @@
+<h1 class="reset-margin"> Personal Information </h1>
+<% personal_info = account['legal_entity'] %>
+<div class="personal-information clearfix">
+  <div class="info-item">
+    <div class="col-6">
+      <label> First Name </label>
+      <%= personal_info['first_name'] %>
+    </div>
+    <div class="col-6">
+      <label> Last Name </label>
+      <%= personal_info['last_name'] %>
+    </div>
+  </div>
+
+  <div class="info-item">
+
+    <div class="col-6">
+      <label> DOB </label>
+      <%= personal_info['dob']['month'].to_s + '/' + personal_info['dob']['day'].to_s + '/' + personal_info['dob']['year'].to_s if personal_info['dob'].present? %>
+    </div>
+    <div class="col-6">
+      <label> Address </label>
+      <%= personal_info['address']['line1'] %>
+
+    </div>
+  </div>
+
+  <div class="info-item">
+    <div class="col-6">
+      <label> City </label>
+      <%= personal_info['address']['city'] %>
+    </div>
+    <div class="col-6">
+      <label> State </label>
+      <%= personal_info['address']['state'] %>
+    </div>
+  </div>
+
+  <div class="info-item">
+    <div class="col-6">
+      <label> Zip Code </label>
+      <%= personal_info['address']['postal_code'] %>
+    </div>
+    <div class="col-6">
+      <label> Country </label>
+      <%= personal_info['address']['country'] %>
+    </div>
+  </div>
+</div>
+
+<h1 class="reset-margin"> Bank Account </h1>
+
+<% bank_account = account['external_accounts']['data'] %>
+
+<% if bank_account[0].present? %>
+    <% bank_account = bank_account[0] %>
+    <div class="bank-account">
+      <div class="info-item">
+        <div class="col-6">
+          <label> Bank Name </label>
+          <%= bank_account['bank_name'] %>
+        </div>
+        <div class="col-6">
+          <label> Account Number Last 4 digits </label>
+          <%= bank_account['last4'] %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <label> Routing Number </label>
+          <%= bank_account['routing_number'] %>
+        </div>
+        <div class="col-6">
+          <label> Currency </label>
+          <%= bank_account['currency'].upcase if bank_account['currency'].present? %>
+        </div>
+      </div>
+    </div>
+<% end %>

@@ -20,7 +20,7 @@
 
       <div class="wall-posts">
         <ul class="all_post">
-          <% Post.all.each do |post| %>
+          <% posts.each do |post| %>
               <%= render 'people/wall_post_item', post: post, person: @current_user %>
           <% end %>
         </ul>
