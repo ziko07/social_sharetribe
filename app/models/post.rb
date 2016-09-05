@@ -25,8 +25,7 @@ class Post < ActiveRecord::Base
     mention_person.each do |mention|
       people = Person.find_by_username(mention['id'])
       if people.present?
-        UserNotification.send_notification(self.person, people,self,UserNotification::NOTIFICATION_TYPE[:mention])
-        puts "Mention user and create notification: #{people.inspect}"
+        UserNotification.send_notification(self.person, people, self, UserNotification::NOTIFICATION_TYPE[:mention])
       end
     end
   end

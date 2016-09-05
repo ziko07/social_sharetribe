@@ -758,7 +758,7 @@ module ApplicationHelper
       end
       attachment_wrapper << attachment_item.to_s << '</div>'
     end
-    raw attachment_wrapper
+    raw attachment_wrapper << '</div>'
   end
 
   def render_post_content(content)
@@ -790,7 +790,7 @@ module ApplicationHelper
         listing_item << '</div>'
       end
     end
-    raw listing_wrapper << listing_item << "<div>"
+    raw listing_wrapper << listing_item << '</div>'
   end
 
 end

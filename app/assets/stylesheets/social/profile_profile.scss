@@ -309,7 +309,7 @@ body.social {
         margin-top: 10px;
         font-size: 13px;
         .post-attachment-wrapper {
-          margin: 5px 0;
+          margin: 5px 0 20px 0;
           text-align: center;
           .attachment-container {
             margin-bottom: 10px;
@@ -513,6 +513,7 @@ body.social {
 
 .comments-wrapper {
   display: none;
+  text-align: left;
   .comment-owner {
     display: inline-block;
     width: 60px;
@@ -523,4 +524,45 @@ body.social {
   padding-top: 10px;
 }
 
+/* User notification */
 
+.user-notification-wrapper {
+  margin: 0;
+  padding: 0 2px;
+  list-style: none;
+  color: white;
+  word-break: break-all;
+  .notification-item {
+    cursor: pointer;
+    padding: 8px;
+    border-bottom: solid 1px #555;
+    &:hover {
+      background: #888888;
+    }
+    .profile-pic {
+      display: inline-block;
+      width: 30px;
+      a {
+        padding: 0;
+        img {
+          border: 2px solid #7ed9e6;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          border-radius: 50%;
+          width: 100%;
+        }
+      }
+    }
+    .notification-content {
+      display: inline-block;
+      width: calc(100% - 60px);
+      vertical-align: top;
+      padding-left: 15px;
+      a {
+        display: inline-block;
+        font-weight: bold;
+        padding: 0;
+      }
+    }
+  }
+}
