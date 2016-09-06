@@ -1,0 +1,57 @@
+.timelet-list {
+  position: relative;
+  .products {
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .figure-item {
+      background: #FFF;
+      border-radius: 3px;
+      padding: 0 0 8px;
+      box-shadow: 0 1px 0px 0px rgba(208, 209, 213, 0.5), 0 0px 0px 1px rgba(220, 221, 224, 0.4);
+      -webkit-box-shadow: 0 1px 0px 0px rgba(208, 209, 213, 0.5), 0 0px 0px 1px rgba(220, 221, 224, 0.4);
+      -moz-box-shadow: 0 1px 0px 0px rgba(208, 209, 213, 0.5), 0 0px 0px 1px rgba(220, 221, 224, 0.4);
+      z-index: 0;
+      position: relative;
+      font-size: 13px;
+      line-height: 15px;
+      color: #8a8f9c;
+      margin-bottom: 10px;
+      figure {
+        position: relative;
+        display: block;
+        background-size: cover;
+        background-position: 50% 50%;
+        .figure {
+          height: 222px;
+          margin: 0;
+          background-position: 50% 50%;
+          background-size: cover;
+          border-radius: 3px 3px 0 0;
+          display: block;
+          width: 100%;
+        }
+      }
+      figcaption {
+        position: relative;
+        padding: 11px 4px 1px 11px;
+        .title {
+          display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          color: #494F59 !important;
+          margin-bottom: 1px;
+          text-decoration: none;
+        }
+        .figure-detail {
+          position: relative;
+          text-overflow: clip;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}

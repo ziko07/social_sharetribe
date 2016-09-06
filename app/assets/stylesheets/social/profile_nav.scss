@@ -1,0 +1,75 @@
+.profile-nav {
+  .sort {
+    position: relative;
+    z-index: 2;
+    background-image: -webkit-linear-gradient(top, #F3F4F5, #EDEEEF);
+    background-image: -moz-linear-gradient(top, #f3f4f5, #edeeef);
+    background-image: -o-linear-gradient(top, #f3f4f5, #edeeef);
+    background-image: -ms-linear-gradient(top, #f3f4f5, #edeeef);
+    background-image: linear-gradient(top, #f3f4f5, #edeeef);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f3f4f5', endColorStr='#edeeef');
+    box-shadow: 0 1px 0px 0px rgb(208, 209, 213), 0 0px 0px 1px rgba(220, 221, 224, 0.85);
+    -webkit-box-shadow: 0 1px 0px 0px rgb(208, 209, 213), 0 0px 0px 1px rgba(220, 221, 224, 0.85);
+    -moz-box-shadow: 0 1px 0px 0px rgb(208, 209, 213), 0 0px 0px 1px rgba(220, 221, 224, 0.85);
+    border-radius: 3px;
+    height: 45px;
+    margin-bottom: 18px;
+    .tab {
+      float: left;
+      position: static;
+      border-right: 1px solid rgba(220, 221, 224, 0.7);
+      top: 0;
+      right: 0;
+    }
+    .menu {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      top: 0;
+      right: 0;
+      li {
+        float: left;
+        position: relative;
+        a {
+          display: block;
+          padding: 15px 20px 30px;
+          height: 16px;
+          line-height: 16px;
+          color: #767F8D;
+          border-left: 1px solid rgba(220, 221, 224, 0.7);
+          text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+          transition: 0.1s;
+          -webkit-transition: 0.1s;
+          -moz-transition: 0.1s;
+          &:hover {
+            background: #f8f9f9;
+            color: #5D6672;
+          }
+          span {
+            color: #9ea1a6;
+            font-size: 12px;
+            font-weight: normal;
+          }
+          &.current {
+            background: #ffffff;
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#fafafa', GradientType=0);
+            background: -webkit-linear-gradient(top, #ffffff, #fafafa);
+            background: -moz-linear-gradient(top, #ffffff, #fafafa);
+            background: -o-linear-gradient(top, #ffffff, #fafafa);
+            color: #585d6b;
+            border-left-color: #DFE0E2;
+            border-right: 1px solid #DFE0E2;
+            position: relative;
+            margin-right: -1px;
+          }
+        }
+        &:first-child {
+          a {
+            border-left: 0;
+            border-radius: 3px 0 0 3px;
+          }
+        }
+      }
+    }
+  }
+}

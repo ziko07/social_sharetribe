@@ -5,7 +5,7 @@ class PeopleController < Devise::RegistrationsController
   skip_before_filter :verify_authenticity_token, :only => [:creates]
   skip_before_filter :require_no_authentication, :only => [:new]
 
-  layout 'social', only: [:show, :wall, :friend]
+  layout 'social', only: [:show, :wall, :friend, :timelets, :reviews]
 
   before_filter EnsureCanAccessPerson.new(
                     :id, error_message_key: "layouts.notifications.you_are_not_authorized_to_view_this_content"), only: [:update, :destroy]
@@ -93,6 +93,18 @@ class PeopleController < Devise::RegistrationsController
     @person = Person.find_by_username(params[:username])
     posts = Post.all.order('created_at desc')
     render locals: {posts: posts}
+  end
+
+  def timelets
+    @person = Person.find_by_username(params[:username])
+    listings = @person.listings
+    render locals: {listings: listings}
+  end
+
+  def reviews
+    @person = Person.find_by_username(params[:username])
+    reviews = TestimonialViewUtils.received_testimonials_in_community(@person, @current_community)
+    render locals: {reviews: reviews}
   end
 
   def find_mention

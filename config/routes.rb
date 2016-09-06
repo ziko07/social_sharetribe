@@ -389,6 +389,8 @@ Kassi::Application.routes.draw do
         member do
           get :wall
           get :friend
+          get :timelets
+          get :reviews
         end
         collection do
           get 'find_mention'

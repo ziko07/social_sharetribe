@@ -7,10 +7,14 @@ module HomepageHelper
 
   def with_first_listing_image(listing, &block)
     Maybe(listing)
-      .listing_images
-      .map { |images| images.first }[:small_3x2].each { |url|
+        .listing_images
+        .map { |images| images.first }[:small_3x2].each { |url|
       block.call(url)
     }
+  end
+
+  def get_listing_view_image(listing)
+    listing.listing_images.present? ? listing.listing_images.first.image.url(:small_3x2) : '/assets/image_not_found.jpg'
   end
 
   def without_listing_image(listing, &block)

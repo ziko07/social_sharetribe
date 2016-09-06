@@ -626,14 +626,14 @@ module ApplicationHelper
     html = "<span id='like-counts-comment-#{object.id}'> #{count}</span>&nbsp;&nbsp;"
     if object.likes.where(person_id: person.id).present?
       link_html = link_to(like_path(object.likes.where(person_id: person.id).first.id), id: "#{type}#{object.id}", :remote => true, method: 'delete') do
-        content_tag(:i, "", class: "fa fa-thumbs-o-up liked")
+        raw "<i class='fa fa fa-thumbs-o-up liked'> </i> UnLike"
       end
     else
       link_html = link_to(likes_path(likeable_id: object.id, likeable_type: type), id: "#{type}_#{object.id}", :remote => true, method: 'post') do
-        content_tag(:i, "", class: "fa fa-thumbs-o-up")
+        raw "<i class='fa fa-thumbs-o-up'> </i> Like"
       end
     end
-    return raw html << link_html
+    raw html << link_html
   end
 
   def community_description(truncate=true)
@@ -775,7 +775,7 @@ module ApplicationHelper
 
   def render_listing_item(ids)
     listing_item = ''
-    listing_wrapper = "<div class='post-attachment-wrapper'>"
+    listing_wrapper = "<div class='activity-timelet-image-wrapper'>"
     listings = Listing.where(id: ids.split(','))
     listings.each do |listing|
       if listing.listing_images.present?
@@ -786,7 +786,7 @@ module ApplicationHelper
       else
         listing_item << "<div class='attachment-container'>"
         listing_item << "#{image_missing}"
-        listing_item << "<p class='listing-link'> #{link_to listing.title, listing_path(listing)}</p>"
+        listing_item << "<p class='listing-link'> #{link_to listing.title, listing_path(listing)}</p> $60 | #{link_to listing.author.full_name, person_path(listing.author)} *** (29)"
         listing_item << '</div>'
       end
     end

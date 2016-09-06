@@ -1,4 +1,5 @@
-<%= content_for :social_left_section do %>
+<div class="clearfix">
+  <div class="col-md-9">
     <div class="user-profile-content-wrapper">
       <div class="spacing-btwn-divs wall-post-wrapper">
         <h4>Whats new <%= link_to @person.given_name_or_username, person_path(username: @person.username) %>?</h4>
@@ -26,118 +27,13 @@
         </ul>
       </div>
     </div>
-<% end %>
-
-<%= content_for :social_right_section do %>
-    <div class="right-profile clearfix">
-      <p class="lead text-center">
-        Members
-      </p>
-
-      <div class="separator"></div>
-      <ul class="right-person-menu clearfix">
-        <li><a>Newest</a></li>
-        <li><a>Active</a></li>
-        <li><a>Popular</a></li>
-      </ul>
-      <div class="separator"></div>
-
-      <ul class="right-person-list clearfix">
-        <li class="clearfix">
-          <div class="image-section">
-            <%= image_tag 'profile.jpg', class: "image-icon" %>
-          </div>
-          <div class="image-content-section">
-            <p>
-              Mahabub Jiko<br>7 day ago.
-            </p>
-          </div>
-        </li>
-        <li class="clearfix">
-          <div class="image-section">
-            <%= image_tag 'profile.jpg', class: "image-icon" %>
-          </div>
-          <div class="image-content-section">
-            <p>
-              Mahabub Jiko<br>7 day ago.
-            </p>
-          </div>
-        </li>
-        <li class="clearfix">
-          <div class="image-section">
-            <%= image_tag 'profile.jpg', class: "image-icon" %>
-          </div>
-          <div class="image-content-section">
-            <p>
-              Mahabub Jiko<br>7 day ago.
-            </p>
-          </div>
-        </li>
-        <li class="clearfix">
-          <div class="image-section">
-            <%= image_tag 'profile.jpg', class: "image-icon" %>
-          </div>
-          <div class="image-content-section">
-            <p>
-              Mahabub Jiko<br>7 day ago.
-            </p>
-          </div>
-        </li>
-      </ul>
-      <div class="blog-separator"></div>
-      <p class="lead text-center">From the Blog</p>
-      <ul class="right-person-list clearfix">
-        <li class="clearfix">
-          <div class="image-section">
-            <%= image_tag 'profile.jpg', class: "image-icon-square" %>
-          </div>
-          <div class="image-content-section">
-            <h4>This is H4</h4>
-
-            <p>
-              Mahabub Jiko 7 day ago. Mahabub Jiko 7 day ag
-            </p>
-          </div>
-        </li>
-        <li class="clearfix">
-          <div class="image-section">
-            <%= image_tag 'profile.jpg', class: "image-icon-square" %>
-          </div>
-          <div class="image-content-section">
-            <h4>This is H4</h4>
-
-            <p>
-              Mahabub Jiko 7 day ago. Mahabub Jiko 7 day ag
-            </p>
-          </div>
-        </li>
-        <li class="clearfix">
-          <div class="image-section">
-            <%= image_tag 'profile.jpg', class: "image-icon-square" %>
-          </div>
-          <div class="image-content-section">
-            <h4>This is H4</h4>
-
-            <p>
-              Mahabub Jiko 7 day ago. Mahabub Jiko 7 day ag
-            </p>
-          </div>
-        </li>
-        <li class="clearfix">
-          <div class="image-section">
-            <%= image_tag 'profile.jpg', class: "image-icon-square" %>
-          </div>
-          <div class="image-content-section">
-            <h4>This is H4</h4>
-
-            <p>
-              Mahabub Jiko 7 day ago. Mahabub Jiko 7 day ag
-            </p>
-          </div>
-        </li>
-      </ul>
+  </div>
+  <div class="col-md-3" style="position: relative;">
+    <div style="background: #ffffff; height: 800px; margin-top: 20px; position: fixed; width: 300px;">
+      xyz
     </div>
-<% end %>
+  </div>
+</div>
 
 <%= content_for :extra_javascript do %>
     <script type="text/javascript">
@@ -185,25 +81,3 @@
 <% end %>
 
 <%= render 'posts/post_with_attachment_modal', person: @person %>
-
-<div class="row footer">
-  <div class="footer-left">
-    <p>
-      2016 - Boss · Powered by <span></span>
-    </p>
-  </div>
-  <ul class="footer-social-icon">
-    <li>
-      <a href="#"><i class="fa fa-facebook"></i></a>
-    </li>
-    <li>
-      <a href="#"><i class="fa fa-twitter"></i></a>
-    </li>
-    <li>
-      <a href="#"><i class="fa fa-youtube"></i></a>
-    </li>
-    <li>
-      <a href="#"><i class="fa fa-arrow-up"></i></a>
-    </li>
-  </ul>
-</div>

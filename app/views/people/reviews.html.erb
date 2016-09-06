@@ -1,0 +1,8 @@
+<%= render 'social/user_profile_header', person: @person %>
+<%= render 'social/social_nav' %>
+
+<% if reviews.size > 0 %>
+    <div id="profile-testimonials-list">
+      <%= render :partial => 'testimonials', :locals => {:received_testimonials => reviews, :limit => 15} %>
+    </div>
+<% end %>

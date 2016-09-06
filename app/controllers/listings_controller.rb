@@ -3,6 +3,8 @@ class ListingsController < ApplicationController
   class ListingDeleted < StandardError;
   end
 
+  layout 'social', only: [:timelets]
+
   # Skip auth token check as current jQuery doesn't provide it automatically
   skip_before_filter :verify_authenticity_token, :only => [:close, :update, :follow, :unfollow]
 

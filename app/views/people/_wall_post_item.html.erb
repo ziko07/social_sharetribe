@@ -1,41 +1,50 @@
-<li class="profile-list-section wall-post-item clearfix wall-post-item-<%= post.id %>" id="wall_post_<%= post.id%>">
+<li class="profile-list-section wall-post-item clearfix wall-post-item-<%= post.id %>" id="wall_post_<%= post.id %>">
   <div class="profile-pic">
     <a href="#">
       <%= small_avatar_thumb(post.person) %>
     </a>
   </div>
   <div class="wall-post-content-wrapper">
-    <div class="post-title">
-      <span class="name"><%= link_to post.person.given_name_or_username, person_path(username: post.person.username) %></span>
-      <span class="times"> <%= time_ago_in_words(post.created_at) %> ago </i> </span>
+    <div class="activity-status">
+      <%= link_to post.person.full_name, person_path(username: post.person.username) %> share timelet
+      <i> <%= time_ago_in_words(post.created_at) %> ago </i>
     </div>
-    <div class="post-content">
-      <p>
-        <%= render_post_content(post.description) %>
-      </p>
-      <% if post.listings_ids.present? %>
-          <%= render_listing_item(post.listings_ids) %>
-      <% end %>
-      <% if post.post_attachments.present? %>
-          <%= render_post_attachment(post.post_attachments) %>
-      <% end %>
-
-    </div>
-    <ul class="post-actions clearfix">
-      <li>
-        <a href="javascript:void(0);" class="reply-comments"><i class="fa fa-reply"></i></a>
-      </li>
-      <li class="like-post-<%= post.id %>">
-        <%= like_unlike_link(post, @current_user, 'post') %>
-      </li>
-      <li>
-        <% if can_delete_post(post) %>
-            <%= link_to post, method: :delete, remote: true, data: {confirm: 'Are you sure?'} do %>
-                <i class="fa fa-trash"></i>
-            <% end %>
+    <div class="activity-content">
+      <div class="post-content">
+        <p>
+          <%= render_post_content(post.description) %>
+        </p>
+        <% if post.listings_ids.present? %>
+            <%= render_listing_item(post.listings_ids) %>
         <% end %>
-      </li>
-    </ul>
+        <% if post.post_attachments.present? %>
+            <%= render_post_attachment(post.post_attachments) %>
+        <% end %>
+
+      </div>
+    </div>
+    <div class="activity-footer">
+      <ul class="activity-actions clearfix">
+        <li class="like-post-<%= post.id %>">
+          <%= like_unlike_link(post, @current_user, 'post') %>
+        </li>
+        <li>
+          <a href="javascript:void(0);" class="reply-comments"><i class="fa fa-commenting"></i> Comment</a>
+        </li>
+        <li>
+          <%= link_to 'javascript:void(0);' do %>
+              <i class="fa fa-share"></i> Share
+          <% end %>
+        </li>
+        <li>
+          <% if can_delete_post(post) %>
+              <%= link_to post, method: :delete, remote: true, data: {confirm: 'Are you sure?'} do %>
+                  <i class="fa fa-trash"></i> Delete
+              <% end %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
     <div class="post-comments-wrapper">
       <ul class="comments-list clearfix">
         <% if post.post_comments.present? %>

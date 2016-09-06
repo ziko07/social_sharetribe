@@ -1340,6 +1340,9 @@ Based on Rails routes of Kassi::Application
 // resend_verification_email_admin_community => (/:locale)/admin/communities/:id/resend_verification_email(.:format)
   // function(id, options)
   resend_verification_email_admin_community_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"resend_verification_email",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),
+// reviews_person => (/:locale)/:username/reviews(.:format)
+  // function(username, options)
+  reviews_person_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"username",false],[2,[7,"/",false],[2,[6,"reviews",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
 // s => /s(.:format)
   // function(options)
   s_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"s",false],[1,[2,[8,".",false],[3,"format",false]],false]]], {}),
@@ -1400,6 +1403,9 @@ Based on Rails routes of Kassi::Application
 // test_welcome_email_admin_community => (/:locale)/admin/communities/:id/test_welcome_email(.:format)
   // function(id, options)
   test_welcome_email_admin_community_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"test_welcome_email",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),
+// timelets_person => (/:locale)/:username/timelets(.:format)
+  // function(username, options)
+  timelets_person_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"username",false],[2,[7,"/",false],[2,[6,"timelets",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
 // topbar_admin_community => (/:locale)/admin/communities/:id/topbar(.:format)
   // function(id, options)
   topbar_admin_community_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"topbar",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),

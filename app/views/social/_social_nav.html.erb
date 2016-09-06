@@ -1,23 +1,51 @@
-<div class="social-nav clearfix">
-  <ul>
-    <li>
-      <%= link_to 'Wall', wall_person_path(@person.username), class: "#{'active' if action_name == 'wall' }" %>
-    </li>
-    <li>
-      <%= link_to 'Profile', person_path(@person.username), class: "#{'active' if action_name == 'show' && controller_name == 'people' }" %>
-    </li>
-    <li>
-      <a href="#">Notifications<span class="<%= get_badge_class(@person.friends.count) %>"><%= @person.friends.count %></span></a>
-    </li>
-    <li>
-      <a href="<%= inbox_path %>" class="<%= 'active' if action_name == 'show' && controller_name == 'inboxes' %>">Messages
-        <span class="<%= get_badge_class(@person.friends.count) %>"><%= unread_count %></span></a>
-    </li>
-    <li>
-      <%= link_to friend_person_path(@person.username), class: "#{'active' if action_name == 'friend' && controller_name == 'people' }" do %>
-          <% total_friend = @person == @current_user ? @person.pending_invited_by.count : @person.friends.count %>
-          Friends <span class="<%= get_badge_class(total_friend) %>"><%= total_friend %></span>
-      <% end %>
-    </li>
-  </ul>
+<!--<div class="social-nav clearfix">-->
+<!--<ul>-->
+<!--<li>-->
+<!--<%#= link_to 'Wall', wall_person_path(@person.username), class: "#{'active' if action_name == 'wall' }" %>-->
+<!--</li>-->
+<!--<li>-->
+<!--<%#= link_to 'Profile', person_path(@person.username), class: "#{'active' if action_name == 'show' && controller_name == 'people' }" %>-->
+<!--</li>-->
+<!--<li>-->
+<!--<a href="#">Notifications<span class="<%#= get_badge_class(@person.friends.count) %>"><%#= @person.friends.count %></span></a>-->
+<!--</li>-->
+<!--<li>-->
+<!--<a href="<%#= inbox_path %>" class="<%#= 'active' if action_name == 'show' && controller_name == 'inboxes' %>">Messages-->
+<!--<span class="<%#= get_badge_class(@person.friends.count) %>"><%#= unread_count %></span></a>-->
+<!--</li>-->
+<!--<li>-->
+<!--<%#= link_to friend_person_path(@person.username), class: "#{'active' if action_name == 'friend' && controller_name == 'people' }" do %>-->
+<!--
+<%# total_friend = @person == @current_user ? @person.pending_invited_by.count : @person.friends.count %>-->
+<!--Friends <span class="<%#= get_badge_class(total_friend) %>"><%#= total_friend %></span>-->
+<!--
+<%# end %>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+
+<div class="profile-nav">
+  <div class="sort">
+    <ul class="menu tab">
+      <li>
+        <%= link_to wall_person_path(@person.username), class: "#{'current' if action_name == 'wall' }" do %>
+            <b>Wall</b>
+        <% end %>
+      </li>
+
+      <li>
+        <%= link_to timelets_person_path(@person.username), class: "#{'current' if action_name == 'timelets' }" do %>
+            <b>Timelets</b>
+            <span>21</span>
+        <% end %>
+      </li>
+
+      <li>
+        <%= link_to reviews_person_path(@person.username), class: "#{'current' if action_name == 'reviews' }" do %>
+            <b>Reviews</b>
+            <span>21</span>
+        <% end %>
+      </li>
+    </ul>
+  </div>
 </div>
