@@ -13,4 +13,14 @@
 class Like < ActiveRecord::Base
   belongs_to :person
   belongs_to :likeable, :polymorphic => true
+
+  after_create :send_notification
+
+  def send_notification
+    if self.likeable.class.to_s == 'Post'
+      UserNotification.send_notification(self.person, self.likeable.person, self.likeable, UserNotification::NOTIFICATION_TYPE[:post_like])
+    else
+      UserNotification.send_notification(self.person, self.likeable.person, self.likeable, UserNotification::NOTIFICATION_TYPE[:comment_like])
+    end
+  end
 end

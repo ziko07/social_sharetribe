@@ -1,37 +1,43 @@
-<div class="row">
-  <%= verification %>
+<div class="verification-form">
+  <%#= verification %>
   <% if verification[:error].present? %>
       <p>
         <%= verification[:error] %>
       </p>
   <% elsif verification[:fields].present? %>
+      <h3> Stripe Account Verification(Account Status <%= verification[:status] %>) </h3>
+      <% if verification[:reason].present? %>
+          <div style="padding: 5px; color: #880000; font-weight: bold;">
+            Abc dsf ssdf sdf sdfds dsfdsfsdf
+          </div>
+      <% end %>
       <p>
         Your stripe account is connected, Need some more information to verify and active.
       </p>
       <%= form_for :stripe_verification, url: verify_account_person_stripe_account_path, html: {:multipart => true} do %>
           <%= hidden_field_tag :account_id, '', value: account_id %>
           <% if verification[:fields].include? 'legal_entity.verification.document' %>
-              <div class="row">
+              <div class="verification-item">
                 <p>
                   Document verification required, Upload your scan or photo of passport or driver's license
                 </p>
                 <%= file_field_tag :document, required: 'required' %>
               </div>
           <% elsif verification[:fields].include? 'legal_entity.personal_id_number' %>
-              <div class="row">
+              <div class="verification-item">
                 <%= label_tag :personal_id, 'Provide your personal id number' %>
                 <%= text_field_tag :personal_id %>
               </div>
           <% elsif verification[:fields].include? 'legal_entity.ssn_last_4' %>
-              <div class="row">
+              <div class="verification-item">
                 <%= label_tag :ssn_number, 'Provide your ssn last 4 digits' %>
                 <%= text_field_tag :ssn_number %>
               </div>
           <% end %>
 
-          <div class="row">
-            <div class="col-12">
-              <%= button_tag t("admin.stripe_accounts.update_stripe") %>
+          <div class="verification-item clearfix">
+            <div style="text-align: center; margin-top: 10px;">
+              <%= button_tag t("admin.stripe_accounts.update_stripe"), style: 'display: inline-block; color: #fdfdfd;' %>
             </div>
           </div>
       <% end %>

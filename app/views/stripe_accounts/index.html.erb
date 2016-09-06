@@ -18,24 +18,24 @@
             </p>
           </div>
           <%= form_for my_account, url: create_account_person_stripe_account_path(@current_user) do |f| %>
-              <div class="row">
+              <div class="info-item clearfix">
                 <%= f.label :country %>
                 <%= f.select :country, options_for_select(StripeAccount::SUPPORTED_COUNTRY.collect { |key, val| [key, val] }, f.object.country) %>
               </div>
 
-              <p> Provide your personal information that are required to verify stripe account </p>
+              <h3> Personal Information </h3>
 
-              <div class="row">
+              <div class="info-item clearfix">
                 <%= f.label :first_name %>
                 <%= f.text_field :first_name, value: (f.object.first_name.present? ? f.object.first_name : @current_user.given_name), required: 'required' %>
               </div>
 
-              <div class="row">
+              <div class="info-item">
                 <%= f.label :last_name %>
                 <%= f.text_field :last_name, value: (f.object.last_name.present? ? f.object.last_name : @current_user.family_name), required: 'required' %>
               </div>
 
-              <div class="row">
+              <div class="info-item clearfix">
                 <div class="col-12">
                   <div class="col-4">
                     <%= f.label :dob_day %>
@@ -51,7 +51,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="info-item clearfix">
                 <div class="col-6">
                   <%= f.label :address %>
                   <%= f.text_area :address, value: (f.object.address.present? ? f.object.address : (@current_user.location.present? ? @current_user.location.address : '')), class: 'min-height', required: 'required' %>
@@ -62,7 +62,7 @@
                 </div>
               </div>
 
-              <div class="row">
+              <div class="info-item clearfix">
                 <div class="col-6">
                   <%= f.label :state_line, 'State' %>
                   <%= f.text_field :state_line, required: 'required' %>
@@ -73,22 +73,24 @@
                 </div>
               </div>
 
+              <h3> Bank Information </h3>
+
               <p>
                 Provide bank account and routing numbers carefully, entering them incorrectly will cause payment
                 transfers to <b>fail</b>
               </p>
 
-              <div class="row">
+              <div class="info-item">
                 <%= f.label :account_number, 'Account Number' %>
                 <%= f.text_field :account_number, required: 'required' %>
               </div>
-              <div>
+              <div class="infor-item">
                 <%= f.label :routing_number, 'Routing Number' %>
                 <%= f.text_field :routing_number, required: 'required' %>
               </div>
-              <div class="row">
-                <div class="col-12">
-                  <%= f.button t("admin.stripe_accounts.create_stripe") %>
+              <div class="info-item clearfix">
+                <div style="float: right; margin-top: 10px;">
+                  <%= f.button t("admin.stripe_accounts.stripe_account_setup") %>
                 </div>
               </div>
           <% end %>

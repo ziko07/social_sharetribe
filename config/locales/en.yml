@@ -499,7 +499,7 @@ en:
         offer: Request
         inquiry: Contact
     stripe_accounts:
-      create_stripe: "Create Stripe Account"
+      stripe_account_setup: "Setup Stripe Account"
       update_stripe: "Update Stripe Account"
       integration_info_text: 'We are currently using stripe as payment gateway. We assume that you are connected with stripe. Here you can choose a minimum transaction size and a possible commission fee.'
   common:
