@@ -1334,6 +1334,9 @@ Based on Rails routes of Kassi::Application
 // remove_friend => (/:locale)/people/:username/remove_friend(.:format)
   // function(username, options)
   remove_friend_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"people",false],[2,[7,"/",false],[2,[3,"username",false],[2,[7,"/",false],[2,[6,"remove_friend",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// report_user_post_people => (/:locale)/report_user_post(.:format)
+  // function(options)
+  report_user_post_people_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"report_user_post",false],[1,[2,[8,".",false],[3,"format",false]],false]]]], {}),
 // request_new_password_sessions => (/:locale)/sessions/request_new_password(.:format)
   // function(options)
   request_new_password_sessions_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"sessions",false],[2,[7,"/",false],[2,[6,"request_new_password",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),

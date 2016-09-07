@@ -79,7 +79,7 @@
           </a>
       <% end %>
     </div>
-
+    <%= link_to 'Report', report_user_post_people_path(reportable_id: person.id, reportable_type: 'person') %>
     <div class="followers">
       <a href="#" class="_followers" username="iamDim">Followers <b><%= person.invited.count %></b></a>
       <a href="#" class="_following" username="iamDim">Following <b><%= person.invited_by.count %></b></a>

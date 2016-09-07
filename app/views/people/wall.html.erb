@@ -37,6 +37,10 @@
 
 <%= content_for :extra_javascript do %>
     <script type="text/javascript">
+
+        $(document).on('ready', function(){
+            $('.feedback').rating({displayOnly: true, step: 0.5});
+        });
         var mentionArea = $('textarea.mention');
         var postArea = $('#description');
         $('#attachment-update-post').click(function () {

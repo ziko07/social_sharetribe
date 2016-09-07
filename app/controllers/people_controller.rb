@@ -95,6 +95,17 @@ class PeopleController < Devise::RegistrationsController
     render locals: {posts: posts}
   end
 
+  def report_user_post
+    if params[:reportable_type] == 'post'
+      post = Post.find_by_id(params[:reportable_id])
+      report =  post.reports.create(reported_by: @current_user.id)
+    else
+      person = Person.find_by_id(params[:reportable_id])
+      report =  person.reports.create(reported_by: @current_user.id)
+    end
+    redirect_to :back
+  end
+
   def timelets
     @person = Person.find_by_username(params[:username])
     listings = @person.listings
@@ -147,6 +158,8 @@ class PeopleController < Devise::RegistrationsController
         invitation = Invitation.find_by_code(params[:invitation_code].upcase)
       end
     end
+
+
 
     # Check that email is not taken
     unless Email.email_available?(params[:person][:email], @current_community.id)

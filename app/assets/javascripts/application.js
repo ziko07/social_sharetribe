@@ -91,5 +91,6 @@
 //= require social/jquery.mention
 //= require social/dropzone.min
 //= require social/bootstrap.min
+//= require social/star-rating.min
 //= require jquery.tokeninput
 //= require_self

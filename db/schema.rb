@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905055625) do
+ActiveRecord::Schema.define(version: 20160907044949) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string   "token",            limit: 255
@@ -378,7 +378,6 @@ ActiveRecord::Schema.define(version: 20160905055625) do
 
   add_index "emails", ["address", "community_id"], name: "index_emails_on_address_and_community_id", unique: true, using: :btree
   add_index "emails", ["address"], name: "index_emails_on_address", using: :btree
-  add_index "emails", ["community_id"], name: "index_emails_on_community_id", using: :btree
   add_index "emails", ["person_id"], name: "index_emails_on_person_id", using: :btree
 
   create_table "feature_flags", force: :cascade do |t|
@@ -924,6 +923,14 @@ ActiveRecord::Schema.define(version: 20160905055625) do
     t.string   "email",      limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.string   "reportable_id",   limit: 255
+    t.string   "reportable_type", limit: 255
+    t.string   "reported_by",     limit: 255
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "sessions", force: :cascade do |t|

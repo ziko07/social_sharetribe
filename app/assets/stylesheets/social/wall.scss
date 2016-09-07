@@ -554,6 +554,7 @@
 .comments-wrapper {
   display: none;
   text-align: left;
+  padding: 15px;
   .comment-owner {
     display: inline-block;
     width: 60px;
@@ -604,5 +605,13 @@
         padding: 0;
       }
     }
+  }
+}
+
+.rating-container {
+  display: inline-block;
+  font-size: 15px;
+  .star {
+    margin: 0 1px;
   }
 }
