@@ -48,9 +48,10 @@
         });
 
         $('#tokenfield').tokenInput('/listings/listing_lists.json', {
-            theme: "facebook",
+//            theme: "facebook",
             placeholder: 'Refer Your listings',
-            preventDuplicates: true
+            preventDuplicates: true,
+            tokenLimit: 1
         });
 
         $(function () {
