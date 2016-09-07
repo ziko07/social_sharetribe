@@ -9,11 +9,15 @@
         <script>(function () {
             var img = document.getElementById('coverImg');
             img.src = window.devicePixelRatio > 1 ? img.getAttribute('data-url-retina') : img.getAttribute('data-url');
-        })()</script>
+        })()
+        </script>
       </div>
-      <a href="#" class="change camera btn-upload-cover" data-toggle="tooltip" data-placement="left" title='Upload Cover Image' style="display:block;">
-        <span class="icon"></span>
-      </a>
+      <% if current_user?(person) %>
+          <a href="javascript:void(0);" class="change-upload-cover-image camera btn-upload-cover" data-toggle="tooltip" data-placement="left" title='Upload Cover Image' style="display:block;">
+            <span class="icon"></span>
+          </a>
+          <%= render 'people/upload_cover_image', person: person %>
+      <% end %>
     </div>
   </div>
   <div class="info">
@@ -91,6 +95,9 @@
     <script type="text/javascript">
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
+            $('.change-upload-cover-image').click(function () {
+                $('#upload-cover-image-modal').lightbox_me({centered: true, zIndex: 1000000});
+            });
         });
     </script>
 <% end %>

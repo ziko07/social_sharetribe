@@ -1439,6 +1439,9 @@ Based on Rails routes of Kassi::Application
 // upload_attachment_posts => /posts/upload_attachment(.:format)
   // function(options)
   upload_attachment_posts_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"posts",false],[2,[7,"/",false],[2,[6,"upload_attachment",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
+// upload_cover_image_person => (/:locale)/:username/upload_cover_image(.:format)
+  // function(username, options)
+  upload_cover_image_person_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"username",false],[2,[7,"/",false],[2,[6,"upload_cover_image",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
 // user_feedback => (/:locale)/user_feedbacks/:id(.:format)
   // function(id, options)
   user_feedback_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"user_feedbacks",false],[2,[7,"/",false],[2,[3,"id",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
