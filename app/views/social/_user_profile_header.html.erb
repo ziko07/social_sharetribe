@@ -23,10 +23,10 @@
   <div class="info">
     <ul class="sns">
       <li class="fb">
-        <a href="https://www.facebook.com/app_scoped_user_id/587226114787649/" target="_blank"></a>
+        <a href="https://www.facebook.com/app_scoped_user_id/587226114787649/" target="_blank" data-toggle="tooltip" data-placement="top" title='Facebook'></a>
       </li>
       <li class="tw">
-        <a href="https://www.facebook.com/app_scoped_user_id/587226114787649/" target="_blank"></a>
+        <a href="https://www.facebook.com/app_scoped_user_id/587226114787649/" target="_blank" data-toggle="tooltip" data-placement="top" title='Twitter'></a>
       </li>
     </ul>
     <div class="interaction">
@@ -85,8 +85,8 @@
     </div>
 
     <div class="followers">
-      <a href="#" class="_followers" username="iamDim">Followers <b><%= person.invited.count %></b></a>
-      <a href="#" class="_following" username="iamDim">Following <b><%= person.invited_by.count %></b></a>
+      <a href="#" class="_followers" username="iamDim">Followers <b><%= person.invited_by.count %></b></a>
+      <a href="#" class="_following" username="iamDim">Following <b><%= person.invited.count %></b></a>
     </div>
   </div>
 </div>

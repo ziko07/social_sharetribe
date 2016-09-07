@@ -34,7 +34,7 @@ gem 'rest-client', '~> 1.8.0'
 gem 'paperclip', '~> 4.3.6'
 gem 'delayed_paperclip', "~> 2.9.1"
 
-#gem "rmagick"
+gem "rmagick", '2.13.2'
 gem "carrierwave"
 
 gem 'aws-sdk-v1', "~> 1.64.0"

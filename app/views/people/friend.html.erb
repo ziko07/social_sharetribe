@@ -1,11 +1,12 @@
-<%= content_for :social_left_section do %>
-    <div class="friendship-wrapper">
-      <%= render 'friendships/friend_request', friend_request: @friend_request %>
-      <div class="friend-list-wrapper">
-        <h3 class="friendship-header"> <%= @friends.present? ? "You have #{@friends.count} friends" : 'No friend on your list' %> </h3>
-        <ul class="friend-list">
-          <%= render 'people/friend_list', friends: @friends, person: @person %>
-        </ul>
-      </div>
-    </div>
-<% end %>
+<%= render 'social/user_profile_header', person: @person %>
+<%= render 'social/social_nav' %>
+
+<div class="friendship-wrapper">
+  <%= render 'friendships/friend_request', friend_request: @friend_request if current_user?(@person) %>
+  <div class="friend-list-wrapper">
+    <h3 class="friendship-header"> <%= @friends.present? ? "#{'Follower'.pluralize(@friends.count)} #{@friends.count}" : 'No Follower' %> </h3>
+    <ul class="friend-list">
+      <%= render 'people/friend_list', friends: @friends, person: @person %>
+    </ul>
+  </div>
+</div>

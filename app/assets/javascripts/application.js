@@ -92,4 +92,5 @@
 //= require social/dropzone.min
 //= require social/bootstrap.min
 //= require jquery.tokeninput
+//= require custom_post_slider
 //= require_self

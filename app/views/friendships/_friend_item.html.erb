@@ -1,20 +1,26 @@
 <li class="clearfix friend-item-<%= friend.id %>">
-  <div class="col-sm-8">
-    <div class="profile-pic">
-      <%= link_to person_path(friend.username) do %>
-          <%= huge_avatar_thumb(friend) %>
-      <% end %>
+  <div class="friend-item">
+    <div class="clearfix">
+      <div class="profile-pic">
+        <%= link_to person_path(friend.username) do %>
+            <%= huge_avatar_thumb(friend) %>
+        <% end %>
+      </div>
+      <div class="profile-info">
+        <%= link_to person_path(friend.username) do %>
+            <%= friend.full_name %>
+        <% end %>
+        <p class="mutual-friend">
+          <% followers = friend.invited %>
+          <%= "#{followers.count} #{'Follower'.pluralize(followers.count)}" %>
+        </p>
+
+        <div class="follow-unfollow-wrapper">
+          <% unless current_user?(friend) %>
+              <%= render 'friendships/follow_unfollow_button', person: friend %>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <div class="profile-info">
-      <%= link_to person_path(friend.username) do %>
-          <%= friend.given_name_or_username %>
-      <% end %>
-      <p class="mutual-friend">
-        <%= friend.common_friends_with(person).count %> mutual friends
-      </p>
-    </div>
-  </div>
-  <div class="col-sm-4 friend-request-action">
-    <%= render 'people/friend_request_button', person: friend %>
   </div>
 </li>

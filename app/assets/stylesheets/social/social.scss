@@ -56,3 +56,60 @@
 .social-body {
   background: #ebeced;
 }
+
+.follow-unfollow-wrapper {
+  vertical-align: top;
+  display: inline-block;
+  position: absolute;
+  right: 10px;
+  top: 20px;
+}
+
+.post-attachment-wrapper {
+  .attachment-big {
+    img {
+      width: 100%;
+      max-height: 350px;
+    }
+  }
+}
+
+.attachment-slide-wrapper {
+  width: 100%;
+  clear: both;
+  text-align: left;
+  overflow-x: auto;
+  .slider-wrapper {
+    min-width: 550px;
+  }
+  .slide-item {
+    height: 85px;
+    width: 85px;
+    cursor: pointer;
+    opacity: 0.90;
+    padding: 3px;
+    display: inline-block;
+    margin-right: 5px;
+    background: #EAEBED;
+    &.current {
+      img {
+        opacity: 1;
+      }
+      border: solid 1px dodgerblue;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      opacity: 0.5;
+    }
+    &:hover {
+      border: solid 1px dodgerblue;
+      img {
+        opacity: 1;
+      }
+    }
+  }
+  padding: 5px 0;
+  border-bottom: dotted 1px #CCCCCC;
+  margin-bottom: 10px;
+}

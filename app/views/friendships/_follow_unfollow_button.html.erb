@@ -1,5 +1,5 @@
 <% if @current_user.present? %>
-    <div class="follow-button-container">
+    <div class="follow-button-container follow-button-container-<%= person.id %>">
       <% if @current_user.friend_with? person %>
           <%= link_to remove_friend_path(person.username), :method => "post", :remote => true, :class => "btn btn-primary following" do %>
               <i class="fa"></i>

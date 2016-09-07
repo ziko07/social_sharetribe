@@ -167,50 +167,6 @@
       position: relative;
       margin-left: 8px;
       float: left;
-      .follow-user {
-        font-weight: bold;
-        color: #636e7b !important;
-        font-size: 12px !important;
-        i {
-          font-size: 10px;
-          margin-right: 5px;
-          font-weight: normal;
-        }
-      }
-      .following {
-        min-width: 100px;
-        font-size: 12px !important;
-        i:after {
-          content: ' Following';
-        }
-        i:before {
-          content: '\f00c';
-        }
-        &:hover {
-          background-color: #CCCCCC;
-          i {
-            display: none;
-          }
-          &:after {
-            content: 'UnFollow';
-          }
-        }
-      }
-      .pending-follow {
-        color: #636e7b;
-        display: inline-block;
-        padding: 5px;
-        min-width: 85px;
-        &:before {
-          content: 'Pending';
-        }
-        &:hover {
-          &:before {
-            content: 'UnFollow';
-          }
-          background-color: #CCCCCC !important;
-        }
-      }
     }
     .user_fn {
       margin-left: 8px;
@@ -240,5 +196,52 @@
         font-size: 14px;
       }
     }
+  }
+}
+
+.follow-user {
+  font-weight: bold;
+  color: #636e7b !important;
+  font-size: 12px !important;
+  i {
+    font-size: 10px;
+    margin-right: 5px;
+    font-weight: normal;
+  }
+}
+
+.following {
+  min-width: 100px;
+  font-size: 12px !important;
+  i:after {
+    content: ' Following';
+  }
+  i:before {
+    content: '\f00c';
+  }
+  &:hover {
+    background-color: #CCCCCC !important;
+    i {
+      display: none;
+    }
+    &:after {
+      content: 'UnFollow';
+    }
+  }
+}
+
+.pending-follow {
+  color: #636e7b;
+  display: inline-block;
+  padding: 5px;
+  min-width: 85px;
+  &:before {
+    content: 'Pending';
+  }
+  &:hover {
+    &:before {
+      content: 'UnFollow';
+    }
+    background-color: #CCCCCC !important;
   }
 }

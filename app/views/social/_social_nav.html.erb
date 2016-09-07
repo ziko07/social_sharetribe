@@ -46,6 +46,13 @@
             <span>21</span>
         <% end %>
       </li>
+
+      <li>
+        <%= link_to friend_person_path(@person.username), class: "#{'current' if action_name == 'friend' }" do %>
+            <b>Followers</b>
+            <span>21</span>
+        <% end %>
+      </li>
     </ul>
   </div>
 </div>

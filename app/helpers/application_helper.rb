@@ -734,30 +734,45 @@ module ApplicationHelper
     Listing.find_by_id(listing_id)
   end
 
+  def attachment_slide_item(attachments)
+    attachment_slide_wrapper = "<div class='attachment-slide-wrapper'> <div class='slider-wrapper'>"
+    slide_item = ''
+    attachments.each do |attachment|
+      slide_item << "<div class='slide-item'>"
+      slide_item << image_tag(attachment.attachment_url)
+      slide_item << '</div>'
+    end
+    attachment_slide_wrapper << slide_item << '</div></div>'
+  end
+
   def render_post_attachment(attachments)
     attachment_wrapper = "<div class='post-attachment-wrapper'>"
-    attachments.each do |attachment|
-      attachment_item = "<div class='attachment-container'>"
-      case attachment.attachment_type
-        when 'image'
-          attachment_item << image_tag(attachment.attachment_url)
-        when 'audio'
-          attachment_item << audio_tag(attachment.attachment_url, controls: true)
-          attachment_item << link_to(raw("<i class='fa fa-cloud-download fa-1x'></i>"), attachment.attachment_url, class: 'download-attachment', title: 'Download video')
-        when 'video'
-          attachment_item << video_tag(attachment.attachment_url, :controls => true)
-          attachment_item << link_to(raw("<i class='fa fa-download fa-1x'></i>"), attachment.attachment_url, class: 'download-attachment', title: 'Download video')
-        else
-          ext = attachment.attachment_url.split('/').last
-          if ext.include? '.mp4'
-            attachment_item << video_tag(attachment.attachment_url, :controls => true)
-            attachment_item << link_to(raw("<i class='fa fa-download fa-1x'></i>"), attachment.attachment_url, class: 'download-attachment', title: 'Download video')
-          else
-            attachment_item << link_to(ext, attachment.attachment_url, class: 'post-attachment-link')
-          end
-      end
-      attachment_wrapper << attachment_item.to_s << '</div>'
-    end
+    first_attachment = attachments.first
+    attachment_big_item = "<div class='attachment-big'> #{image_tag(first_attachment.attachment_url)} </div>"
+    attachment_wrapper << attachment_slide_item(attachments)
+    attachment_wrapper << attachment_big_item
+    # attachments.each do |attachment|
+    #   attachment_item = "<div class='attachment-container'>"
+    #   case attachment.attachment_type
+    #     when 'image'
+    #       attachment_item << image_tag(attachment.attachment_url)
+    #     when 'audio'
+    #       attachment_item << audio_tag(attachment.attachment_url, controls: true)
+    #       attachment_item << link_to(raw("<i class='fa fa-cloud-download fa-1x'></i>"), attachment.attachment_url, class: 'download-attachment', title: 'Download video')
+    #     when 'video'
+    #       attachment_item << video_tag(attachment.attachment_url, :controls => true)
+    #       attachment_item << link_to(raw("<i class='fa fa-download fa-1x'></i>"), attachment.attachment_url, class: 'download-attachment', title: 'Download video')
+    #     else
+    #       ext = attachment.attachment_url.split('/').last
+    #       if ext.include? '.mp4'
+    #         attachment_item << video_tag(attachment.attachment_url, :controls => true)
+    #         attachment_item << link_to(raw("<i class='fa fa-download fa-1x'></i>"), attachment.attachment_url, class: 'download-attachment', title: 'Download video')
+    #       else
+    #         attachment_item << link_to(ext, attachment.attachment_url, class: 'post-attachment-link')
+    #       end
+    #   end
+    #   attachment_wrapper << attachment_item.to_s << '</div>'
+    # end
     raw attachment_wrapper << '</div>'
   end
 

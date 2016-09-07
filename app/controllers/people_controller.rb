@@ -122,7 +122,7 @@ class PeopleController < Devise::RegistrationsController
 
   def friend
     @person = Person.find_by_username(params[:username])
-    @friends = @person.friends
+    @friends = @person.invited_by
     @mutual_friends = @person.common_friends_with(@current_user)
     @friend_request = @person.pending_invited_by
     @following = @person.invited
