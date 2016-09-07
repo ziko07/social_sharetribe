@@ -1,2 +1,2 @@
-$('.follow-unfollow-wrapper').html("<%= escape_javascript(render 'people/friend_request_button', :person => person).html_safe %>");
+$('.follow-button-container').html("<%= escape_javascript(render 'friendships/follow_unfollow_button', :person => person).html_safe %>");
 $(".friend-item-<%= person.id %>").remove();

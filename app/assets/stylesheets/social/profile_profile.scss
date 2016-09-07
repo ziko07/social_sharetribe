@@ -116,13 +116,14 @@
       line-height: 20px;
     }
     .description {
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-      padding: 0;
-      color: #38424c !important;
-      font-size: 14px !important;
-      line-height: 20px !important;
-      width: 620px;
-      margin: 0 auto;
+      p {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+        padding: 0;
+        color: #38424c !important;
+        font-size: 14px !important;
+        line-height: 20px !important;
+      }
     }
   }
   .sns {
@@ -168,8 +169,8 @@
       float: left;
       .follow-user {
         font-weight: bold;
-        font-size: 12px !important;
         color: #636e7b !important;
+        font-size: 12px !important;
         i {
           font-size: 10px;
           margin-right: 5px;
@@ -177,10 +178,38 @@
         }
       }
       .following {
-
+        min-width: 100px;
+        font-size: 12px !important;
+        i:after {
+          content: ' Following';
+        }
+        i:before {
+          content: '\f00c';
+        }
+        &:hover {
+          background-color: #CCCCCC;
+          i {
+            display: none;
+          }
+          &:after {
+            content: 'UnFollow';
+          }
+        }
       }
-      .unfollow {
-
+      .pending-follow {
+        color: #636e7b;
+        display: inline-block;
+        padding: 5px;
+        min-width: 85px;
+        &:before {
+          content: 'Pending';
+        }
+        &:hover {
+          &:before {
+            content: 'UnFollow';
+          }
+          background-color: #CCCCCC !important;
+        }
       }
     }
     .user_fn {

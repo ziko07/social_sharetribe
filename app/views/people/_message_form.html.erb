@@ -1,32 +1,17 @@
-<div>
-  <div style="margin-top: 15px"></div>
-  <a href="javascript:void(0);" id="send-message" class="btn">
-    <i class="fa fa-commenting-o"></i> Send message </a>
-  <%= content_for :extra_javascript do %>
-      <script type="text/javascript">
-          function replaceAtMentionsWithLinks(text) {
-              return text.replace(/@([a-z\d_]+)/ig, '<a href="http://twitter.com/$1">@$1</a>');
-          }
-          $(function () {
-              $('#send-message').click(function () {
-                  $('#new-message-form').lightbox_me({centered: true, zIndex: 1000000});
-              });
-          });
-      </script>
-  <% end %>
+<div class="lightbox custom-modal" id="new-message-form">
+  <div class="lightbox-content">
+    <div class="custom-modal-header">
+      <a class="close lightbox-x" href="#" id="close_x">
+        <%= icon_tag('cross') %>
+      </a>
 
-  <div class="lightbox" id="new-message-form">
-    <div class="lightbox-content">
-      <div>
-        <a class="close lightbox-x" href="#" id="close_x">
-          <%= icon_tag('cross') %>
-        </a>
-      </div>
-      <div class="flash-message"></div>
+      <h2>
+        <%= t("conversations.new.send_message_to_user", :person => @person.given_name_or_username) %>
+      </h2>
+    </div>
+    <div class="flash-message"></div>
+    <div class="custom-modal-content">
       <div class="centered-section" id="new_message_form">
-        <h2>
-          <%= t("conversations.new.send_message_to_user", :person => @person.given_name_or_username) %>
-        </h2>
         <%= form_for Conversation.new, :url => person_person_messages_path(person_id: @person.username), remote: true do |form| %>
             <%= fields_for "conversation[message_attributes]", Message.new do |message_form| %>
                 <%#= message_form.label :content, t('conversations.new.message') %>
@@ -40,4 +25,14 @@
     </div>
   </div>
 </div>
+
+<%= content_for :extra_javascript do %>
+    <script type="text/javascript">
+        $(function () {
+            $('#send-message').click(function () {
+                $('#new-message-form').lightbox_me({centered: true, zIndex: 1000000});
+            });
+        });
+    </script>
+<% end %>
 

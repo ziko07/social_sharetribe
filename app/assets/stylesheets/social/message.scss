@@ -1,0 +1,31 @@
+.custom-modal {
+  width: 450px;
+  .lightbox-content {
+    padding: 0;
+  }
+  .custom-modal-header {
+    padding: 10px;
+    border-bottom: solid 1px #CCCCCC;
+    h2 {
+      font-size: 18px;
+      margin: 7px 0 3px 0;
+      color: #777;
+    }
+    a.lightbox-x {
+      padding: 4px;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      height: 10px;
+      width: 10px;
+    }
+  }
+
+  .custom-modal-content {
+    padding: 10px;
+    form {
+      margin-bottom: 5px;
+      padding-bottom: 0;
+    }
+  }
+}

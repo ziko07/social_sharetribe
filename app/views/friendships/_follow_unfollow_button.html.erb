@@ -1,0 +1,25 @@
+<% if @current_user.present? %>
+    <div class="follow-button-container">
+      <% if @current_user.friend_with? person %>
+          <%= link_to remove_friend_path(person.username), :method => "post", :remote => true, :class => "btn btn-primary following" do %>
+              <i class="fa"></i>
+          <% end %>
+      <% else %>
+          <% if person.invited_by? @current_user %>
+              <%= link_to remove_friend_path(person.username), :method => "post", :remote => true, :class => "btn btn-default pending-follow" do %>
+              <% end %>
+          <% elsif @current_user.invited_by? person %>
+              <%= link_to accept_friend_path(person.username), :method => "post", :remote => true, :class => "accept-request btn follow-button accept-request" do %>
+                  Confirm
+              <% end %>
+              <%= link_to accept_friend_path(person.username), :method => "post", :remote => true, :class => "btn follow-button accept-request remove-request" do %>
+                  Delete Request
+              <% end %>
+          <% else %>
+              <%= link_to add_friend_path(person.username), :method => "post", :remote => true, :class => 'btn btn-default follow-user' do %>
+                  <i class="fa fa-plus"></i> Follow
+              <% end %>
+          <% end %>
+      <% end %>
+    </div>
+<% end %>

@@ -5,15 +5,14 @@
 
     <div id="cover-image" class="cover silver add">
       <div class="image">
-        <img id="coverImg" src="" data-url="" data-url-retina="" data-height="">
+        <img id="coverImg" src="<%#= huge_avatar_thumb_url(@person) %>" data-url="<%#= huge_avatar_thumb_url(person) %>" data-url-retina="<%#= huge_avatar_thumb_url(person) %>" data-height="">
         <script>(function () {
             var img = document.getElementById('coverImg');
             img.src = window.devicePixelRatio > 1 ? img.getAttribute('data-url-retina') : img.getAttribute('data-url');
         })()</script>
       </div>
-      <a href="#" class="change camera btn-upload-cover" style="display:block;">
+      <a href="#" class="change camera btn-upload-cover" data-toggle="tooltip" data-placement="left" title='Upload Cover Image' style="display:block;">
         <span class="icon"></span>
-        <em>Upload Cover Image</em>
       </a>
     </div>
   </div>
@@ -28,48 +27,70 @@
     </ul>
     <div class="interaction">
       <div class="user-follow-section">
-        <a href="#" class="btn btn-default follow-user">
-          <i class="fa fa-plus"></i> Follow
-        </a>
+        <% if @current_user.present? && @current_user == person %>
+            <%= link_to person_settings_path(person.username), class: 'btn btn-default' do %>
+                Edit Profile
+            <% end %>
+        <% else %>
+            <%= render 'friendships/follow_unfollow_button', person: person %>
+        <% end %>
       </div>
+      <% if @current_user.present? && @current_user != person %>
+          <div class="user_fn">
+            <div class="btn-group" role="group" aria-label="...">
+              <%= link_to 'javascript:void(0);', class: 'send-message btn btn-default', id: 'send-message' do %>
+                  <i class="fa fa-envelope-o"></i>
+              <% end %>
+              <%= render 'people/message_form' %>
 
-      <div class="user_fn">
-        <div class="btn-group" role="group" aria-label="...">
-          <a class="send-message btn btn-default" href="#"> <i class="fa fa-envelope-o"></i> </a>
-
-          <div class="btn-group" role="group">
-            <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-ellipsis-h"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-right">
-              <li>
-                <a href="#"> <i class="fa fa-user-times"></i> Block User </a></li>
-              <li>
-                <a href="#"><i class="fa fa-flag"></i> Report User</a>
-              </li>
-            </ul>
+              <div class="btn-group" role="group">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-ellipsis-h"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <li>
+                    <a href="#"> <i class="fa fa-user-times"></i> Block User </a></li>
+                  <li>
+                    <a href="#"><i class="fa fa-flag"></i> Report User</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+      <% end %>
 
     </div>
     <div class="header-avatar">
-      <div id="user-photo" style="background-image:url('https://resize-ec2.thefancy.com/resize/crop/220/thefancy/UserImages/original/raghavminhas_71ebc0d87836.jpg');"></div>
+      <div id="user-photo" style="background-image:url('<%= huge_avatar_thumb_url(@person) %>');"></div>
     </div>
     <h3> <%= person.full_name %> </h3>
+    <% if person.location.present? %>
+        <p>
+          <%= person.location.address %>
+        </p>
+    <% end %>
 
-    <p>
-      Vancouver ·
-      <a href="http://about.me/sias" rel="nofollow" target="_blank">about.me/sias</a>
-    </p>
-
-    <div class="description">The Cookie Monster is my hero. Cookies for breakfast, lunch and dinner? If that's not
-      heroic, I'm not sure what else is...
+    <div class="description">
+      <% if person.description && !person.description.blank? %>
+          <%= raw add_links_and_br_tags(person.description) %>
+      <% elsif current_user?(person) %>
+          <a href="<%= person_settings_path(person) %>">
+            <i class="fa fa-pencil-square-o"></i> Write about yourself
+          </a>
+      <% end %>
     </div>
 
     <div class="followers">
-      <a href="#" class="_followers" username="iamDim">Followers <b>49.8K</b></a>
-      <a href="#" class="_following" username="iamDim">Following <b>44</b></a>
+      <a href="#" class="_followers" username="iamDim">Followers <b><%= person.invited.count %></b></a>
+      <a href="#" class="_following" username="iamDim">Following <b><%= person.invited_by.count %></b></a>
     </div>
   </div>
 </div>
+
+<%= content_for :extra_javascript do %>
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+<% end %>
