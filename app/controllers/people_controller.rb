@@ -97,13 +97,15 @@ class PeopleController < Devise::RegistrationsController
 
   def report_user_post
     if params[:reportable_type] == 'post'
-      post = Post.find_by_id(params[:reportable_id])
-      report =  post.reports.create(reported_by: @current_user.id)
+      @post = Post.find_by_id(params[:reportable_id])
+      report =  @post.reports.create(reported_by: @current_user.id)
     else
       person = Person.find_by_id(params[:reportable_id])
       report =  person.reports.create(reported_by: @current_user.id)
     end
-    redirect_to :back
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
   end
 
   def timelets

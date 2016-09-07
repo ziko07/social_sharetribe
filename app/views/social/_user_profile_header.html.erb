@@ -56,9 +56,13 @@
                     <%= link_to block_friend_path(@person), remote: true, method: 'post'  do %>
                         <i class="fa fa-user-times"></i> <span class="block_unblock_text"><%= @current_user.blocked?(@person) ? 'Unblock' : 'Block' %></span>
                     <% end %>
-                  <li>
-                    <%= link_to  report_user_post_people_path(reportable_id: person.id, reportable_type: 'person') do %>
-                        <i class="fa fa-flag"></i> Report User
+                  <li class="repot-action-user">
+                    <% unless is_reported_by_user(@person, @current_user.id)%>
+                        <%= link_to  report_user_post_people_path(reportable_id: person.id, reportable_type: 'person'), remote: true do %>
+                            <i class="fa fa-flag"></i> Report User
+                        <% end %>
+                    <% else %>
+                        <span class="report-btn" style="margin-left: 20px;"><i class="fa fa-flag" aria-hidden="true" style="padding: 2px"></i>Reported</span>
                     <% end %>
                   </li>
                 </ul>

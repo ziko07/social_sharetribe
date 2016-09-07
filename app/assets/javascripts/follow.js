@@ -44,7 +44,7 @@ $(document).on('click', '.cancel-comments', function () {
 //    $(this).parents('.comments-wrapper').slideUp('fast');
 //});
 
-$(document).ready(function() {
+$(document).ready(function () {
     $(".user-notification-wrapper").niceScroll();
 });
 

@@ -1,28 +1,7 @@
 <div class="clearfix">
   <div class="col-md-9">
     <div class="user-profile-content-wrapper">
-      <div class="spacing-btwn-divs wall-post-wrapper">
-        <h4>Whats new <%= link_to @person.given_name_or_username, person_path(username: @person.username) %>?</h4>
-
-        <%= form_tag '/posts', multipart: true, class: 'post-form', remote: true do %>
-            <%= text_area_tag :write_description, '', placeholder: "What's on your mind?", class: 'mention', id: 'description' %>
-            <%= hidden_field_tag :description, '', id: 'post-description-field' %>
-            <%= hidden_field_tag 'post_to_id', '', value: current_user?(@person) ? '' : @person.id %>
-            <%= render 'people/mention_listing' %>
-            <div class="attachment-submit clearfix">
-              <%= hidden_field_tag :listings_ids, '', id: 'listing_id', placeholder: 'Reference your listing...' %>
-              <%= hidden_field_tag :user_mention, '', id: 'user-mention' %>
-              <a href="javascript:void(0);" class="btn btn-info" id="attachment-update-post">
-                <i class="fa fa-camera"></i>
-              </a>
-              <a href="javascript:void(0);" class="btn btn-info" id="mention_listing" title="Refer a Listing">
-                <i class="fa fa-share-alt-square fa-3"></i>
-              </a>
-              <%= submit_tag 'Post Update', class: 'btn btn-info' %>
-            </div>
-        <% end %>
-      </div>
-
+      <%= render 'social/wall_post_form' %>
       <div class="wall-posts">
         <ul class="all_post">
           <% posts.each do |post| %>
@@ -38,54 +17,3 @@
     </div>
   </div>
 </div>
-
-<%= content_for :extra_javascript do %>
-    <script type="text/javascript">
-
-        $(document).on('ready', function(){
-            $('.feedback').rating({displayOnly: true, step: 0.5});
-        });
-        var mentionArea = $('textarea.mention');
-        var postArea = $('#description');
-        $('#attachment-update-post').click(function () {
-            $('#new-attachment-modal-form').lightbox_me({centered: true, zIndex: 1000000});
-        });
-
-        $('.post-form').submit(function () {
-            if (postArea.val() == '') {
-                postArea.focus();
-                return false;
-            }
-            else {
-                mentionArea.mentionsInput('val', function (text) {
-                    $('#post-description-field').val(text);
-                });
-
-                mentionArea.mentionsInput('getMentions', function (data) {
-                    $('#user-mention').val(JSON.stringify(data));
-                });
-            }
-        });
-
-        $('#tokenfield').tokenInput('/listings/listing_lists.json', {
-            theme: "facebook",
-            placeholder: 'Refer Your listings',
-            preventDuplicates: true
-        });
-
-        $(function () {
-            mentionArea.mentionsInput({
-                onDataRequest: function (mode, query, callback) {
-                    $.getJSON('/find_mention.json', {search: query}, function (responseData) {
-                        responseData = _.filter(responseData, function (item) {
-                            return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1
-                        });
-                        callback.call(this, responseData);
-                    });
-                }
-            });
-        });
-    </script>
-<% end %>
-
-<%= render 'posts/post_with_attachment_modal', person: @person %>
