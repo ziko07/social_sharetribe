@@ -110,6 +110,10 @@ class PeopleController < Devise::RegistrationsController
     @following = @person.invited
   end
 
+  def change_notification_status
+     @current_user.user_notifications.update_all(is_read: true)
+  end
+
   def create
     domain = @current_community ? @current_community.full_url : "#{request.protocol}#{request.host_with_port}"
     error_redirect_path = domain + sign_up_path

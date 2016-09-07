@@ -1,0 +1,8 @@
+<%= form_for @post do |f| %>
+    <%= f.text_area :description, class: 'post-attachment-description', placeholder: 'Say something about the photo(s)...', id: 'attachment-description' %>
+    <input type="submit" id="aw-whats-new-submit-bbmedia" class="btn btn-large btn-block btn-info" value="Post Update">
+<% end %>
+
+<% if @post.post_attachments.present? %>
+    <%= render_post_attachment(@post.post_attachments) %>
+<% end %>

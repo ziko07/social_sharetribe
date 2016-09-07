@@ -19,6 +19,7 @@ class Post < ActiveRecord::Base
   has_many :post_attachments, :as => :attachmentable, :dependent => :destroy
   has_many :post_comments, :as => :commentable, :dependent => :destroy
   has_many :likes, :as => :likeable, :dependent => :destroy
+  attr_accessible :attachment_list
 
   def mention_people(mention_params)
     mention_person = mention_params.present? ? JSON.parse(mention_params) : []

@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-
+  before_filter :ensure_is_admin, only: [:show,:edit,:delete_post_by_admin]
   def create
     status = true
     @post = Post.new(person_id: @current_user.id, post_to_id: params[:post_to_id], listings_ids: params[:listings_ids], description: params[:description])
@@ -51,6 +51,7 @@ class PostsController < ApplicationController
   def remove_attachmnet
     attachment = PostAttachment.find_by_id(params[:attachment_id])
     if attachment.present? && attachment.destroy
+      flash[:notice] = 'Attachment is successfully Deleted'
       status = true
     else
       status = false
@@ -59,7 +60,47 @@ class PostsController < ApplicationController
       format.json {
         render json: {status: status, attachment_id: params[:attachment_id]}
       }
+
+      format.html {
+        redirect_to :back
+      }
     end
+  end
+
+  def show
+    @post = Post.find_by_id(params[:id])
+    unless @post.present?
+      flash[:notice] = 'Post is already Deleted'
+      redirect_to admin_all_posts_path
+    end
+  end
+
+  def delete_post_by_admin
+    post = Post.find_by_id(params[:id])
+    if post.present?
+      post.destroy
+      flash[:notice] = 'Post is successfully Deleted'
+    else
+      status = false
+      flash[:notice] = 'Something Worng Please try latter'
+    end
+  redirect_to admin_all_posts_path
+  end
+
+
+  def edit
+   @post = Post.find_by_id(params[:id])
+  end
+
+  def update
+    post = Post.find_by_id(params[:id])
+    post.description = params[:post][:description]
+    if post.save
+      flash[:notice] = 'Post is successfully Updated'
+    else
+      flash[:notice] = 'Something Worng Please try latter'
+    end
+    redirect_to admin_all_posts_path
   end
 
   def destroy

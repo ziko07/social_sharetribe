@@ -38,6 +38,9 @@ Kassi::Application.routes.draw do
       post :upload_attachment
       delete :remove_attachmnet
     end
+    member do
+      delete :delete_post_by_admin
+    end
   end
   resources :post_comments
   resources :likes
@@ -389,6 +392,7 @@ Kassi::Application.routes.draw do
         member do
           get :wall
           get :friend
+          get :change_notification_status
         end
         collection do
           get 'find_mention'

@@ -635,6 +635,9 @@ Based on Rails routes of Kassi::Application
 // change_mistyped_email_sessions => (/:locale)/sessions/change_mistyped_email(.:format)
   // function(options)
   change_mistyped_email_sessions_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"sessions",false],[2,[7,"/",false],[2,[6,"change_mistyped_email",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
+// change_notification_status_person => (/:locale)/:username/change_notification_status(.:format)
+  // function(username, options)
+  change_notification_status_person_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"username",false],[2,[7,"/",false],[2,[6,"change_notification_status",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
 // check_email_availability_and_validity_people => (/:locale)/people/check_email_availability_and_validity(.:format)
   // function(options)
   check_email_availability_and_validity_people_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"people",false],[2,[7,"/",false],[2,[6,"check_email_availability_and_validity",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
@@ -704,6 +707,9 @@ Based on Rails routes of Kassi::Application
 // delete_marketplace_admin_community => (/:locale)/admin/communities/:id/delete_marketplace(.:format)
   // function(id, options)
   delete_marketplace_admin_community_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"delete_marketplace",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),
+// delete_post_by_admin_post => /posts/:id/delete_post_by_admin(.:format)
+  // function(id, options)
+  delete_post_by_admin_post_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"posts",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"delete_post_by_admin",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]], {}),
 // design => /design(.:format)
   // function(options)
   design_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"design",false],[1,[2,[8,".",false],[3,"format",false]],false]]], {}),

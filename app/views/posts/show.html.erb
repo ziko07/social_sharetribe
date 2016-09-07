@@ -1,0 +1,79 @@
+
+
+<%= render :partial => "admin/left_hand_navigation", :locals => { :links => admin_links_for(@current_community) } %>
+<% content_for :title_header do %>
+    <h1>
+      <%= 'Manage Posts' %>
+    </h1>
+<% end %>
+<div class="left-navi-section">
+  <div class="profile-list-section wall-post-item clearfix wall-post-item-<%= @post.id %>" id="wall_post_<%= @post.id%>">
+    <div class="profile-pic">
+      <a href="#">
+        <%= small_avatar_thumb(@post.person) %>
+      </a>
+    </div>
+    <div class="wall-post-content-wrapper">
+      <div class="post-title">
+        <span class="name"><%= link_to @post.person.given_name_or_username, person_path(username: @post.person.username) %></span>
+        <span class="times"> <%= time_ago_in_words(@post.created_at) %> ago </i> </span>
+      </div>
+      <div class="post-content">
+        <p>
+          <%= render_post_content(@post.description) %>
+        </p>
+        <% if @post.listings_ids.present? %>
+            <%= render_listing_item(@post.listings_ids) %>
+        <% end %>
+        <% if @post.post_attachments.present? %>
+            <%= render_post_attachment(@post.post_attachments) %>
+        <% end %>
+
+      </div>
+      <ul class="post-actions clearfix">
+        <li>
+          <%= link_to @post, method: :delete, remote: true, data: {confirm: 'Are you sure?'} do %>
+              <i class="fa fa-trash"></i>
+          <% end %>
+        </li>
+      </ul>
+      <div class="post-comments-wrapper">
+        <ul class="comments-list clearfix">
+          <% if @post.post_comments.present? %>
+              <% @post.post_comments.each do |comment| %>
+                  <li id="comment-<%= comment.id %>" style="display: list-item;">
+                    <div class="clearfix">
+                      <div class="comments-owner col-sm-1">
+                        <%= small_avatar_thumb(comment.person) %>
+                      </div>
+                      <div class="comment-text col-sm-11">
+                        <div class="post-title">
+                        <span class="name">
+                          <%= link_to comment.person.given_name_or_username, person_path(username: comment.person.username) %>
+                        </span>
+                          <span class="times"> <%= time_ago_in_words(comment.created_at) %> ago </i> </span>
+                        </div>
+                        <p>
+                          <%= comment.comment %>
+                        </p>
+                        <ul class="post-actions clearfix">
+                          <li>
+                            <% if current_user?(comment.person) %>
+                                <%= link_to comment, method: :delete, remote: true, data: {confirm: 'Are you sure?'} do %>
+                                    <i class="fa fa-trash"></i>
+                                <% end %>
+                            <% end %>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+              <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+

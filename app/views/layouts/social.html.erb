@@ -110,13 +110,14 @@
         });
     </script>
 <% end %>
-<%= content_for :extra_javascript %>
+<%= yield :extra_javascript %>
 <script>
     $(document).ready(function () {
         initialize_defaults("<%= I18n.locale %>");
         <%= yield :javascript %>
     });
 </script>
+
 
 </body>
 <footer>

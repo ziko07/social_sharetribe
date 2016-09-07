@@ -1,0 +1,68 @@
+<%= render :partial => "admin/left_hand_navigation", :locals => { :links => admin_links_for(@current_community) } %>
+<% content_for :title_header do %>
+    <h1>
+      <%= 'Manage Site Communities' %>
+    </h1>
+<% end %>
+<div class="left-navi-section">
+  <table style="text-align: center">
+    <tr style="text-align: center">
+      <th style="text-align: center">Posted BY </th>
+      <th style="text-align: center">Contact</th>
+      <th style="text-align: center">Country</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <% if @posts.present? %>
+    <% @posts.each do |post| %>
+            <tr>
+              <td><%= post.person.given_name %></td>
+              <td><%= get_given_name(post.post_to_id) %></td>
+              <td style="text-align: center"><%= truncate(render_post_content(post.description), :length => 60 ) %></td>
+              <td>
+                <%= link_to post_path(post), title: 'Edit' do %>
+                    <i class="icon-eye-open"></i>
+                <% end %>
+                <%= link_to edit_post_path(post), title: 'Edit' do %>
+                    <i class="icon-pencil"></i>
+                <% end %>
+                <%= link_to delete_post_by_admin_post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete' do %>
+                    <i class="icon-remove"></i>
+                <% end %>
+              </td>
+            </tr>
+    <% end %>
+    <% end %>
+  </table>
+  </div>
+</div>
+
+<div class="lightbox" id="listing_shared_modal">
+  <a class="close lightbox-x" href="#" id="close_x">
+    <%= icon_tag('cross') %>
+  </a>
+
+  <div class="lightbox-content">
+    <div class="post_share_form">
+      <%= form_tag '/posts', remote: true do %>
+          <%= text_area_tag :description, '', class: 'post-attachment-description', placeholder: 'Say something about the photo(s)...', id: 'attachment-description' %>
+          <div id="upload-post-attachment" class="dropzone">
+            <div class="dz-message needsclick">
+              <b> Drop </b> files here or <b> click </b> to upload.
+            </div>
+          </div>
+          <%= hidden_field_tag :attachment_list, '', id: 'attachmnet_list_uploaded' %>
+          <input type="submit" id="aw-whats-new-submit-bbmedia" class="btn btn-large btn-block btn-info" value="Post Update">
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= content_for :extra_javascript do %>
+    <script type="text/javascript">
+        $('#share_listing').click(function () {
+            $('#listing_shared_modal').lightbox_me({centered: true, zIndex: 1000000});
+        });
+    </script>
+<% end %>

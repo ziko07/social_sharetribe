@@ -150,6 +150,18 @@ module ApplicationHelper
     "inbox_tab_#{controller_name.eql?(tab_name) ? 'selected' : 'unselected'}"
   end
 
+  def notification_count(person)
+    person.user_notifications.where(is_read: false).count
+  end
+
+  def get_given_name(person)
+    if person.present?
+      Person.find_by_id(person).given_name
+    else
+      'Self'
+    end
+  end
+
   def available_locales
     locales =
         if @current_community
@@ -756,8 +768,12 @@ module ApplicationHelper
             attachment_item << link_to(ext, attachment.attachment_url, class: 'post-attachment-link')
           end
       end
+      if @is_current_community_admin
+        attachment_item << "</br><span>#{link_to '',remove_attachmnet_posts_path(attachment_id: attachment.id), class: 'icon-remove',method: 'delete' , title: 'Delete Attachment'}</span>"
+      end
       attachment_wrapper << attachment_item.to_s << '</div>'
     end
+
     raw attachment_wrapper << '</div>'
   end
 
