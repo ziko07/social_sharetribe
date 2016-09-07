@@ -1,0 +1,36 @@
+<div class="lightbox custom-modal" id="new-message-form">
+  <div class="lightbox-content">
+    <div class="custom-modal-header">
+      <a class="close lightbox-x" href="#" id="close_x">
+        <%= icon_tag('cross') %>
+      </a>
+
+      <h2>
+        <%= t("conversations.new.send_message_to_user", :person => @person.given_name_or_username) %>
+      </h2>
+    </div>
+    <div class="flash-message"></div>
+    <div class="custom-modal-content">
+      <div class="centered-section" id="new_message_form">
+        <%= text_field_tag :listings, '', id: 'tokenfield', placeholder: 'Reference your listing...' %>
+            <div style="margin-top: 10px;" class="clearfix">
+              <%=button_tag 'OK', :class => "btn-primary btn pull-right close_light-box" %>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= content_for :extra_javascript do %>
+    <script type="text/javascript">
+        $(function () {
+            $('#mention_listing').click(function () {
+                $('#new-message-form').lightbox_me({centered: true, zIndex: 900});
+            });
+            $('.close_light-box').click(function () {
+                $('#listing_id').val($('#tokenfield').val());
+                $('.close.lightbox-x').trigger('click');
+            });
+        });
+    </script>
+<% end %>

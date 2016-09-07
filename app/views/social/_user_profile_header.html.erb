@@ -5,7 +5,7 @@
 
     <div id="cover-image" class="cover silver add">
       <div class="image">
-        <img id="coverImg" src="<%#= huge_avatar_thumb_url(@person) %>" data-url="<%#= huge_avatar_thumb_url(person) %>" data-url-retina="<%#= huge_avatar_thumb_url(person) %>" data-height="">
+        <img id="coverImg" src="<%= huge_cover_image_thumb_url(@person) %>" data-url="<%= huge_cover_image_thumb_url(person) %>" data-url-retina="<%= huge_cover_image_thumb_url(person) %>" data-height="">
         <script>(function () {
             var img = document.getElementById('coverImg');
             img.src = window.devicePixelRatio > 1 ? img.getAttribute('data-url-retina') : img.getAttribute('data-url');
@@ -53,9 +53,13 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li>
-                    <a href="#"> <i class="fa fa-user-times"></i> Block User </a></li>
+                    <%= link_to block_friend_path(@person), remote: true, method: 'post'  do %>
+                        <i class="fa fa-user-times"></i> <span class="block_unblock_text"><%= @current_user.blocked?(@person) ? 'Unblock' : 'Block' %></span>
+                    <% end %>
                   <li>
-                    <a href="#"><i class="fa fa-flag"></i> Report User</a>
+                    <%= link_to  report_user_post_people_path(reportable_id: person.id, reportable_type: 'person') do %>
+                        <i class="fa fa-flag"></i> Report User
+                    <% end %>
                   </li>
                 </ul>
               </div>
@@ -67,7 +71,8 @@
     <div class="header-avatar">
       <div id="user-photo" style="background-image:url('<%= huge_avatar_thumb_url(@person) %>');"></div>
     </div>
-    <h3> <%= person.full_name %> </h3>
+    <% feedback, total_feedback =  get_feedback_rating(@person, @current_community) %>
+    <h3> <%= person.full_name %> <input class='feedback' name='feedback' value="<%= feedback %>" class='rating-loading'> </h3>
     <% if person.location.present? %>
         <p>
           <%= person.location.address %>
@@ -83,7 +88,7 @@
           </a>
       <% end %>
     </div>
-
+    <%= link_to 'Report', report_user_post_people_path(reportable_id: person.id, reportable_type: 'person') %>
     <div class="followers">
       <a href="#" class="_followers" username="iamDim">Followers <b><%= person.invited_by.count %></b></a>
       <a href="#" class="_following" username="iamDim">Following <b><%= person.invited.count %></b></a>
@@ -94,6 +99,9 @@
 <%= content_for :extra_javascript do %>
     <script type="text/javascript">
         $(function () {
+            $(document).on('ready', function(){
+                $('.feedback').rating({displayOnly: true, step: 0.5});
+            });
             $('[data-toggle="tooltip"]').tooltip();
             $('.change-upload-cover-image').click(function () {
                 $('#upload-cover-image-modal').lightbox_me({centered: true, zIndex: 1000000});

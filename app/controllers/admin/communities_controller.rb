@@ -373,6 +373,10 @@ class Admin::CommunitiesController < ApplicationController
   def all_posts
       @posts = Post.all.order(id: :desc)
   end
+
+  def report_list
+    
+  end
   #################################################Social Code#################################################################
   private
 

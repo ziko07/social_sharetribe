@@ -38,6 +38,9 @@ Kassi::Application.routes.draw do
       post :upload_attachment
       delete :remove_attachmnet
     end
+    member do
+      get :all_comments
+    end
   end
   resources :post_comments
   resources :likes
@@ -395,6 +398,8 @@ Kassi::Application.routes.draw do
         end
         collection do
           get 'find_mention'
+          get :report_user_post
+          get :notification
         end
       end
 
@@ -496,6 +501,7 @@ Kassi::Application.routes.draw do
     post '/people/:username/add_friend' => "friendships#add_friend", :as => :add_friend
     post '/people/:username/accept_friend' => "friendships#accept_friend", :as => :accept_friend
     post '/people/:username/remove_friend' => "friendships#remove_friend", :as => :remove_friend
+    post '/people/:username/block_friend' => "friendships#block_friend", :as => :block_friend
 
     get "/:person_id/messages/:conversation_type/:id" => "conversations#show", :as => :single_conversation
 

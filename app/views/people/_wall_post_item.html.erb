@@ -7,7 +7,7 @@
   <div class="wall-post-content-wrapper">
     <div class="activity-status">
       <%= link_to post.person.full_name, person_path(username: post.person.username) %> share timelet
-      <i> <%= time_ago_in_words(post.created_at) %> ago </i>
+      <i> <%= time_ago_in_words(post.created_at) %> ago </i> <%= link_to 'Report', report_user_post_people_path(reportable_id: post.id, reportable_type: 'post') %>
     </div>
     <div class="activity-content">
       <div class="post-content">
@@ -29,7 +29,7 @@
           <%= like_unlike_link(post, @current_user, 'post') %>
         </li>
         <li>
-          <a href="javascript:void(0);" class="reply-comments"><i class="fa fa-commenting"></i> Comment</a>
+          <a href="javascript:void(0);" class="reply-comments"><i class="fa fa-commenting"></i> Comment<%= "(" +  post.post_comments.count.to_s + ")" if post.post_comments.present?%></a>
         </li>
         <li>
           <%= link_to 'javascript:void(0);' do %>
@@ -48,8 +48,11 @@
     <div class="post-comments-wrapper">
       <ul class="comments-list clearfix">
         <% if post.post_comments.present? %>
-            <% post.post_comments.each do |comment| %>
+            <% post.post_comments.limit(1).each do |comment| %>
                 <%= render 'people/comments_item', comment: comment, post: post %>
+                <% if post.post_comments.count > 1 %>
+                    <%= link_to 'See All Comments', all_comments_post_path(post),remote: true, class: "show_all_#{post.id}"  %>
+                 <% end %>
             <% end %>
         <% end %>
       </ul>

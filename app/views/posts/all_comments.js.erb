@@ -1,0 +1,4 @@
+<% comments.each do |comment|%>
+$(".wall-post-item-<%= @post.id %>").find('.post-comments-wrapper .comments-list').append("<%= escape_javascript(render :partial => 'people/comments_item', :locals => {:comment => comment, post: @post} ).html_safe %>");
+<% end %>
+$(".show_all_<%= @post.id %>").hide();

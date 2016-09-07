@@ -554,9 +554,13 @@
 .comments-wrapper {
   display: none;
   text-align: left;
+  padding-right: 20px;
   .comment-owner {
     display: inline-block;
     width: 60px;
+  }
+  form {
+    padding-bottom: 10px;
   }
 }
 
@@ -571,6 +575,8 @@
   padding: 0 2px;
   list-style: none;
   color: white;
+  max-height: 400px;
+  overflow: hidden;
   word-break: break-all;
   .notification-item {
     cursor: pointer;
@@ -604,5 +610,13 @@
         padding: 0;
       }
     }
+  }
+}
+
+.rating-container {
+  display: inline-block;
+  font-size: 15px;
+  .star {
+    margin: 0 1px;
   }
 }

@@ -44,6 +44,29 @@ $(document).on('click', '.cancel-comments', function () {
 //    $(this).parents('.comments-wrapper').slideUp('fast');
 //});
 
+$(document).ready(function() {
+    $(".user-notification-wrapper").niceScroll();
+});
+
+$('#notification-list ul').scroll(function () {
+    var count = $('#notification-list').find(("li")).length;
+    if ($(this).scrollTop() + $(this).innerHeight() == this.scrollHeight) {
+        $.ajax({
+            url: '/notification',
+            type: 'get',
+            dataType: 'script',
+            data: {count: count},
+            success: function (res) {
+
+            },
+            error: function (e) {
+
+            }
+        });
+    }
+});
+
+
 window.ST.initializeFollowButtons = function () {
     $(".follow-button").on("ajax:complete", window.ST.onFollowButtonAjaxComplete);
 };

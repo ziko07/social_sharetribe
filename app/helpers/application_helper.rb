@@ -119,6 +119,11 @@ module ApplicationHelper
     person.image.present? ? person.image.url(:medium) : missing_avatar(:medium)
   end
 
+
+  def huge_cover_image_thumb_url(person, options={})
+    person.cover_photo.present? ? person.cover_photo.url : missing_avatar(:medium)
+  end
+
   def missing_avatar(size = :medium)
     case size.to_sym
       when :small
@@ -793,19 +798,32 @@ module ApplicationHelper
     listing_wrapper = "<div class='activity-timelet-image-wrapper'>"
     listings = Listing.where(id: ids.split(','))
     listings.each do |listing|
+      feedback, total_feedback =  get_feedback_rating(listing.author, @current_community)
       if listing.listing_images.present?
         listing_item << "<div class='attachment-container'>"
         listing_item << "#{image_tag listing.listing_images.first.image.url(:medium)}"
-        listing_item << "<p class='listing-link'> #{link_to listing.title, listing_path(listing)}</p>"
+        listing_item << "<p class='listing-link'> #{link_to listing.title, listing_path(listing)}</p> $60 | #{link_to listing.author.full_name, person_path(listing.author)}<input class='feedback' name='feedback' value=#{feedback} class='rating-loading'>(#{total_feedback})"
         listing_item << '</div>'
       else
         listing_item << "<div class='attachment-container'>"
         listing_item << "#{image_missing}"
-        listing_item << "<p class='listing-link'> #{link_to listing.title, listing_path(listing)}</p> $60 | #{link_to listing.author.full_name, person_path(listing.author)} *** (29)"
+        listing_item << "<p class='listing-link'> #{link_to listing.title, listing_path(listing)}</p> $60 | #{link_to listing.author.full_name, person_path(listing.author)}  <input class='feedback' name='feedback' value=#{feedback} class='rating-loading'>(#{total_feedback})"
         listing_item << '</div>'
       end
     end
     raw listing_wrapper << listing_item << '</div>'
+  end
+
+  def get_feedback_rating(author,community)
+    rating = 0
+    received_testimonials = TestimonialViewUtils.received_testimonials_in_community(author, community).count
+    received_positive_testimonials = TestimonialViewUtils.received_positive_testimonials_in_community(author, community).count
+    received_negetive_testimonials = TestimonialViewUtils.received_negative_testimonials_in_community(author, community).count
+    unless received_testimonials == 0
+      total_feedback = (received_positive_testimonials  + received_negetive_testimonials) / received_testimonials
+      rating = total_feedback * 5
+    end
+    return  rating, received_testimonials
   end
 
 end
