@@ -628,7 +628,7 @@ module ApplicationHelper
     unless object.likes.count == 0
       count = object.likes.count
     end
-    html = "<span id='like-counts-comment-#{object.id}'> #{count}</span>&nbsp;&nbsp;"
+    html = "<span id='like-counts-comment-#{object.id}' class='liked'> #{count} </span>&nbsp"
     if object.likes.where(person_id: person.id).present?
       link_html = link_to(like_path(object.likes.where(person_id: person.id).first.id), id: "#{type}#{object.id}", :remote => true, method: 'delete') do
         raw "<i class='fa fa fa-thumbs-o-up liked'> </i> UnLike"
@@ -744,7 +744,7 @@ module ApplicationHelper
     slide_item = ''
     attachments.each do |attachment|
       slide_item << "<div class='slide-item'>"
-      slide_item << image_tag(attachment.attachment_url)
+      slide_item << image_tag(attachment.attachment_url(:thumb), data: {big_url: attachment.attachment_url(:big)})
       slide_item << '</div>'
     end
     attachment_slide_wrapper << slide_item << '</div></div>'
@@ -753,31 +753,9 @@ module ApplicationHelper
   def render_post_attachment(attachments)
     attachment_wrapper = "<div class='post-attachment-wrapper'>"
     first_attachment = attachments.first
-    attachment_big_item = "<div class='attachment-big'> #{image_tag(first_attachment.attachment_url)} </div>"
-    attachment_wrapper << attachment_slide_item(attachments)
+    attachment_big_item = "<div class='attachment-big'> #{image_tag(first_attachment.attachment_url(:big))} </div>"
+    attachment_wrapper << attachment_slide_item(attachments) if attachments.count > 1
     attachment_wrapper << attachment_big_item
-    # attachments.each do |attachment|
-    #   attachment_item = "<div class='attachment-container'>"
-    #   case attachment.attachment_type
-    #     when 'image'
-    #       attachment_item << image_tag(attachment.attachment_url)
-    #     when 'audio'
-    #       attachment_item << audio_tag(attachment.attachment_url, controls: true)
-    #       attachment_item << link_to(raw("<i class='fa fa-cloud-download fa-1x'></i>"), attachment.attachment_url, class: 'download-attachment', title: 'Download video')
-    #     when 'video'
-    #       attachment_item << video_tag(attachment.attachment_url, :controls => true)
-    #       attachment_item << link_to(raw("<i class='fa fa-download fa-1x'></i>"), attachment.attachment_url, class: 'download-attachment', title: 'Download video')
-    #     else
-    #       ext = attachment.attachment_url.split('/').last
-    #       if ext.include? '.mp4'
-    #         attachment_item << video_tag(attachment.attachment_url, :controls => true)
-    #         attachment_item << link_to(raw("<i class='fa fa-download fa-1x'></i>"), attachment.attachment_url, class: 'download-attachment', title: 'Download video')
-    #       else
-    #         attachment_item << link_to(ext, attachment.attachment_url, class: 'post-attachment-link')
-    #       end
-    #   end
-    #   attachment_wrapper << attachment_item.to_s << '</div>'
-    # end
     raw attachment_wrapper << '</div>'
   end
 
@@ -798,7 +776,7 @@ module ApplicationHelper
     listing_wrapper = "<div class='activity-timelet-image-wrapper'>"
     listings = Listing.where(id: ids.split(','))
     listings.each do |listing|
-      feedback, total_feedback =  get_feedback_rating(listing.author, @current_community)
+      feedback, total_feedback = get_feedback_rating(listing.author, @current_community)
       if listing.listing_images.present?
         listing_item << "<div class='attachment-container'>"
         listing_item << "#{image_tag listing.listing_images.first.image.url(:medium)}"
@@ -814,16 +792,20 @@ module ApplicationHelper
     raw listing_wrapper << listing_item << '</div>'
   end
 
-  def get_feedback_rating(author,community)
+  def get_feedback_rating(author, community)
     rating = 0
     received_testimonials = TestimonialViewUtils.received_testimonials_in_community(author, community).count
     received_positive_testimonials = TestimonialViewUtils.received_positive_testimonials_in_community(author, community).count
     received_negetive_testimonials = TestimonialViewUtils.received_negative_testimonials_in_community(author, community).count
     unless received_testimonials == 0
-      total_feedback = (received_positive_testimonials  + received_negetive_testimonials) / received_testimonials
+      total_feedback = (received_positive_testimonials + received_negetive_testimonials) / received_testimonials
       rating = total_feedback * 5
     end
-    return  rating, received_testimonials
+    return rating, received_testimonials
+  end
+
+  def is_reported_by_user(object, user_id)
+    object.reports.find_by_reported_by(user_id).present?
   end
 
 end

@@ -7,7 +7,23 @@
   <div class="wall-post-content-wrapper">
     <div class="activity-status">
       <%= link_to post.person.full_name, person_path(username: post.person.username) %> share timelet
-      <i> <%= time_ago_in_words(post.created_at) %> ago </i> <%= link_to 'Report', report_user_post_people_path(reportable_id: post.id, reportable_type: 'post') %>
+      <i> <%= time_ago_in_words(post.created_at) %> ago </i>
+      <div class="dropdown pull-right">
+        <span class="dropdown-toggle pull-right" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor: pointer; margin-top: -5px;">
+          <i class="fa fa-angle-down fa-2x" aria-hidden="true"></i>
+        </span>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li class="report-action-<%= post.id %>">
+            <% unless is_reported_by_user(post, @current_user.id)%>
+                <%= link_to  report_user_post_people_path(reportable_id: post.id, reportable_type: 'post'), class: "report-btn", remote: true do %>
+                    <i class="fa fa-flag" aria-hidden="true"></i> Report
+                <% end %>
+            <% else %>
+            <span class="report-btn" style="margin: 5px;"><i class="fa fa-flag" aria-hidden="true" style="padding: 2px"></i>Reported</span>
+            <% end %>
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="activity-content">
       <div class="post-content">
@@ -51,7 +67,7 @@
             <% post.post_comments.limit(1).each do |comment| %>
                 <%= render 'people/comments_item', comment: comment, post: post %>
                 <% if post.post_comments.count > 1 %>
-                    <%= link_to 'See All Comments', all_comments_post_path(post),remote: true, class: "show_all_#{post.id}"  %>
+                    <%= link_to 'See All Comments', all_comments_post_path(post),remote: true, class: "show_all_#{post.id} see_all_message"  %>
                  <% end %>
             <% end %>
         <% end %>

@@ -620,3 +620,20 @@
     margin: 0 1px;
   }
 }
+
+.report-btn {
+  color: black !important;
+  font-weight: normal !important;
+  font-size: 12px !important;
+}
+
+.see_all_message {
+  color: #8a8f9c;
+  padding: 5px;
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  &:hover{
+    color: #0078a3;
+  }
+}

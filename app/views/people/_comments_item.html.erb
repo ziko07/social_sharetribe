@@ -13,18 +13,21 @@
       <p>
         <%= comment.comment %>
       </p>
-      <ul class="post-actions clearfix">
-        <li class="like-comment-<%= comment.id %>">
-          <%= like_unlike_link(comment, @current_user, 'comment') %>
-        </li>
-        <li>
-          <% if current_user?(comment.person) %>
-              <%= link_to comment, method: :delete, remote: true, data: {confirm: 'Are you sure?'} do %>
-                  <i class="fa fa-trash"></i>
-              <% end %>
-          <% end %>
-        </li>
-      </ul>
+
+      <div class="activity-footer">
+        <ul class="activity-actions clearfix" style="padding-left: 0px;">
+          <li class="like-comment-<%= comment.id %>">
+            <%= like_unlike_link(comment, @current_user, 'comment') %>
+          </li>
+          <li>
+            <% if current_user?(comment.person) %>
+                <%= link_to comment, method: :delete, remote: true, data: {confirm: 'Are you sure?'} do %>
+                    <i class="fa fa-trash"></i> Delete
+                <% end %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </li>
