@@ -1,0 +1,12 @@
+<% @notifications.each do |notification| %>
+    <li class="notification-item" onclick="location.href='<%= notification.link %>';">
+      <div class="sender-picture profile-pic">
+        <%= small_avatar_thumb(notification.notification_sender) %>
+      </div>
+      <div class="notification-content">
+        <%= link_to notification.notification_sender.full_name, person_path(notification.notification_sender.username) %>
+        <%= notification.content %> <br/>
+        <i> <i class="fa fa-clock-o"></i> 3 hours ago </i>
+      </div>
+    </li>
+<% end %>

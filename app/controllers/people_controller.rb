@@ -126,6 +126,13 @@ class PeopleController < Devise::RegistrationsController
   end
 
   def upload_cover_image
+    person = Person.find_by_username(params[:username])
+    person.cover_photo = params[:file]
+    if person.save
+      status = true
+    else
+      status = false
+    end
     respond_to do |format|
       format.json { render json: {status: true} }
     end
@@ -137,6 +144,14 @@ class PeopleController < Devise::RegistrationsController
     @mutual_friends = @person.common_friends_with(@current_user)
     @friend_request = @person.pending_invited_by
     @following = @person.invited
+  end
+
+  def notification
+    @count = params[:count]
+    @notifications = UserNotification.all.order(id: :DESC).limit(7).offset(@count)
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
   end
 
   def create

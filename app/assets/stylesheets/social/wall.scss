@@ -554,10 +554,13 @@
 .comments-wrapper {
   display: none;
   text-align: left;
-  padding: 15px;
+  padding-right: 20px;
   .comment-owner {
     display: inline-block;
     width: 60px;
+  }
+  form {
+    padding-bottom: 10px;
   }
 }
 
@@ -572,6 +575,8 @@
   padding: 0 2px;
   list-style: none;
   color: white;
+  max-height: 400px;
+  overflow: hidden;
   word-break: break-all;
   .notification-item {
     cursor: pointer;

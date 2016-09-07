@@ -74,4 +74,12 @@ class PostsController < ApplicationController
       format.js { render :layout => false, locals: {status: status, id: post.id} }
     end
   end
+
+  def all_comments
+     @post = Post.find_by_id(params[:id])
+    comments =  @post.post_comments.all.offset(1)
+     respond_to do |format|
+       format.js { render :layout => false, locals: {comments: comments} }
+     end
+  end
 end

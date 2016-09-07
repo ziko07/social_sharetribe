@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907044949) do
+ActiveRecord::Schema.define(version: 20160907091056) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string   "token",            limit: 255
@@ -878,6 +878,7 @@ ActiveRecord::Schema.define(version: 20160907044949) do
     t.integer  "min_days_between_community_updates", limit: 4,     default: 1
     t.boolean  "deleted",                                          default: false
     t.string   "cloned_from",                        limit: 22
+    t.string   "cover_photo",                        limit: 255
   end
 
   add_index "people", ["authentication_token"], name: "index_people_on_authentication_token", using: :btree

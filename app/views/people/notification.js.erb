@@ -1,0 +1,1 @@
+$('#notification-list ul').append("<%= escape_javascript(render :partial => 'new_notification_list', :locals => {:notifications => @notifications} ).html_safe %>");

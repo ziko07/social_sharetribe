@@ -24,7 +24,7 @@
   </div>
   <div class="toggle-menu header-toggle-menu-user hidden" id="notification-list" style="left: 712.844px; width: 450px; top: 143.375px;">
     <ul class="user-notification-wrapper">
-      <% UserNotification.all.each do |notification| %>
+      <% UserNotification.all.limit(10).each do |notification| %>
           <li class="notification-item" onclick="location.href='<%= notification.link %>';">
             <div class="sender-picture profile-pic">
               <%= small_avatar_thumb(notification.notification_sender) %>

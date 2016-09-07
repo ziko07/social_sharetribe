@@ -40,6 +40,7 @@
 #  min_days_between_community_updates :integer          default(1)
 #  deleted                            :boolean          default(FALSE)
 #  cloned_from                        :string(22)
+#  cover_photo                        :string(255)
 #
 # Indexes
 #
@@ -79,11 +80,14 @@ class Person < ActiveRecord::Base
                 :form_password2, :form_email, :consent,
                 :input_again, :send_notifications
 
+
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
 
   attr_protected :is_admin
+
+  mount_uploader :cover_photo, AttachmentUploader
 
   has_many :listings, -> { where(deleted: 0) }, :dependent => :destroy, :foreign_key => "author_id"
   has_many :emails, :dependent => :destroy, :inverse_of => :person

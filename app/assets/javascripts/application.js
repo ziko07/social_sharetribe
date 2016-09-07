@@ -93,4 +93,5 @@
 //= require social/bootstrap.min
 //= require social/star-rating.min
 //= require jquery.tokeninput
+//= require jquery.nicescroll
 //= require_self

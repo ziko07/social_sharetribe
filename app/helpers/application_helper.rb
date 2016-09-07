@@ -119,6 +119,11 @@ module ApplicationHelper
     person.image.present? ? person.image.url(:medium) : missing_avatar(:medium)
   end
 
+
+  def huge_cover_image_thumb_url(person, options={})
+    person.cover_photo.present? ? person.cover_photo.url : missing_avatar(:medium)
+  end
+
   def missing_avatar(size = :medium)
     case size.to_sym
       when :small
