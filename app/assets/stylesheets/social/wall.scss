@@ -561,6 +561,10 @@
   }
   form {
     padding-bottom: 10px;
+    textarea {
+      margin-bottom: 7px;
+      border: solid 1px #CCCCCC;
+    }
   }
 }
 
@@ -625,6 +629,7 @@
   color: black !important;
   font-weight: normal !important;
   font-size: 12px !important;
+  padding: 8px 10px 5px 10px !important;
 }
 
 .see_all_message {

@@ -1,6 +1,5 @@
 <%= render 'social/user_profile_header', person: @person %>
-<%= render 'social/social_nav' %>
-
+<%= render partial: 'social/social_nav', locals: profile_header_porps(@person)  %>
 <div class="friendship-wrapper">
   <%= render 'friendships/friend_request', friend_request: @friend_request if current_user?(@person) %>
   <div class="friend-list-wrapper">

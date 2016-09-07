@@ -1,10 +1,8 @@
 <% if friend_request.present? %>
     <h3 class="friendship-header"> <%= friend_request.present? ? "Pending Following #{friend_request.count}" : 'No pending Following' %> </h3>
-    <div class="row">
       <ul class="friend-request-list clearfix">
         <% friend_request.each do |request| %>
             <%= render 'friendships/friend_item', friend: request, person: @person %>
         <% end %>
       </ul>
-    </div>
 <% end %>

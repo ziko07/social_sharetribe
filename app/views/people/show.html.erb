@@ -1,6 +1,6 @@
 <%= render 'social/user_profile_header', person: @person %>
 
-<%= render 'social/social_nav' %>
+<%= render partial: 'social/social_nav', locals: profile_header_porps(@person)  %>
 
 
 <!--

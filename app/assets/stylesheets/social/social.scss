@@ -23,30 +23,30 @@
 //  }
 //}
 //
-//.attachment-submit {
-//  width: 100%;
-//  display: none;
-//  text-align: right;
-//  margin-top: 10px;
-//}
-//
-//#new-attachment-modal-form {
-//  width: 500px;
-//  max-width: 100% !important;
-//  background: #f9f9f9;
-//  .lightbox-content {
-//    background: transparent;
-//    padding: 0;
-//  }
-//  a.lightbox-x {
-//    padding: 0 !important;
-//    top: 5px;
-//    right: -20px;
-//  }
-//  .post-attachment-description {
-//    background: transparent;
-//  }
-//}
+.attachment-submit {
+  width: 100%;
+  display: none;
+  text-align: right;
+  margin-top: 10px;
+}
+
+#new-attachment-modal-form {
+  width: 500px;
+  max-width: 100% !important;
+  background: #f9f9f9;
+  .lightbox-content {
+    background: transparent;
+    padding: 0;
+  }
+  a.lightbox-x {
+    padding: 0 !important;
+    top: 5px;
+    right: -20px;
+  }
+  .post-attachment-description {
+    background: transparent;
+  }
+}
 
 .social-container {
   max-width: 980px;

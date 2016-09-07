@@ -583,6 +583,16 @@ class ApplicationController < ActionController::Base
 
   helper_method :topbar_props
 
+  def profile_header_porps(person)
+      {
+          timelets: person.listings.count,
+          reviews: TestimonialViewUtils.received_testimonials_in_community(person, @current_community).count,
+          followers: person.invited_by.count
+      }
+  end
+
+  helper_method :profile_header_porps
+
   def header_props
     user = Maybe(@current_user).map { |u|
       {
