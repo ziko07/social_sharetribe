@@ -1,6 +1,7 @@
 <div class="header-right visible-tablet">
   <%= link_to friend_person_path(@current_user.username), title: t("layouts.conversations.messages"), :id => "inbox-link", :class => "header-text-link header-hover header-inbox-link" do %>
-      <%= icon_map_tag(icons, "user", ["icon-with-text"]) %>
+      <%#= icon_map_tag(icons, "user", ["icon-with-text"]) %>
+      <i class="fa fa-users" style="font-size: 17px; margin-top: 25px;"></i>
       <% if @current_user.pending_invited_by.count > 0 %>
           <div class="<%= get_badge_class(@current_user.pending_invited_by.count) %> badge">
             <%= @current_user.pending_invited_by.count %>
@@ -17,7 +18,7 @@
         <%= UserNotification.all.where(is_read: false).count %>
       </div>
     <span class="">
-      <i class="fa fa-bell "></i>
+      <i class="fa fa-bell-o" style="font-size: 17px; margin-top: 25px;"></i>
     </span>
     </div>
   </div>
@@ -29,7 +30,7 @@
               <%= small_avatar_thumb(notification.notification_sender) %>
             </div>
             <div class="notification-content">
-              <%= link_to notification.notification_sender.given_name, person_path(notification.notification_sender.username) %>
+              <%= link_to notification.notification_sender.full_name, person_path(notification.notification_sender.username) %>
               <%= notification.content %> <br/>
               <i> <%= time_ago_in_words(notification.created_at) %> ago </i>
             </div>

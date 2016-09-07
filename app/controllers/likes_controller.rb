@@ -4,11 +4,10 @@ class LikesController < ApplicationController
     if params[:likeable_type] == 'post'
       @post = Post.find_by_id(params[:likeable_id])
       @like = @post.likes.create(person_id: @current_user.id)
-      UserNotification.send_notification(@current_user, @post.person, @post, UserNotification::NOTIFICATION_TYPE[:post_like])
     elsif params[:likeable_type] == 'comment'
       @comment = PostComment.find_by_id(params[:likeable_id])
       @like = @comment.likes.create(person_id: @current_user.id)
-      UserNotification.send_notification(@current_user, @comment.person, @comment, UserNotification::NOTIFICATION_TYPE[:comment_like])
+      #UserNotification.send_notification(@current_user, @comment.person, @comment, UserNotification::NOTIFICATION_TYPE[:comment_like])
     end
 
     respond_to do |format|

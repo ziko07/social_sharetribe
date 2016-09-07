@@ -1,4 +1,4 @@
-<h3 class="friendship-header"> Respond to Your 7 Friend Requests </h3>
+<h3 class="friendship-header"> <%= friend_request.present? ? "Respond to Your #{friend_request.count} Friend Requests" : 'No pending friend request' %> </h3>
 <ul class="friend-request-list">
   <% friend_request.each do |request| %>
       <%= render 'friendships/friend_item', friend: request, person: @person %>

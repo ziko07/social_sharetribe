@@ -22,11 +22,11 @@ class UserNotification < ActiveRecord::Base
       post: 'Post',
       mention: 'Mention',
       wall: "Wall",
-      post_like: 'Like Post',
-      comment: 'Comment a Post',
-      comment_like: 'Like Comment',
-      other_wall: 'Others Wall',
-      purchase_listing: 'Purchase Listing',
+      post_like: 'Like post',
+      comment: 'Comment on post',
+      comment_like: 'Like comment',
+      other_wall: 'Others wall',
+      purchase_listing: 'Purchase listing',
   }
 
   # @param [send notification sender] event

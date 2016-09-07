@@ -71,6 +71,8 @@
 / Modernizr, in the head tag, right after stylesheets, for best performance:
 = javascript_include_tag "modernizr.min"
 
+= render 'layouts/font_wasome_icon'
+
 / Detect if JS is enabled. duplicate of what Modernizr is doing, but we plan to get rid of Modernizr at some point.
 :javascript
   document.documentElement.className += ' js-enabled';
