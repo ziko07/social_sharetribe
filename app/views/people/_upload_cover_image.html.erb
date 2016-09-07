@@ -1,0 +1,60 @@
+<div class="lightbox custom-modal" id="upload-cover-image-modal">
+  <div class="lightbox-content">
+    <div class="custom-modal-header">
+      <a class="close lightbox-x" href="#" id="close_x">
+        <%= icon_tag('cross') %>
+      </a>
+
+      <h2>
+        Change or Upload Cover Image
+      </h2>
+    </div>
+    <div class="flash-message"></div>
+    <div class="custom-modal-content">
+      <div class="centered-section" id="new_message_form">
+        <%= form_tag upload_cover_image_person_path(@person.username), id: 'upload-cover-image', class: 'dropzone', remote: true do %>
+            <%= fields_for "conversation[message_attributes]", Message.new do |message_form| %>
+                <div class="dropzone-previews">
+                  <div class="dz-message needsclick">
+                    <b> Drop </b> files here or <b> click </b> to upload.
+                  </div>
+                </div>
+            <% end %>
+        <% end %>
+        <div style="margin-top: 10px;" class="clearfix">
+          <%= button_tag 'Upload', :class => "btn-primary btn pull-right submit-cover-image" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= content_for :extra_javascript do %>
+    <script type="text/javascript">
+        $(function () {
+            Dropzone.options.uploadCoverImage = {
+                autoProcessQueue: false,
+                uploadMultiple: false,
+                parallelUploads: 1,
+                maxFiles: 1,
+                init: function () {
+                    var myDropzone = this;
+                    $(".submit-cover-image").click(function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        myDropzone.processQueue();
+                    });
+                    this.on('success', function (file, res) {
+                        if (res.status) {
+                            this.removeFile(file);
+                            location.reload()
+                        }
+                        else {
+                            alert('Something wrong please try again');
+                        }
+                    });
+                }
+            };
+        });
+    </script>
+<% end %>

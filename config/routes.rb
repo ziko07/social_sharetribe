@@ -391,6 +391,7 @@ Kassi::Application.routes.draw do
           get :friend
           get :timelets
           get :reviews
+          post :upload_cover_image
         end
         collection do
           get 'find_mention'

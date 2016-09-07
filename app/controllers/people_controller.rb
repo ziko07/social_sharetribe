@@ -114,6 +114,12 @@ class PeopleController < Devise::RegistrationsController
     end
   end
 
+  def upload_cover_image
+    respond_to do |format|
+      format.json { render json: {status: true} }
+    end
+  end
+
   def friend
     @person = Person.find_by_username(params[:username])
     @friends = @person.friends
