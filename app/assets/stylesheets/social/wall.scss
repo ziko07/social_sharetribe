@@ -276,7 +276,6 @@
         display: inline-block;
         width: 60px;
         a img {
-          //border: 2px solid #7ed9e6;
           -webkit-border-radius: 5px;
           -moz-border-radius: 5px;
           border-radius: 5px;
@@ -286,7 +285,7 @@
     }
     .wall-post-content-wrapper {
       display: inline-block;
-      width: calc(100% - 95px);
+      width: calc(100% - 85px);
       vertical-align: top;
       margin-left: 20px;
       -webkit-border-radius: 3px;
@@ -617,6 +616,85 @@
   }
 }
 
+aside {
+  padding-left: 0 !important;
+  &.sidebar {
+    margin-top: 10px;
+    .wrapper-notifications {
+      font-size: 12px;
+      line-height: 16px;
+      margin-bottom: 18px;
+      position: relative;
+      background: #FFF;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      .stit {
+        color: #373d48;
+        font-size: 13px;
+        line-height: 38px;
+        text-shadow: 0 1px 0 #FFF;
+        border-bottom: 1px solid #f0f1f2;
+        border-radius: 3px 3px 0 0;
+        padding: 2px 0 0 15px;
+        background: none;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      ul {
+        max-height: 450px;
+        overflow: auto;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        li {
+          line-height: 32px;
+          position: relative;
+          padding: 12px 2px 12px 47px;
+          color: #383D48;
+          .photo {
+            position: absolute;
+            left: 5px;
+            top: 12px;
+            width: 32px;
+            height: 32px;
+            -webkit-border-radius: 100%;
+            -moz-border-radius: 100%;
+            border-radius: 100%;
+            background: no-repeat 50% 50%;
+            background-size: cover;
+          }
+          .date {
+            position: absolute;
+            bottom: 1px;
+            font-size: 11px;
+            left: 0;
+            color: #8a8f9c;
+          }
+        }
+      }
+      .noti-wrap {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 16px;
+        width: 100%;
+        padding-bottom: 16px;
+      }
+      a.find {
+        display: block;
+        padding: 12px 15px;
+        border-top: 1px solid #f3f4f4;
+        color: #4978b3;
+        &:hover {
+
+        }
+      }
+    }
+  }
+}
+
 .rating-container {
   display: inline-block;
   font-size: 15px;
@@ -638,7 +716,7 @@
   display: block;
   text-align: center;
   font-size: 12px;
-  &:hover{
+  &:hover {
     color: #0078a3;
   }
 }

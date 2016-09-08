@@ -14,7 +14,6 @@
       <div class="centered-section" id="new_message_form">
         <%= form_for Conversation.new, :url => person_person_messages_path(person_id: @person.username), remote: true do |form| %>
             <%= fields_for "conversation[message_attributes]", Message.new do |message_form| %>
-                <%#= message_form.label :content, t('conversations.new.message') %>
                 <%= message_form.text_area :content, :class => "text_area mention", placeholder: 'Write your message...' %>
             <% end %>
             <div style="margin-top: 10px;" class="clearfix">

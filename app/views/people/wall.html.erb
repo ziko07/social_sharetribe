@@ -11,7 +11,22 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3" style="position: relative; background: #ffffff; height: 800px; margin-top: 20px;">
-      xyz
-  </div>
+  <aside class="col-md-3 sidebar" style="position: relative; margin-top: 20px;">
+    <div class="wrapper-notifications">
+      <h3 class="stit">Notifications</h3>
+      <ul>
+        <% UserNotification.all.limit(10).each do |notification| %>
+            <li>
+              <%= small_avatar_thumb(notification.notification_sender, {class: 'photo'}) %>
+              <span class="noti-wrap">
+                <small class="date"><%= notification.created_at.strftime('%b %d') %></small>
+                <%= link_to notification.notification_sender.given_name_or_username, people_path(notification.notification_sender.username), class: 'username' %>
+                <%= notification.content %>
+              </span>
+            </li>
+        <% end %>
+      </ul>
+      <a href="/notifications" class="find">View all notifications</a>
+    </div>
+  </aside>
 </div>

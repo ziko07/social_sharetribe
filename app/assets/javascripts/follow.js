@@ -14,15 +14,15 @@ window.ST.onFollowButtonAjaxComplete = function (event, xhr) {
     $(".follow-button", newButtonContainer).on("ajax:complete", window.ST.onFollowButtonAjaxComplete);
 };
 
-$('#description').focus(function () {
-    if (!$('.attachment-submit').is(':visible')) {
-        $('.attachment-submit').slideDown('fast');
-        $(this).animate({
-            height: "65"
-        }, 500, function () {
-        });
-    }
-});
+//$('#description').focus(function () {
+//    if (!$('.attachment-submit').is(':visible')) {
+//        $('.attachment-submit').slideDown('fast');
+//        $(this).animate({
+//            height: "65"
+//        }, 500, function () {
+//        });
+//    }
+//});
 
 $(document).on('click', '.reply-comments', function () {
     commentsWrapper = $(this).parents('.wall-post-content-wrapper').find('.comments-wrapper');

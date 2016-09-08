@@ -7,24 +7,32 @@
       </script>
   <% end %>
 
-  <div class="lightbox" id="new-attachment-modal-form">
-    <a class="close lightbox-x" href="#" id="close_x">
-      <%= icon_tag('cross') %>
-    </a>
-
+  <div class="lightbox custom-modal" id="new-attachment-modal-form" style="padding: 0;">
     <div class="lightbox-content">
-      <div class="flash-message"></div>
-      <%= form_tag '/posts', remote: true do %>
-          <%= text_area_tag :description, '', class: 'post-attachment-description', placeholder: 'Say something about the photo(s)...', id: 'attachment-description' %>
-          <div id="upload-post-attachment" class="dropzone">
-            <div class="dz-message needsclick">
-              <b> Drop </b> files here or <b> click </b> to upload.
+      <div class="custom-modal-header">
+        <a class="close lightbox-x" href="#" id="close_x">
+          <%= icon_tag('cross') %>
+        </a>
+
+        <h2>
+          Upload Photo
+        </h2>
+      </div>
+
+      <div class="custom-modal-content">
+        <div class="flash-message"></div>
+        <%= form_tag '/posts', remote: true do %>
+            <%= text_area_tag :description, '', class: 'post-attachment-description', placeholder: 'Say something about the photo(s)...', id: 'attachment-description' %>
+            <div id="upload-post-attachment" class="dropzone">
+              <div class="dz-message needsclick">
+                <b> Drop </b> files here or <b> click </b> to upload.
+              </div>
             </div>
-          </div>
-          <%= hidden_field_tag 'post_to_id', '', value: current_user?(person) ? '' : person.id %>
-          <%= hidden_field_tag :attachment_list, '', id: 'attachmnet_list_uploaded' %>
-          <input type="submit" id="aw-whats-new-submit-bbmedia" class="btn btn-large btn-block btn-info" value="Post Update">
-      <% end %>
+            <%= hidden_field_tag 'post_to_id', '', value: current_user?(person) ? '' : person.id %>
+            <%= hidden_field_tag :attachment_list, '', id: 'attachmnet_list_uploaded' %>
+            <input type="submit" id="aw-whats-new-submit-bbmedia" class="btn btn-large btn-block btn-info" value="Post Update">
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
