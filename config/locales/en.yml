@@ -1341,6 +1341,7 @@ en:
       profile: "Profile info"
       settings: Settings
       payments: Payments
+      sosial_links: "Social Links"
   listings:
     bubble_listing_not_visible:
       listing_not_visible: "You do not have permission to view this listing."

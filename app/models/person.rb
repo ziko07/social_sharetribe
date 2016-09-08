@@ -119,6 +119,7 @@ class Person < ActiveRecord::Base
   has_many :likes
   has_many :user_notifications, class_name: "UserNotification",:foreign_key => "person_id"
   has_many :sender_notifications, class_name: "UserNotification",:foreign_key => "sender"
+  has_one :social_link,:dependent => :destroy
   has_many :reports, :as => :reportable,:dependent => :destroy
 
   has_and_belongs_to_many :followed_listings, :class_name => "Listing", :join_table => "listing_followers"
