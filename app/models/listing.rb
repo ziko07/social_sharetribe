@@ -94,11 +94,14 @@ class Listing < ActiveRecord::Base
   validates_length_of :title, :in => 2..60, :allow_nil => false
 
   before_create :set_sort_date_to_now
+  after_create :post_listing_to_community
+
   def set_sort_date_to_now
     self.sort_date ||= Time.now
   end
 
   before_create :set_updates_email_at_to_now
+
   def set_updates_email_at_to_now
     self.updates_email_at ||= Time.now
   end
@@ -108,7 +111,7 @@ class Listing < ActiveRecord::Base
     # Reason: Some browsers send line-break as \r\n which counts for 2 characters making the
     # 5000 character max length validation to fail.
     # This could be more general helper function, if this is needed in other textareas.
-    self.description = description.gsub("\r\n","\n") if self.description
+    self.description = description.gsub("\r\n", "\n") if self.description
   end
   validates_length_of :description, :maximum => 5000, :allow_nil => true
   validates_presence_of :category
@@ -118,12 +121,12 @@ class Listing < ActiveRecord::Base
   def self.currently_open(status="open")
     status = "open" if status.blank?
     case status
-    when "all"
-      where([])
-    when "open"
-      where(["open = '1' AND (valid_until IS NULL OR valid_until > ?)", DateTime.now])
-    when "closed"
-      where(["open = '0' OR (valid_until IS NOT NULL AND valid_until < ?)", DateTime.now])
+      when "all"
+        where([])
+      when "open"
+        where(["open = '1' AND (valid_until IS NULL OR valid_until > ?)", DateTime.now])
+      when "closed"
+        where(["open = '0' OR (valid_until IS NOT NULL AND valid_until < ?)", DateTime.now])
     end
   end
 
@@ -144,7 +147,7 @@ class Listing < ActiveRecord::Base
   end
 
   def self.columns
-    super.reject { |c| c.name == "transaction_type_id" || c.name == "visibility"}
+    super.reject { |c| c.name == "transaction_type_id" || c.name == "visibility" }
   end
 
   def self.find_by_category_and_subcategory(category)
@@ -208,6 +211,11 @@ class Listing < ActiveRecord::Base
 
   def unit_type
     Maybe(read_attribute(:unit_type)).to_sym.or_else(nil)
+  end
+
+  def post_listing_to_community
+    desc = description.blank? ? '' : description.truncate(150)
+    Post.create(person_id: author_id, listings_ids: self.id, description: desc, purpose: Post::POST_PURPOSE[:add_new_timelet])
   end
 
 end
