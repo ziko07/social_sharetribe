@@ -547,13 +547,13 @@ module ApplicationHelper
             :name => "notifications"
         },
 
-    {
-        :id => "settings-tab-social-link",
-        :text => t("layouts.settings.sosial_links"),
-        :icon_class => icon_class("notification_settings"),
-        :path => social_link_settings_path(person),
-        :name => "social_links"
-    }
+        {
+            :id => "settings-tab-social-link",
+            :text => t("layouts.settings.sosial_links"),
+            :icon_class => icon_class("notification_settings"),
+            :path => social_link_settings_path(person),
+            :name => "social_links"
+        }
     ]
 
     payment_type = MarketplaceService::Community::Query.payment_type(@current_community.id)
@@ -750,8 +750,8 @@ module ApplicationHelper
   def attachment_slide_item(attachments)
     attachment_slide_wrapper = "<div class='attachment-slide-wrapper'> <div class='slider-wrapper'>"
     slide_item = ''
-    attachments.each do |attachment|
-      slide_item << "<div class='slide-item'>"
+    attachments.each_with_index do |attachment, index|
+      slide_item << "<div class='slide-item #{'current' if index == 0}'>"
       slide_item << image_tag(attachment.attachment_url(:thumb), data: {big_url: attachment.attachment_url(:big)})
       slide_item << '</div>'
     end

@@ -28,3 +28,14 @@
     <a href="/notifications" class="find">View all notifications</a>
   </div>
 </aside>
+
+<%= content_for :extra_javascript do %>
+    <script type="text/javascript">
+        $(function () {
+            //$(".wrapper-notifications ul").niceScroll();
+            $(".slider-wrapper").niceScroll({
+                horizrailenabled: true
+            });
+        });
+    </script>
+<% end %>

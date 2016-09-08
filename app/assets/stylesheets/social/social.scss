@@ -107,3 +107,8 @@
 .token-input-list {
   width: 100% !important;
 }
+
+a:focus, a:hover {
+  color: #23527c;
+  text-decoration: none !important;
+}
