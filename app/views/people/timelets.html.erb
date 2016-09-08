@@ -1,5 +1,5 @@
 <%= render 'social/user_profile_header', person: @person %>
-<%= render 'social/social_nav' %>
+<%= render partial: 'social/social_nav', locals: profile_header_porps(@person) %>
 <div class="timelet-list">
   <div class="products">
     <ul>
@@ -12,12 +12,18 @@
                     <span class="figure grid" style="background-image:url(<%= get_listing_view_image(listing) %>)"></span>
                 <% end %>
               </figure>
-              <figcaption>
+              <figcaption style="border-top: dotted 1px #ccc; margin-top: 3px;">
                 <%= link_to listings_path(listing), class: 'title' do %>
                     <%= listing.title %>
                 <% end %>
                 <em class="figure-detail">
-                  <span class="username"><a href="/iamDim">iamDim</a>  + 7</span>
+                  <span class="username">
+                    <%= link_to people_path(listing.author) do %>
+                      <%= listing.author.given_name_or_username %>
+                    <%end%>
+                    <% feedback, total_feedback =  get_feedback_rating(listing.author) %>
+                    <input class='feedback' name='feedback' value="<%= feedback %>" class='rating-loading'> (<%= total_feedback %>)
+                  </span>
                 </em>
               </figcaption>
             </div>
@@ -26,3 +32,13 @@
     </ul>
   </div>
 </div>
+
+<%= content_for :extra_javascript do %>
+    <script type="text/javascript">
+        $(function () {
+            $(document).on('ready', function(){
+                $('.feedback').rating({displayOnly: true, step: 0.5});
+            });
+        });
+    </script>
+<% end %>

@@ -5,7 +5,9 @@
 
     <div id="cover-image" class="cover silver add">
       <div class="image">
-        <img id="coverImg" src="<%= huge_cover_image_thumb_url(@person) %>" data-url="<%= huge_cover_image_thumb_url(person) %>" data-url-retina="<%= huge_cover_image_thumb_url(person) %>" data-height="">
+        <% if person.cover_photo.present? %>
+           <img id="coverImg" src="" data-url="<%= huge_cover_image_thumb_url(person) %>" data-url-retina="<%= huge_cover_image_thumb_url(person) %>" data-height="">
+        <%end%>
         <script>(function () {
             var img = document.getElementById('coverImg');
             img.src = window.devicePixelRatio > 1 ? img.getAttribute('data-url-retina') : img.getAttribute('data-url');
@@ -92,10 +94,9 @@
           </a>
       <% end %>
     </div>
-    <%= link_to 'Report', report_user_post_people_path(reportable_id: person.id, reportable_type: 'person') %>
     <div class="followers">
-      <a href="#" class="_followers" username="iamDim">Followers <b><%= person.invited_by.count %></b></a>
-      <a href="#" class="_following" username="iamDim">Following <b><%= person.invited.count %></b></a>
+      <a href="#" class="_followers">Followers <b><%= person.invited_by.count %></b></a>
+      <a href="#" class="_following">Following <b><%= person.invited.count %></b></a>
     </div>
   </div>
 </div>

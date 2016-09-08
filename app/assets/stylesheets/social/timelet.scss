@@ -36,7 +36,7 @@
       }
       figcaption {
         position: relative;
-        padding: 11px 4px 1px 11px;
+        padding: 6px 4px 1px 11px;
         .title {
           display: block;
           white-space: nowrap;
@@ -45,6 +45,8 @@
           color: #494F59 !important;
           margin-bottom: 1px;
           text-decoration: none;
+          padding: 3px 0;
+          font-size: 14px;
         }
         .figure-detail {
           position: relative;
@@ -53,5 +55,11 @@
         }
       }
     }
+  }
+}
+
+#refer-listing-form {
+  ul.token-input-list-facebook {
+    width: 100% !important;
   }
 }

@@ -76,7 +76,7 @@
         <%= form_tag ('/post_comments'), :remote => true do %>
             <%= hidden_field_tag 'post_id', '', value: post.id %>
             <%= text_area_tag :comment %>
-            <%= submit_tag 'comment', class: 'btn btn-default' %>
+            <%= submit_tag 'Comment', class: 'btn btn-default' %>
             <%= link_to 'javascript:void(0);', class: 'cancel-comments btn btn-default' do %>
                 Cancel
             <% end %>

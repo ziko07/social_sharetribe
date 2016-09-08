@@ -121,7 +121,7 @@ module ApplicationHelper
 
 
   def huge_cover_image_thumb_url(person, options={})
-    person.cover_photo.present? ? person.cover_photo.url : missing_avatar(:medium)
+    person.cover_photo.present? ? person.cover_photo.url : ''
   end
 
   def missing_avatar(size = :medium)
@@ -800,7 +800,7 @@ module ApplicationHelper
     raw listing_wrapper << listing_item << '</div>'
   end
 
-  def get_feedback_rating(author, community)
+  def get_feedback_rating(author, community = @current_community)
     rating = 0
     received_testimonials = TestimonialViewUtils.received_testimonials_in_community(author, community).count
     received_positive_testimonials = TestimonialViewUtils.received_positive_testimonials_in_community(author, community).count

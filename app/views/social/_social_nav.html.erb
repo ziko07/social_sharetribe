@@ -36,21 +36,21 @@
       <li>
         <%= link_to timelets_person_path(@person.username), class: "#{'current' if action_name == 'timelets' }" do %>
             <b>Timelets</b>
-            <span>21</span>
+            <span><%= timelets %></span>
         <% end %>
       </li>
 
       <li>
         <%= link_to reviews_person_path(@person.username), class: "#{'current' if action_name == 'reviews' }" do %>
             <b>Reviews</b>
-            <span>21</span>
+            <span><%= reviews %></span>
         <% end %>
       </li>
 
       <li>
         <%= link_to friend_person_path(@person.username), class: "#{'current' if action_name == 'friend' }" do %>
             <b>Followers</b>
-            <span>21</span>
+            <span><%= followers %></span>
         <% end %>
       </li>
     </ul>

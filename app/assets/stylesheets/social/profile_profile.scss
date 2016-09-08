@@ -27,6 +27,9 @@
       .image {
         background: #a3a7af;
         height: 160px;
+        img {
+          width: 100%;
+        }
       }
       .camera {
         visibility: visible;
