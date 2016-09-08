@@ -1,19 +1,23 @@
-- content_for :title_header do
-  %h1= t("layouts.no_tribe.inbox")
+-# content_for :title_header do
+= render 'social/user_profile_header', person: @person
 
-- content_for :social_left_section do
-  .user-inbox-wrapper
-    .undo-mobile-wrapper-margin#conversations
-      - if inbox_rows.present?
+= render partial: 'social/social_nav', locals: profile_header_porps(@person)
 
-        = render :partial => "inbox_row", :collection => inbox_rows, :as => :conversation, locals: { payments_in_use: payments_in_use }
+%h1= t("layouts.no_tribe.inbox")
 
-        = will_paginate(inbox_rows)
-        = pageless(inbox_rows.total_pages, '#conversations', request.path, t('conversations.index.loading_more_messages'))
+-# content_for :social_left_section do
+.user-inbox-wrapper
+  .undo-mobile-wrapper-margin#conversations
+    - if inbox_rows.present?
 
-      - else
-        #no_conversations
-          = t("conversations.index.no_received_messages")
+      = render :partial => "inbox_row", :collection => inbox_rows, :as => :conversation, locals: { payments_in_use: payments_in_use }
 
-- content_for :social_right_section do
-  = render 'social/right_section'
+      = will_paginate(inbox_rows)
+      = pageless(inbox_rows.total_pages, '#conversations', request.path, t('conversations.index.loading_more_messages'))
+
+    - else
+      #no_conversations
+        = t("conversations.index.no_received_messages")
+
+-# content_for :social_right_section do
+=# render 'social/right_section'
