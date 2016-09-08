@@ -1394,6 +1394,15 @@ Based on Rails routes of Kassi::Application
 // sms => (/:locale)/sms(.:format)
   // function(options)
   sms_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"sms",false],[1,[2,[8,".",false],[3,"format",false]],false]]]], {}),
+// social_link => /social_links/:id(.:format)
+  // function(id, options)
+  social_link_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"social_links",false],[2,[7,"/",false],[2,[3,"id",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
+// social_link_settings => (/:locale)/:person_id/settings/social_link(.:format)
+  // function(person_id, options)
+  social_link_settings_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"settings",false],[2,[7,"/",false],[2,[6,"social_link",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// social_links => /social_links(.:format)
+  // function(options)
+  social_links_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"social_links",false],[1,[2,[8,".",false],[3,"format",false]],false]]], {}),
 // social_media_admin_community => (/:locale)/admin/communities/:id/social_media(.:format)
   // function(id, options)
   social_media_admin_community_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"social_media",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),

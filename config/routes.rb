@@ -44,6 +44,7 @@ Kassi::Application.routes.draw do
   end
   resources :post_comments
   resources :likes
+  resources :social_links,only: [:create, :update]
   # Prettier link for admin panel
   namespace :admin do
     get '' => "getting_started_guide#index"
@@ -132,6 +133,7 @@ Kassi::Application.routes.draw do
     get "/listing_bubble_multiple/:ids" => "listings#listing_bubble_multiple", :as => :listing_bubble_multiple
     get '/:person_id/settings/payments/paypal_account' => 'paypal_accounts#index', :as => :paypal_account_settings_payment
     get '/:person_id/settings/payments/stripe_account' => 'stripe_accounts#index', :as => :stripe_account_settings_payment
+    get '/:person_id/settings/social_link' => 'social_links#index', :as => :social_link_settings
 
     # community membership related actions
 
@@ -266,6 +268,8 @@ Kassi::Application.routes.draw do
             get :permissions_verified, to: redirect("/admin/paypal_preferences/permissions_verified")
           end
         end
+
+
 
         resource :stripe_preferences, only: :index do
 

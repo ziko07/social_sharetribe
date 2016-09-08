@@ -1,0 +1,22 @@
+<% content_for :title_header do %>
+    <h1>
+      <%= t("layouts.no_tribe.settings") %>
+    </h1>
+<% end %>
+<%= render :partial => "layouts/left_hand_navigation", :locals => { :links => settings_links_for(@current_user, @current_community) } %>
+
+<div class="left-navi-section settings-section notification-settings" id="person_settings_form">
+  <%= form_for @social_links do |f| %>
+      <%= f.label 'Facebook Link' %>
+      <%= f.text_field :facebook %>
+
+      <%= f.label 'Twitter Link' %>
+      <%= f.text_field :twitter %>
+      <div class="info-item clearfix">
+        <div style="float: right; margin-top: 10px;">
+          <%= f.button  %>
+        </div>
+      </div>
+  <% end %>
+
+</div>

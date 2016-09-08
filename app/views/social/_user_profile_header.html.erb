@@ -25,10 +25,10 @@
   <div class="info">
     <ul class="sns">
       <li class="fb">
-        <a href="https://www.facebook.com/app_scoped_user_id/587226114787649/" target="_blank" data-toggle="tooltip" data-placement="top" title='Facebook'></a>
+        <a href="<%= @current_user.social_link.facebook if @current_user.social_link.present? %>" target="_blank" data-toggle="tooltip" data-placement="top" title='Facebook'></a>
       </li>
       <li class="tw">
-        <a href="https://www.facebook.com/app_scoped_user_id/587226114787649/" target="_blank" data-toggle="tooltip" data-placement="top" title='Twitter'></a>
+        <a href="<%= @current_user.social_link.twitter if @current_user.social_link.present? %>" target="_blank" data-toggle="tooltip" data-placement="top" title='Twitter'></a>
       </li>
     </ul>
     <div class="interaction">
