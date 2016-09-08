@@ -30,6 +30,7 @@
             </div>
             <%= hidden_field_tag 'post_to_id', '', value: current_user?(person) ? '' : person.id %>
             <%= hidden_field_tag :attachment_list, '', id: 'attachmnet_list_uploaded' %>
+            <%= hidden_field_tag :purpose, '', value: Post::POST_PURPOSE[:update_status] %>
             <input type="submit" id="aw-whats-new-submit-bbmedia" class="btn btn-large btn-block btn-info" value="Post Update">
         <% end %>
       </div>

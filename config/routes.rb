@@ -398,6 +398,7 @@ Kassi::Application.routes.draw do
           get :friend
           get :timelets
           get :reviews
+          get :all_notification
           post :upload_cover_image
         end
         collection do

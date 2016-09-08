@@ -37,6 +37,7 @@
             <%= hidden_field_tag :description, '', id: 'post-description-field' %>
             <%= hidden_field_tag :listings_ids, '', id: 'listing_id', placeholder: 'Reference your listing...' %>
             <%= hidden_field_tag :user_mention, '', id: 'user-mention' %>
+            <%= hidden_field_tag :purpose, '', value: Post::POST_PURPOSE[:update_status] %>
           </div>
           <div style="padding-top: 8px;">
             <%= text_area_tag :write_description, '', placeholder: "What's on your mind?", class: 'mention post-description', id: 'description' %>

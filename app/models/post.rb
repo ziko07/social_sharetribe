@@ -21,6 +21,12 @@ class Post < ActiveRecord::Base
   has_many :likes, :as => :likeable, :dependent => :destroy
   has_many :reports, :as => :reportable, :dependent => :destroy
 
+  POST_PURPOSE = {
+      update_status: 'has update his status ',
+      add_new_timelet: 'add new timelet',
+      share_timelet: "share a timelet",
+      purchase: 'purchase a timelet',
+  }
   def mention_people(mention_params)
     mention_person = mention_params.present? ? JSON.parse(mention_params) : []
     mention_person.each do |mention|

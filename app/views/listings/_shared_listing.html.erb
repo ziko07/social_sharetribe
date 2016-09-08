@@ -6,24 +6,32 @@
       </div>
     </a>
 
-    <div class="lightbox" id="listing_shared_modal">
-      <a class="close lightbox-x" href="#" id="close_x">
-        <%= icon_tag('cross') %>
-      </a>
-
+    <div class="lightbox custom-modal" id="listing_shared_modal">
       <div class="lightbox-content">
-        <div class="post_share_form">
-          <%= form_tag '/posts', remote: true do %>
-              <%= text_area_tag :description, '', class: 'post-attachment-description', placeholder: 'Say something about the photo(s)...', id: 'attachment-description' %>
-              <%= hidden_field_tag :listings_ids , '', value: @listing.id%>
-              <input type="submit" id="aw-whats-new-submit-bbmedia" class="btn btn-large btn-block btn-info" value="Share Listing">
-          <% end %>
+        <div class="custom-modal-header">
+          <a class="close lightbox-x" href="#" id="close_x">
+            <%= icon_tag('cross') %>
+          </a>
+
+          <h2>
+            Share a Listing
+          </h2>
+        </div>
+        <div class="flash-message"></div>
+        <div class="custom-modal-content">
+          <div class="centered-section" id="new_message_form">
+            <%= form_tag '/posts', remote: true do %>
+                <%= text_area_tag :description, '', class: 'post-attachment-description', placeholder: 'Say something about the photo(s)...', id: 'attachment-description' %>
+                <%= hidden_field_tag :listings_ids , '', value: @listing.id%>
+                <%= hidden_field_tag :purpose , '', value: Post::POST_PURPOSE[:share_timelet]%>
+                <input type="submit" id="aw-whats-new-submit-bbmedia" class="btn-primary btn" value="Share Listing">
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
 
-
-<% end %>
+   <% end %>
 
 <%= content_for :extra_javascript do %>
     <script type="text/javascript">

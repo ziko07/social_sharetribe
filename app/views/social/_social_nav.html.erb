@@ -53,6 +53,14 @@
             <span><%= followers %></span>
         <% end %>
       </li>
+      <% if current_user?(@person) %>
+          <li>
+            <%= link_to person_inbox_path(@person.username), class: "#{'current' if action_name == 'show' && controller_name == 'inboxes' }" do %>
+                <b>Inbox</b>
+                <span><%= unread_count %></span>
+            <% end %>
+          </li>
+      <% end %>
     </ul>
   </div>
 </div>

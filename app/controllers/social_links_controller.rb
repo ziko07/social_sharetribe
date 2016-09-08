@@ -15,6 +15,16 @@ class SocialLinksController < ApplicationController
     redirect_to social_link_settings_path(@current_user)
   end
 
+  def update
+    social_link = social_link_account(@current_user)
+    if social_link.update(stripe_params)
+      flash[:notice] = 'Social Link has been successfully saved'
+    else
+      flash[:notice] = 'Something Worng Please try latter'
+    end
+    redirect_to social_link_settings_path(@current_user)
+  end
+
   private
   def social_link_account(person_id)
     SocialLink.find_by(person_id: person_id) || SocialLink.new

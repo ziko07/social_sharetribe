@@ -587,7 +587,8 @@ class ApplicationController < ActionController::Base
       {
           timelets: person.listings.count,
           reviews: TestimonialViewUtils.received_testimonials_in_community(person, @current_community).count,
-          followers: person.invited_by.count
+          followers: person.invited_by.count,
+          unread_count:  MarketplaceService::Inbox::Query.notification_count(person.id, @current_community.id)
       }
   end
 

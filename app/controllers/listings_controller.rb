@@ -292,6 +292,7 @@ class ListingsController < ApplicationController
       @listing.author = @current_user
 
       if @listing.save
+        Post.create(person_id: @current_user.id, listings_ids: @listing.id, description: @listing.truncate(150), purpose: Post::POST_PURPOSE[:add_new_timelet])
         upsert_field_values!(@listing, params[:custom_fields])
 
         listing_image_ids =

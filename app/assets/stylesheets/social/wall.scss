@@ -272,6 +272,7 @@
     list-style: none;
     .wall-post-item {
       margin-top: 10px;
+      overflow: visible !important;
       .profile-pic {
         display: inline-block;
         width: 60px;
@@ -705,6 +706,13 @@ aside {
 }
 
 .report-btn {
+  color: black !important;
+  font-weight: normal !important;
+  font-size: 12px !important;
+  padding: 8px 10px 5px 10px !important;
+}
+
+.report-btn-profile {
   color: black !important;
   font-weight: normal !important;
   font-size: 12px !important;

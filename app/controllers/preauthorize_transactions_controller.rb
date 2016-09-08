@@ -251,7 +251,7 @@ class PreauthorizeTransactionsController < ApplicationController
       return render_error_response(request.xhr?, error, {action: :book, start_on: TransactionViewUtils.stringify_booking_date(start_on), end_on: TransactionViewUtils.stringify_booking_date(end_on)})
     end
 
-    post =  Post.create(person_id: @current_user.id,listings_ids: @listing.id, description: "I Have Purchased this listing")
+    post =  Post.create(person_id: @current_user.id,listings_ids: @listing.id, description: "I Have Purchased this listing", purpose: Post::POST_PURPOSE[:purchase_listing])
     if  @current_user.friends.present?
       @current_user.friends.each do |friend|
         UserNotification.send_notification(@current_user, friend,post,UserNotification::NOTIFICATION_TYPE[:purchase_listing])

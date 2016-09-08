@@ -154,9 +154,9 @@
                 %a#listing-contact{href: contact_to_listing_path(:listing_id => @listing.id.to_s), :class => "listing-author-contact-button"}
                   .content
                     = t(".contact")
-        - if @listing.author != @current_user
-          .listing-author-contact
-            = render :partial => "shared_listing"
+        -#- if @listing.author != @current_user
+        .listing-author-contact
+          = render :partial => "shared_listing"
 
     - if received_testimonials.size > 0
       .row-with-divider.listing-author-activity

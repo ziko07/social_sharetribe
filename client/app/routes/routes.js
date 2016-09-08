@@ -587,6 +587,9 @@ Based on Rails routes of Kassi::Application
 // all_comments_post => /posts/:id/all_comments(.:format)
   // function(id, options)
   all_comments_post_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"posts",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"all_comments",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]], {}),
+// all_notification_person => (/:locale)/:username/all_notification(.:format)
+  // function(username, options)
+  all_notification_person_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"username",false],[2,[7,"/",false],[2,[6,"all_notification",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
 // analytics_admin_community => (/:locale)/admin/communities/:id/analytics(.:format)
   // function(id, options)
   analytics_admin_community_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"analytics",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),

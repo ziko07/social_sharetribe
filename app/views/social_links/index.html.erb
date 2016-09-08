@@ -7,11 +7,11 @@
 
 <div class="left-navi-section settings-section notification-settings" id="person_settings_form">
   <%= form_for @social_links do |f| %>
-      <%= f.label 'Facebook Link' %>
-      <%= f.text_field :facebook %>
+      <%= f.label 'Facebook Link(Please Include Prototype http or https)' %>
+      <%= f.text_field :facebook,placeholder: "Please provide full link with http" %>
 
-      <%= f.label 'Twitter Link' %>
-      <%= f.text_field :twitter %>
+      <%= f.label 'Twitter Link(Please Include Prototype http or https)' %>
+      <%= f.text_field :twitter,placeholder: "Please provide full link with http" %>
       <div class="info-item clearfix">
         <div style="float: right; margin-top: 10px;">
           <%= f.button  %>

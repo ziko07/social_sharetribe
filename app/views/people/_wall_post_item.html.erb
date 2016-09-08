@@ -19,7 +19,7 @@
                     <i class="fa fa-flag" aria-hidden="true"></i> Report
                 <% end %>
             <% else %>
-            <span class="report-btn" style="margin: 5px;"><i class="fa fa-flag" aria-hidden="true" style="padding: 2px"></i>Reported</span>
+            <span class="report-btn-profile" style="margin: 5px;"><i class="fa fa-flag" aria-hidden="true" style="padding: 2px"></i>Reported</span>
             <% end %>
           </li>
         </ul>
@@ -40,7 +40,7 @@
       </div>
     </div>
     <div class="activity-footer">
-      <ul class="activity-actions clearfix">
+      <ul class="activity-actions">
         <li class="like-post-<%= post.id %>">
           <%= like_unlike_link(post, @current_user, 'post') %>
         </li>
@@ -48,9 +48,24 @@
           <a href="javascript:void(0);" class="reply-comments"><i class="fa fa-commenting"></i> Comment<%= "(" +  post.post_comments.count.to_s + ")" if post.post_comments.present?%></a>
         </li>
         <li>
-          <%= link_to 'javascript:void(0);' do %>
+          <div class="dropdown">
+        <a class="dropdown-toggle" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor: pointer; margin-top: -5px;">
+
               <i class="fa fa-share"></i> Share
-          <% end %>
+        </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+            <li>
+              <%= link_to  report_user_post_people_path(reportable_id: post.id, reportable_type: 'post'), class: "report-btn", remote: true do %>
+                  <i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook Share
+              <% end %>
+            </li>
+            <li>
+              <%= link_to  report_user_post_people_path(reportable_id: post.id, reportable_type: 'post'), class: "report-btn", remote: true do %>
+                  <i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter Share
+              <% end %>
+            </li>
+            </ul>
+          </div>
         </li>
         <li>
           <% if can_delete_post(post) %>
@@ -85,3 +100,4 @@
     </div>
   </div>
 </li>
+
