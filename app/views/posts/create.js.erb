@@ -1,15 +1,16 @@
 if (<%= status %>) {
-    $('.wall-posts ul.all_post li.wall-post-item:first-of-type').before("<%= escape_javascript(render(:partial => 'people/wall_post_item',  :locals => { :post => post, person: person})) %>");
-    $('.wall-post-item-<%= post.id %>').effect("highlight", {}, 3000);
-    $('.attachment-description').val('');
-    $('.close.lightbox-x').trigger('click');
-    $('#tokenfield').tokenInput('clear');
-    $('.attachment-submit').slideUp('fast');
-    $('#description').val('').animate({
-        height: "45"
-    }, 500, function () {
-    });
-    $('div.mentions div').html('');
+//    $('.wall-posts ul.all_post li.wall-post-item:first-of-type').before("<%#= escape_javascript(render(:partial => 'people/wall_post_item',  :locals => { :post => post, person: person})) %>");
+//    $('.wall-post-item-<%#= post.id %>').effect("highlight", {}, 3000);
+//    $('.attachment-description').val('');
+//    $('.close.lightbox-x').trigger('click');
+//    $('#tokenfield').tokenInput('clear');
+//    $('.attachment-submit').slideUp('fast');
+//    $('#description').val('').animate({
+//        height: "45"
+//    }, 500, function () {
+//    });
+//    $('div.mentions div').html('');
+    location.reload();
 }
 else {
     alert("<%= message %>");
