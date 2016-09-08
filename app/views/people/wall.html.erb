@@ -1,32 +1,30 @@
-<div class="clearfix">
-  <div class="col-md-9">
-    <div class="user-profile-content-wrapper">
-      <%= render 'social/wall_post_form' %>
-      <div class="wall-posts">
-        <ul class="all_post">
-          <% posts.each do |post| %>
-              <%= render 'people/wall_post_item', post: post, person: @current_user %>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <aside class="col-md-3 sidebar" style="position: relative; margin-top: 20px;">
-    <div class="wrapper-notifications">
-      <h3 class="stit">Notifications</h3>
-      <ul>
-        <% UserNotification.all.limit(10).each do |notification| %>
-            <li>
-              <%= small_avatar_thumb(notification.notification_sender, {class: 'photo'}) %>
-              <span class="noti-wrap">
-                <small class="date"><%= notification.created_at.strftime('%b %d') %></small>
-                <%= link_to notification.notification_sender.given_name_or_username, people_path(notification.notification_sender.username), class: 'username' %>
-                <%= notification.content %>
-              </span>
-            </li>
+<div class="col-md-9">
+  <div class="user-profile-content-wrapper">
+    <%= render 'social/wall_post_form' %>
+    <div class="wall-posts">
+      <ul class="all_post">
+        <% posts.each do |post| %>
+            <%= render 'people/wall_post_item', post: post, person: @current_user %>
         <% end %>
       </ul>
-      <a href="/notifications" class="find">View all notifications</a>
     </div>
-  </aside>
+  </div>
 </div>
+<aside class="col-md-3 sidebar" style="position: relative; margin-top: 20px;">
+  <div class="wrapper-notifications">
+    <h3 class="stit">Notifications</h3>
+    <ul>
+      <% UserNotification.all.limit(10).each do |notification| %>
+          <li>
+            <%= small_avatar_thumb(notification.notification_sender, {class: 'photo'}) %>
+            <span class="noti-wrap">
+                <small class="date"><%= notification.created_at.strftime('%b %d') %></small>
+              <%= link_to notification.notification_sender.given_name_or_username, people_path(notification.notification_sender.username), class: 'username' %>
+              <%= notification.content %>
+              </span>
+          </li>
+      <% end %>
+    </ul>
+    <a href="/notifications" class="find">View all notifications</a>
+  </div>
+</aside>
