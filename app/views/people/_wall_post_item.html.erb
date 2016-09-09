@@ -8,22 +8,24 @@
     <div class="activity-status">
       <%= link_to post.person.full_name, person_path(username: post.person.username) %> share timelet
       <i> <%= time_ago_in_words(post.created_at) %> ago </i>
-      <div class="dropdown pull-right">
+      <% if @current_user.present? %>
+          <div class="dropdown pull-right">
         <span class="dropdown-toggle pull-right" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor: pointer; margin-top: -5px;">
           <i class="fa fa-angle-down fa-2x" aria-hidden="true"></i>
         </span>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <li class="report-action-<%= post.id %>">
-            <% unless is_reported_by_user(post, @current_user.id)%>
-                <%= link_to  report_user_post_people_path(reportable_id: post.id, reportable_type: 'post'), class: "report-btn", remote: true do %>
-                    <i class="fa fa-flag" aria-hidden="true"></i> Report
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li class="report-action-<%= post.id %>">
+                <% unless is_reported_by_user(post, @current_user.id)%>
+                    <%= link_to  report_user_post_people_path(reportable_id: post.id, reportable_type: 'post'), class: "report-btn", remote: true do %>
+                        <i class="fa fa-flag" aria-hidden="true"></i> Report
+                    <% end %>
+                <% else %>
+                    <span class="report-btn-profile" style="margin: 5px;"><i class="fa fa-flag" aria-hidden="true" style="padding: 2px"></i>Reported</span>
                 <% end %>
-            <% else %>
-            <span class="report-btn-profile" style="margin: 5px;"><i class="fa fa-flag" aria-hidden="true" style="padding: 2px"></i>Reported</span>
-            <% end %>
-          </li>
-        </ul>
-      </div>
+              </li>
+            </ul>
+          </div>
+      <% end %>
     </div>
     <div class="activity-content">
       <div class="post-content">
@@ -55,6 +57,12 @@
         </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
             <li>
+              <%# if post.post_attachments.present? %>
+                  <%#= social_share_button_tag(render_post_content(post.description), :image => post.post_attachments.first, :'data-type' => 'photo') %>
+              <%# else%>
+                  <%#= social_share_button_tag(render_post_content(post.description), :'data-type' => 'title') %>
+              <%# end%>
+
               <%= link_to  report_user_post_people_path(reportable_id: post.id, reportable_type: 'post'), class: "report-btn", remote: true do %>
                   <i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook Share
               <% end %>

@@ -37,6 +37,7 @@ gem 'delayed_paperclip', "~> 2.9.1"
 
 gem "rmagick"
 gem "carrierwave"
+gem 'social-share-button'
 
 gem 'aws-sdk-v1', "~> 1.64.0"
 gem 'aws-sdk', '~> 2'

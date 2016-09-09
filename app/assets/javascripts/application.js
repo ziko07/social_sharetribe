@@ -95,4 +95,5 @@
 //= require jquery.tokeninput
 //= require custom_post_slider
 //= require jquery.nicescroll
+//= require social-share-button
 //= require_self

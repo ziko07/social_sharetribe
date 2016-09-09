@@ -637,13 +637,16 @@ module ApplicationHelper
       count = object.likes.count
     end
     html = "<span id='like-counts-comment-#{object.id}' class='liked'> #{count} </span>&nbsp"
-    if object.likes.where(person_id: person.id).present?
-      link_html = link_to(like_path(object.likes.where(person_id: person.id).first.id), id: "#{type}#{object.id}", :remote => true, method: 'delete') do
-        raw "<i class='fa fa fa-thumbs-o-up liked'> </i> UnLike"
-      end
-    else
-      link_html = link_to(likes_path(likeable_id: object.id, likeable_type: type), id: "#{type}_#{object.id}", :remote => true, method: 'post') do
-        raw "<i class='fa fa-thumbs-o-up'> </i> Like"
+    link_html = ''
+    if person.present?
+      if object.likes.where(person_id: person.id).present?
+        link_html = link_to(like_path(object.likes.where(person_id: person.id).first.id), id: "#{type}#{object.id}", :remote => true, method: 'delete') do
+          raw "<i class='fa fa fa-thumbs-o-up liked'> </i> UnLike"
+        end
+      else
+        link_html = link_to(likes_path(likeable_id: object.id, likeable_type: type), id: "#{type}_#{object.id}", :remote => true, method: 'post') do
+          raw "<i class='fa fa-thumbs-o-up'> </i> Like"
+        end
       end
     end
     raw html << link_html

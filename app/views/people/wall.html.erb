@@ -25,7 +25,7 @@
           </li>
       <% end %>
     </ul>
-    <a href="<%= all_notification_person_path(@current_user) %>" class="find">View all notifications</a>
+    <a href="<%= all_notification_person_path(@current_user) if @current_user.present?%>" class="find">View all notifications</a>
   </div>
 </aside>
 
