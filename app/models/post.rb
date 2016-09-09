@@ -28,7 +28,7 @@ class Post < ActiveRecord::Base
       update_status: 'has update his status ',
       add_new_timelet: 'add new timelet',
       share_timelet: "share a timelet",
-      purchase: 'purchase a timelet',
+      purchase: 'has purchase a timelet',
   }
 
   def send_notification

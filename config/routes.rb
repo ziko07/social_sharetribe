@@ -44,7 +44,7 @@ Kassi::Application.routes.draw do
   end
   resources :post_comments
   resources :likes
-  resources :social_links,only: [:create, :update]
+  resources :social_links, only: [:create, :update]
   # Prettier link for admin panel
   namespace :admin do
     get '' => "getting_started_guide#index"
@@ -116,7 +116,7 @@ Kassi::Application.routes.draw do
 
     # preauthorize flow
     get "/listings/:listing_id/preauthorize" => "preauthorize_transactions#preauthorize", :as => :preauthorize_payment
-    get "/listings/:listing_id/preauthorized" => "preauthorize_transactions#preauthorized", :as => :preauthorized_payment
+    post "/listings/:listing_id/preauthorized" => "preauthorize_transactions#preauthorized", :as => :preauthorized_payment
     get "/listings/:listing_id/book" => "preauthorize_transactions#book", :as => :book
     post "/listings/:listing_id/booked" => "preauthorize_transactions#booked", :as => :booked
     get "/listings/:listing_id/initiate" => "preauthorize_transactions#initiate", :as => :initiate_order
@@ -269,7 +269,6 @@ Kassi::Application.routes.draw do
             get :permissions_verified, to: redirect("/admin/paypal_preferences/permissions_verified")
           end
         end
-
 
 
         resource :stripe_preferences, only: :index do

@@ -251,10 +251,10 @@ class PreauthorizeTransactionsController < ApplicationController
       return render_error_response(request.xhr?, error, {action: :book, start_on: TransactionViewUtils.stringify_booking_date(start_on), end_on: TransactionViewUtils.stringify_booking_date(end_on)})
     end
 
-    post =  Post.create(person_id: @current_user.id,listings_ids: @listing.id, description: "I Have Purchased this listing", purpose: Post::POST_PURPOSE[:purchase_listing])
-    if  @current_user.friends.present?
+    post = Post.create(person_id: @current_user.id, listings_ids: @listing.id, description: "I Have Purchased this listing", purpose: Post::POST_PURPOSE[:purchase_listing])
+    if @current_user.friends.present?
       @current_user.friends.each do |friend|
-        UserNotification.send_notification(@current_user, friend,post,UserNotification::NOTIFICATION_TYPE[:purchase_listing])
+        UserNotification.send_notification(@current_user, friend, post, UserNotification::NOTIFICATION_TYPE[:purchase_listing])
       end
     end
     transaction_id = transaction_response[:data][:transaction][:id]
@@ -283,7 +283,7 @@ class PreauthorizeTransactionsController < ApplicationController
   def preauthorize
     quantity = TransactionViewUtils.parse_quantity(params[:quantity])
     vprms = view_params(listing_id: params[:listing_id], quantity: quantity)
-    braintree_settings = BraintreePaymentQuery.braintree_settings(@current_community.id)
+    #braintree_settings = BraintreePaymentQuery.braintree_settings(@current_community.id)
 
     price_break_down_locals = TransactionViewUtils.price_break_down_locals({
                                                                                booking: false,
@@ -297,8 +297,8 @@ class PreauthorizeTransactionsController < ApplicationController
 
     render "listing_conversations/preauthorize", locals: {
                                                    preauthorize_form: PreauthorizeMessageForm.new,
-                                                   braintree_client_side_encryption_key: braintree_settings[:braintree_client_side_encryption_key],
-                                                   braintree_form: BraintreeForm.new,
+                                                   #braintree_client_side_encryption_key: braintree_settings[:braintree_client_side_encryption_key],
+                                                   #braintree_form: BraintreeForm.new,
                                                    listing: vprms[:listing],
                                                    quantity: quantity,
                                                    author: query_person_entity(vprms[:listing][:author_id]),
@@ -307,6 +307,58 @@ class PreauthorizeTransactionsController < ApplicationController
                                                    form_action: preauthorized_payment_path(person_id: @current_user.id, listing_id: vprms[:listing][:id]),
                                                    price_break_down_locals: price_break_down_locals
                                                }
+  end
+
+  def preauthorized
+    conversation_params = params[:listing_conversation]
+
+    if @current_community.transaction_agreement_in_use? && conversation_params[:contract_agreed] != "1"
+      flash[:error] = t("error_messages.transaction_agreement.required_error")
+      return redirect_to action: :preauthorize
+    end
+
+    preauthorize_form = PreauthorizeMessageForm.new(conversation_params.merge({
+                                                                                  listing_id: @listing.id
+                                                                              }))
+    delivery_method = valid_delivery_method(delivery_method_str: preauthorize_form.delivery_method,
+                                            shipping: @listing.require_shipping_address,
+                                            pickup: @listing.pickup_enabled)
+
+    if preauthorize_form.valid?
+      quantity = TransactionViewUtils.parse_quantity(preauthorize_form.quantity)
+      payment_type = MarketplaceService::Community::Query.payment_type(@current_community.id)
+
+      transaction_response = create_preauth_stripe_transaction(
+          payment_type: payment_type,
+          community: @current_community,
+          listing: @listing,
+          user: @current_user,
+          content: preauthorize_form.content,
+          use_async: request.xhr?,
+          delivery_method: delivery_method,
+          shipping_price: @listing.shipping_price,
+          stripeToken: params[:stripeToken],
+          listing_quantity: quantity)
+
+      unless transaction_response[:success]
+        flash[:error] = "An error occured while trying to create a new transaction: #{transaction_response[:error_msg]}"
+        return redirect_to action: :preauthorize
+      end
+
+      post = Post.create(person_id: @current_user.id, listings_ids: @listing.id, description: "has purchased a listing", purpose: Post::POST_PURPOSE[:purchase_listing])
+      if @current_user.friends.present?
+        @current_user.friends.each do |friend|
+          UserNotification.send_notification(@current_user, friend, post, UserNotification::NOTIFICATION_TYPE[:purchase_listing])
+        end
+      end
+
+      transaction_id = transaction_response[:data][:transaction][:id]
+
+      redirect_to person_transaction_path(:person_id => @current_user.id, :id => transaction_id)
+    else
+      flash[:error] = preauthorize_form.errors.full_messages.join(", ")
+      return redirect_to action: :preauthorize
+    end
   end
 
   private
