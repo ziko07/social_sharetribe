@@ -120,6 +120,7 @@ class Person < ActiveRecord::Base
   has_many :user_notifications, class_name: "UserNotification",:foreign_key => "person_id"
   has_many :sender_notifications, class_name: "UserNotification",:foreign_key => "sender"
   has_one :social_link,:dependent => :destroy
+  has_one :privacy,:dependent => :destroy
   has_many :reports, :as => :reportable,:dependent => :destroy
 
   has_and_belongs_to_many :followed_listings, :class_name => "Listing", :join_table => "listing_followers"
@@ -127,6 +128,7 @@ class Person < ActiveRecord::Base
   deprecate communities: "Use accepted_community instead.",
             community_memberships: "Use community_membership instead.",
             deprecator: MethodDeprecator.new
+  after_create :create_privacy
 
   def to_param
     username
@@ -605,6 +607,10 @@ class Person < ActiveRecord::Base
     self.legacy_encrypted_password = nil
     self.password_salt = nil
     super
+  end
+
+  def create_privacy
+   Privacy.create(person_id: self.id)
   end
 
   private

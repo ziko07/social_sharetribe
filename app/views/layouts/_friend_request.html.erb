@@ -24,7 +24,7 @@
   </div>
   <div class="toggle-menu header-toggle-menu-user hidden" id="notification-list" style="left: 712.844px; width: 450px; top: 143.375px;">
     <ul class="user-notification-wrapper">
-      <% UserNotification.all.limit(10).each do |notification| %>
+      <% UserNotification.all.order(id: :desc).limit(10).each do |notification| %>
           <li class="notification-item" onclick="location.href='<%= notification.link %>';">
             <div class="sender-picture profile-pic">
               <%= small_avatar_thumb(notification.notification_sender) %>
@@ -32,7 +32,7 @@
             <div class="notification-content">
               <%= link_to notification.notification_sender.full_name, person_path(notification.notification_sender.username) %>
               <%= notification.content %> <br/>
-              <i> <i class="fa fa-clock-o"></i> 3 hours ago </i>
+              <i> <i class="fa fa-clock-o"></i> <%= time_ago_in_words(notification.created_at) %>  ago </i>
             </div>
           </li>
       <% end %>

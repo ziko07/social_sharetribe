@@ -154,7 +154,7 @@ class PeopleController < Devise::RegistrationsController
 
   def notification
     @count = params[:count]
-    @notifications = UserNotification.all.order(id: :DESC).limit(7).offset(@count)
+    @notifications = UserNotification.all.order(id: :DESC).limit(10).offset(@count)
     respond_to do |format|
       format.js { render :layout => false }
     end

@@ -21,4 +21,11 @@ namespace :sharetribe do
   task :synchronize_verified_with_ses => :environment do
     EmailService::API::Api.addresses.enqueue_batch_sync()
   end
+
+  task :set_privacy => :environment do
+    Person.all.each do |person|
+      Privacy.create(person_id: person.id)
+    end
+  end
+
 end

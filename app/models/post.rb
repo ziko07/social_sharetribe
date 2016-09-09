@@ -21,12 +21,25 @@ class Post < ActiveRecord::Base
   has_many :likes, :as => :likeable, :dependent => :destroy
   has_many :reports, :as => :reportable, :dependent => :destroy
 
+  after_create :send_notification
+
+
   POST_PURPOSE = {
       update_status: 'has update his status ',
       add_new_timelet: 'add new timelet',
       share_timelet: "share a timelet",
       purchase: 'purchase a timelet',
   }
+
+  def send_notification
+    if person.friends.present?
+      person.friends.each do |friend|
+        link = "/#{person.username}/wall#wall_post_#{self.id}"
+        description = self.purpose
+        friend.user_notifications.create(sender: self.person_id, content: description, link: link, event: UserNotification::NOTIFICATION_TYPE[:post])
+      end
+    end
+  end
   def mention_people(mention_params)
     mention_person = mention_params.present? ? JSON.parse(mention_params) : []
     mention_person.each do |mention|

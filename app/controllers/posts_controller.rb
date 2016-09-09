@@ -16,14 +16,6 @@ class PostsController < ApplicationController
         end
       end
       @post.mention_people(params[:user_mention])
-      if @post.post_to_id.present?
-        UserNotification.send_notification(@current_user, Person.find_by_id(@post.post_to_id), @post, UserNotification::NOTIFICATION_TYPE[:wall])
-      end
-      if @post.person.friends.present?
-        @current_user.friends.each do |friend|
-          UserNotification.send_notification(@current_user, friend, @post, UserNotification::NOTIFICATION_TYPE[:post])
-        end
-      end
       flash[:notice] = 'Post is successfully Posted'
     else
       status = false

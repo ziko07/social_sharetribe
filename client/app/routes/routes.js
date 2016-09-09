@@ -1313,6 +1313,9 @@ Based on Rails routes of Kassi::Application
 // preferences_update_admin_community_stripe_preferences => (/:locale)/admin/communities/:community_id/stripe_preferences/preferences_update(.:format)
   // function(community_id, options)
   preferences_update_admin_community_stripe_preferences_path: Utils.route(["community_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"community_id",false],[2,[7,"/",false],[2,[6,"stripe_preferences",false],[2,[7,"/",false],[2,[6,"preferences_update",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]]]], {}),
+// privacy => (/:locale)/:person_id/settings/privacy(.:format)
+  // function(person_id, options)
+  privacy_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"settings",false],[2,[7,"/",false],[2,[6,"privacy",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
 // privacy_infos => (/:locale)/infos/privacy(.:format)
   // function(options)
   privacy_infos_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"infos",false],[2,[7,"/",false],[2,[6,"privacy",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]], {}),
@@ -1454,6 +1457,9 @@ Based on Rails routes of Kassi::Application
 // update_price_admin_custom_fields => (/:locale)/admin/custom_fields/update_price(.:format)
   // function(options)
   update_price_admin_custom_fields_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"custom_fields",false],[2,[7,"/",false],[2,[6,"update_price",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// update_privacy_person_settings => (/:locale)/:person_id/settings/update_privacy(.:format)
+  // function(person_id, options)
+  update_privacy_person_settings_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"settings",false],[2,[7,"/",false],[2,[6,"update_privacy",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
 // update_settings_admin_community => (/:locale)/admin/communities/:id/update_settings(.:format)
   // function(id, options)
   update_settings_admin_community_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"update_settings",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),
