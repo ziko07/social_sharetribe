@@ -648,6 +648,8 @@ module ApplicationHelper
           raw "<i class='fa fa-thumbs-o-up'> </i> Like"
         end
       end
+    else
+      link_html = "<i class='fa fa-thumbs-o-up'> </i> Like"
     end
     raw html << link_html
   end
