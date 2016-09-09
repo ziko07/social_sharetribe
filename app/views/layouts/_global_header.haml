@@ -33,9 +33,10 @@
           = t("header.signup")
 
     .header-left.hidden-tablet
-      .header-menu-container.toggle.hidden{data: {toggle: '#header-menu-toggle-menu', 'toggle-position' => 'absolute'}}
+      .header-menu-container.toggle.hidden-tablet{data: {toggle: '#header-menu-toggle-menu', 'toggle-position' => 'absolute'}}
         #header-menu-mobile-anchor.header-menu-toggle-container.toggle-header-container
-          = icon_map_tag(icons, "rows", ["header-menu-icon"])
+          =# icon_map_tag(icons, "rows", ["header-menu-icon"])
+          %i.fa.fa-bars
           %span.visible-tablet-inline
             = t("header.menu")
 

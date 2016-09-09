@@ -64,3 +64,11 @@
     </ul>
   </div>
 </div>
+
+<%= content_for :extra_javascript do %>
+    <script type="text/javascript">
+        $(function () {
+            $('.profile-nav .sort').niceScroll({horizrailenabled: true});
+        });
+    </script>
+<% end %>

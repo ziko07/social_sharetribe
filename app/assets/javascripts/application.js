@@ -96,4 +96,5 @@
 //= require custom_post_slider
 //= require jquery.nicescroll
 //= require social-share-button
+//= require social/sticky-kit.min
 //= require_self

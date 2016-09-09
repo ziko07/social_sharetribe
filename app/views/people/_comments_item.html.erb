@@ -1,14 +1,14 @@
 <li id="comment-<%= comment.id %>" style="display: list-item;">
   <div class="clearfix">
-    <div class="comments-owner col-sm-1">
+    <div class="comments-owner">
       <%= small_avatar_thumb(comment.person) %>
     </div>
-    <div class="comment-text col-sm-11">
+    <div class="comment-text">
       <div class="post-title">
         <span class="name">
           <%= link_to comment.person.given_name_or_username, person_path(username: comment.person.username) %>
         </span>
-        <span class="times"> <%= time_ago_in_words(comment.created_at) %> ago </i> </span>
+        <i class="times"> <%= time_ago_in_words(comment.created_at) %> ago </i>
       </div>
       <p>
         <%= comment.comment %>

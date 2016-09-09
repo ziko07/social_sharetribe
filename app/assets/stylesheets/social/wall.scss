@@ -733,6 +733,9 @@ aside {
 }
 
 @media screen and (max-width: 600px) {
+  .wrapper-notifications {
+    display: none !important;
+  }
   .wall-post-item {
     .profile-pic {
       display: none !important;

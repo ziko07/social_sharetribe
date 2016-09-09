@@ -1,0 +1,10 @@
+.comments-owner {
+  width: 60px;
+  vertical-align: top;
+  display: inline-block;
+}
+
+.comments-text {
+  width: calc(100% - 62px);
+  margin-left: 60px;
+}
