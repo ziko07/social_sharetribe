@@ -553,7 +553,15 @@ module ApplicationHelper
             :icon_class => icon_class("notification_settings"),
             :path => social_link_settings_path(person),
             :name => "social_links"
-        }
+        },
+
+    {
+        :id => "settings-tab-privacy-link",
+        :text => t("layouts.settings.privacy"),
+        :icon_class => icon_class("notification_settings"),
+        :path => privacy_path(person),
+        :name => "privacy"
+    }
     ]
 
     payment_type = MarketplaceService::Community::Query.payment_type(@current_community.id)

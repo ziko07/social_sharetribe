@@ -134,6 +134,7 @@ Kassi::Application.routes.draw do
     get '/:person_id/settings/payments/paypal_account' => 'paypal_accounts#index', :as => :paypal_account_settings_payment
     get '/:person_id/settings/payments/stripe_account' => 'stripe_accounts#index', :as => :stripe_account_settings_payment
     get '/:person_id/settings/social_link' => 'social_links#index', :as => :social_link_settings
+    get '/:person_id/settings/privacy' => 'settings#privacy', :as => :privacy
 
     # community membership related actions
 
@@ -484,6 +485,7 @@ Kassi::Application.routes.draw do
             get :notifications
             get :payments
             get :unsubscribe
+            patch :update_privacy
           end
         end
         resources :testimonials

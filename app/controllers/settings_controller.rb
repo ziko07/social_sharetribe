@@ -24,7 +24,23 @@ class SettingsController < ApplicationController
   end
 
 
+def privacy
+  target_user = Person.find_by!(username: params[:person_id], community_id: @current_community.id)
+  @selected_left_navi_link = "privacy"
+  privacy = target_user.privacy
+  render locals: {target_user: target_user, privacy: privacy}
+end
 
+  def update_privacy
+    target_user = Person.find_by!(username: params[:person_id], community_id: @current_community.id)
+   privacy = Privacy.find_by_person_id(target_user.id)
+    if privacy.update(privacy_params)
+      flash[:notice] = 'Privacy is successfully Updated'
+    else
+      flash[:notice] = 'Something Worng Please try latter'
+    end
+    redirect_to privacy_path(target_user)
+  end
 
   def notifications
     target_user = Person.find_by!(username: params[:person_id], community_id: @current_community.id)
@@ -62,6 +78,10 @@ class SettingsController < ApplicationController
 
   def find_person_to_unsubscribe(current_user, auth_token)
     current_user || Maybe(AuthToken.find_by_token(auth_token)).person.or_else { nil }
+  end
+
+  def privacy_params
+    params.require(:privacy).permit!
   end
 
 end

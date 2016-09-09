@@ -4,6 +4,9 @@ class FriendshipsController < ApplicationController
   def add_friend
     person = Person.find_by_username(params[:username])
     @current_user.invite person
+    if person.privacy.auto_follower?
+      person.approve @current_user
+    end
     respond_to do |format|
       format.js { render layout: false, locals: {person: person} }
       format.html { redirect_to :back }

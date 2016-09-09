@@ -1342,6 +1342,7 @@ en:
       settings: Settings
       payments: Payments
       sosial_links: "Social Links"
+      privacy: "Privacy"
   listings:
     bubble_listing_not_visible:
       listing_not_visible: "You do not have permission to view this listing."

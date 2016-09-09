@@ -6,7 +6,7 @@
       <div class="notification-content">
         <%= link_to notification.notification_sender.full_name, person_path(notification.notification_sender.username) %>
         <%= notification.content %> <br/>
-        <i> <i class="fa fa-clock-o"></i> 3 hours ago </i>
+        <i> <i class="fa fa-clock-o"></i> <%= time_ago_in_words(notification.created_at) %>  ago </i>
       </div>
     </li>
 <% end %>

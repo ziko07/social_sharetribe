@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908042733) do
+ActiveRecord::Schema.define(version: 20160909135126) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string   "token",            limit: 255
@@ -918,6 +918,13 @@ ActiveRecord::Schema.define(version: 20160908042733) do
     t.string   "purpose",      limit: 255
     t.integer  "update_time",  limit: 4
     t.string   "listings_ids", limit: 255
+  end
+
+  create_table "privacies", force: :cascade do |t|
+    t.string   "person_id",     limit: 255
+    t.boolean  "auto_follower",             default: true
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   create_table "prospect_emails", force: :cascade do |t|
