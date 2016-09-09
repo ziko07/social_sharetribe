@@ -112,3 +112,14 @@ a:focus, a:hover {
   color: #23527c;
   text-decoration: none !important;
 }
+
+.post-share-link {
+  li {
+    padding: 0 !important;
+    float: none !important;
+  }
+  a {
+    display: block !important;
+    margin: 0 !important;
+  }
+}

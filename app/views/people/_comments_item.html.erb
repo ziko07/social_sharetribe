@@ -5,9 +5,9 @@
     </div>
     <div class="comment-text col-sm-11">
       <div class="post-title">
-                        <span class="name">
-                          <%= link_to comment.person.given_name_or_username, person_path(username: comment.person.username) %>
-                        </span>
+        <span class="name">
+          <%= link_to comment.person.given_name_or_username, person_path(username: comment.person.username) %>
+        </span>
         <span class="times"> <%= time_ago_in_words(comment.created_at) %> ago </i> </span>
       </div>
       <p>
@@ -27,6 +27,7 @@
             <% end %>
           </li>
         </ul>
+        <div style="clear: both;"></div>
       </div>
     </div>
   </div>

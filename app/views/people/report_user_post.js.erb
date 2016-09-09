@@ -1,6 +1,6 @@
 <% if params[:reportable_type] == 'post' %>
 alert('hi');
-$(".report-action-<%= @post.id %>").html('<span class="report-btn" style="margin: 5px;"><i class="fa fa-flag" aria-hidden="true" style="padding: 2px"></i>Reported</span>')
+$(".report-action-<%= @post.id %>").html('<span class="report-btn-profile" style="margin: 5px;"><i class="fa fa-flag" aria-hidden="true" style="padding: 2px"></i>Reported</span>')
 <% else %>
 $('.repot-action-user').html('<span class="report-btn" style="margin-left: 20px;"><i class="fa fa-flag" aria-hidden="true" style="padding: 2px"></i>Reported</span>')
 <% end %>

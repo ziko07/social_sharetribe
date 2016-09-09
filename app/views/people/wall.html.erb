@@ -1,10 +1,10 @@
 <div class="col-md-9">
   <div class="user-profile-content-wrapper">
-    <%= render 'social/wall_post_form' %>
+    <%= render 'social/wall_post_form' if current_user?(@person) %>
     <div class="wall-posts">
       <ul class="all_post">
         <% posts.each do |post| %>
-            <%= render 'people/wall_post_item', post: post, person: @current_user %>
+            <%= render 'people/wall_post_item', post: post, person: @person %>
         <% end %>
       </ul>
     </div>
@@ -32,6 +32,7 @@
 <%= content_for :extra_javascript do %>
     <script type="text/javascript">
         $(function () {
+            $('.feedback').rating({displayOnly: true, step: 0.5});
             $(".wrapper-notifications ul").niceScroll();
             $(".slider-wrapper").niceScroll({
                 horizrailenabled: true

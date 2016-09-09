@@ -6,25 +6,28 @@
   </div>
   <div class="wall-post-content-wrapper">
     <div class="activity-status">
-      <%= link_to post.person.full_name, person_path(username: post.person.username) %> share timelet
+      <%= link_to post.person.full_name, person_path(username: post.person.username) %>
+      <%= post.purpose.blank? ? 'share timelet' : post.purpose %>
       <i> <%= time_ago_in_words(post.created_at) %> ago </i>
+
+      <div class="dropdown pull-right">
       <% if @current_user.present? %>
-          <div class="dropdown pull-right">
+       <div class="dropdown pull-right">
         <span class="dropdown-toggle pull-right" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor: pointer; margin-top: -5px;">
           <i class="fa fa-angle-down fa-2x" aria-hidden="true"></i>
         </span>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <li class="report-action-<%= post.id %>">
-                <% unless is_reported_by_user(post, @current_user.id)%>
-                    <%= link_to  report_user_post_people_path(reportable_id: post.id, reportable_type: 'post'), class: "report-btn", remote: true do %>
-                        <i class="fa fa-flag" aria-hidden="true"></i> Report
-                    <% end %>
-                <% else %>
-                    <span class="report-btn-profile" style="margin: 5px;"><i class="fa fa-flag" aria-hidden="true" style="padding: 2px"></i>Reported</span>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li class="report-action-<%= post.id %>">
+            <% if is_reported_by_user(post, @current_user.id) %>
+                <span class="report-btn-profile" style="margin: 5px;"><i class="fa fa-flag" aria-hidden="true" style="padding: 2px"></i>Reported</span>
+            <% else %>
+                <%= link_to report_user_post_people_path(reportable_id: post.id, reportable_type: 'post'), class: "report-btn", remote: true do %>
+                    <i class="fa fa-flag" aria-hidden="true"></i> Report
                 <% end %>
-              </li>
-            </ul>
-          </div>
+            <% end %>
+          </li>
+        </ul>
+      </div>
       <% end %>
     </div>
     <div class="activity-content">
@@ -47,31 +50,28 @@
           <%= like_unlike_link(post, @current_user, 'post') %>
         </li>
         <li>
-          <a href="javascript:void(0);" class="reply-comments"><i class="fa fa-commenting"></i> Comment<%= "(" +  post.post_comments.count.to_s + ")" if post.post_comments.present?%></a>
+          <a href="javascript:void(0);" class="reply-comments"><i class="fa fa-commenting"></i>
+            Comment<%= "(" + post.post_comments.count.to_s + ")" if post.post_comments.present? %></a>
         </li>
         <li>
           <div class="dropdown">
-        <a class="dropdown-toggle" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor: pointer; margin-top: -5px;">
+            <a class="dropdown-toggle" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor: pointer; margin-top: -5px;">
 
               <i class="fa fa-share"></i> Share
-        </a>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-            <li>
-              <%# if post.post_attachments.present? %>
-                  <%#= social_share_button_tag(render_post_content(post.description), :image => post.post_attachments.first, :'data-type' => 'photo') %>
-              <%# else%>
-                  <%#= social_share_button_tag(render_post_content(post.description), :'data-type' => 'title') %>
-              <%# end%>
+            </a>
+            <ul class="dropdown-menu post-share-link" aria-labelledby="dropdownMenu">
+              <li>
+                <%= link_to '#', class: "report-btn", remote: true do %>
+                    <i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook Share
+                <% end %>
+              </li>
+              <li>
+                <%= link_to '#', class: "report-btn", remote: true do %>
+                    <i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter Share
+                <% end %>
+              </li>
+             </a>
 
-              <%= link_to  report_user_post_people_path(reportable_id: post.id, reportable_type: 'post'), class: "report-btn", remote: true do %>
-                  <i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook Share
-              <% end %>
-            </li>
-            <li>
-              <%= link_to  report_user_post_people_path(reportable_id: post.id, reportable_type: 'post'), class: "report-btn", remote: true do %>
-                  <i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter Share
-              <% end %>
-            </li>
             </ul>
           </div>
         </li>
@@ -83,6 +83,7 @@
           <% end %>
         </li>
       </ul>
+      <div style="clear: both;"></div>
     </div>
     <div class="post-comments-wrapper">
       <ul class="comments-list clearfix">
@@ -90,8 +91,8 @@
             <% post.post_comments.limit(1).each do |comment| %>
                 <%= render 'people/comments_item', comment: comment, post: post %>
                 <% if post.post_comments.count > 1 %>
-                    <%= link_to 'See All Comments', all_comments_post_path(post),remote: true, class: "show_all_#{post.id} see_all_message"  %>
-                 <% end %>
+                    <%= link_to 'See All Comments', all_comments_post_path(post), remote: true, class: "show_all_#{post.id} see_all_message" %>
+                <% end %>
             <% end %>
         <% end %>
       </ul>
@@ -106,6 +107,7 @@
         <% end %>
       </div>
     </div>
+  </div>
   </div>
 </li>
 
