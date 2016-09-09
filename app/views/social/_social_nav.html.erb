@@ -68,7 +68,9 @@
 <%= content_for :extra_javascript do %>
     <script type="text/javascript">
         $(function () {
-            $('.profile-nav .sort').niceScroll({horizrailenabled: true});
+            var navWrapper = $('.profile-nav .sort');
+            navWrapper.niceScroll({horizrailenabled: true});
+            navWrapper.getNiceScroll().hide();
         });
     </script>
 <% end %>

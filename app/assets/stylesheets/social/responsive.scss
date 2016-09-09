@@ -1,0 +1,27 @@
+@media screen and (max-width: 600px) {
+  .friend-request-list li, .friend-list li {
+    display: block;
+    width: 100%;
+  }
+
+  .wrapper-notifications {
+    display: none !important;
+  }
+  .wall-post-item {
+    .profile-pic {
+      display: none !important;
+    }
+  }
+  .wall-posts ul {
+    .wall-post-content-wrapper {
+      width: 100%;
+      display: block;
+      margin: 0;
+    }
+  }
+  .new-post-wrapper {
+    margin-left: 0 !important;
+    width: 100% !important;
+    display: block;
+  }
+}
