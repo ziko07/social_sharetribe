@@ -7,21 +7,24 @@
   .wrapper-notifications {
     display: none !important;
   }
-  .wall-post-item {
-    .profile-pic {
-      display: none !important;
-    }
-  }
-  .wall-posts ul {
-    .wall-post-content-wrapper {
-      width: 100%;
-      display: block;
-      margin: 0;
-    }
-  }
+
   .new-post-wrapper {
     margin-left: 0 !important;
     width: 100% !important;
     display: block;
+  }
+
+  .wall-posts {
+    ul.all_post {
+      li {
+        .profile-pic {
+          display: none !important;
+        }
+        .wall-post-content-wrapper {
+          width: 100%;
+          margin-left: 0;
+        }
+      }
+    }
   }
 }
