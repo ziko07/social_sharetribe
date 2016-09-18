@@ -1,8 +1,10 @@
 .left-navi
-  - links.each do |link|
-    %a{:id => link[:id], :href => link[:path], :title => link[:text], :class => (link[:name].eql?(@selected_left_navi_link) ? "selected left-navi-link" : "left-navi-link")}
-      .left-navi-link-icon{:class => link[:icon_class]}
-      .left-navi-link-text= link[:text]
+  .set_menu
+    - links.each do |link|
+      %a{:id => link[:id], :href => link[:path], :title => link[:text], :class => (link[:name].eql?(@selected_left_navi_link) ? "selected left-navi-link" : "left-navi-link")}
+        %i{:class => link[:icon_class]}
+        = link[:text]
+        -#.left-navi-link-text= link[:text]
 
 - links.each do |link|
   - if link[:name].eql?(@selected_left_navi_link)

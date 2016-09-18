@@ -6,6 +6,8 @@ class SettingsController < ApplicationController
 
   before_filter EnsureCanAccessPerson.new(:person_id, error_message_key: "layouts.notifications.you_are_not_authorized_to_view_this_content"), except: :unsubscribe
 
+  layout 'setting'
+
   def show
     target_user = Person.find_by!(username: params[:person_id], community_id: @current_community.id)
     add_location_to_person!(target_user)

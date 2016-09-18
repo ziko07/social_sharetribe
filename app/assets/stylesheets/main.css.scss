@@ -78,7 +78,7 @@ body {
   ---------------------
 */
 
-@mixin photoshop-text-shadow ($angle: 0, $distance: 0, $spread: 0, $size: 0, $color: #000) {
+@mixin photoshop-text-shadow($angle: 0, $distance: 0, $spread: 0, $size: 0, $color: #000) {
   // NOTE: $spread has no effect for text shadows
   $angle: (180 - $angle) * pi() / 180;
   $h-shadow: round(cos($angle) * $distance);
@@ -212,12 +212,12 @@ ul {
   padding: lines(0.5) 0;
 
   @include media(tablet) {
-    padding: 0 lines(0.5);
-    margin-left: lines(10.5);
+    //padding: 0 lines(0.5);
+    //margin-left: lines(10.5);
   }
 
   @include media(desktop) {
-    padding: 0;
+    //padding: 0;
   }
 
   small {
@@ -259,9 +259,11 @@ ul {
       &:after {
         display: block;
         position: absolute;
-        right: lines(0.5); top: em(7);
+        right: lines(0.5);
+        top: em(7);
         content: "→";
-      };
+      }
+    ;
     }
     .left-navi-link-text {
       padding: 0 lines(1) 0 lines(1);
@@ -301,8 +303,14 @@ ul {
   position: relative;
   top: em(2);
 }
-.list-icon-margin { margin-top: em(3); }
-.text-with-icon { display: inline-block;}
+
+.list-icon-margin {
+  margin-top: em(3);
+}
+
+.text-with-icon {
+  display: inline-block;
+}
 
 .icon-with-text-container {
   position: relative;
@@ -360,7 +368,7 @@ form {
 }
 
 .unwanted_text_field {
-  display:none;
+  display: none;
 }
 
 .inline-label-container {
@@ -443,7 +451,8 @@ label.error {
     border: em(8) solid transparent;
     border-bottom-color: red;
     position: absolute;
-    left: em(18); top: em(-16);
+    left: em(18);
+    top: em(-16);
   }
 
 }
@@ -594,6 +603,7 @@ label.error {
   width: 500px;
   max-width: 100% !important;
 }
+
 .lightbox-content {
   position: relative;
   width: 100%;
@@ -738,7 +748,9 @@ $noscript-height: lines(4);
     float: left;
     padding: em(10) em(15) em(10) em(15);
     color: $link;
-    &:hover { color: darken($link, 15%); }
+    &:hover {
+      color: darken($link, 15%);
+    }
   }
 
   @include media(tablet) {
@@ -748,7 +760,9 @@ $noscript-height: lines(4);
       padding: em(8) em(8) em(10) em(8);
       width: 100%;
       margin: 0 0 lines(0.5) 0;
-      &:hover { color: $background; }
+      &:hover {
+        color: $background;
+      }
     }
 
   }
@@ -808,10 +822,13 @@ $noscript-height: lines(4);
       display: inline;
       cursor: pointer;
       position: absolute;
-      top: lines(0); right: 0;
+      top: lines(0);
+      right: 0;
       padding-top: em(9);
       color: $body;
-      &:hover { color: $link; }
+      &:hover {
+        color: $link;
+      }
       margin-right: lines(0.5);
     }
 
@@ -890,7 +907,8 @@ $noscript-height: lines(4);
       @include big-button($link);
       margin: 0;
       position: absolute;
-      right: 0; top: 0;
+      right: 0;
+      top: 0;
       width: lines(11) - em(2);
     }
   }
@@ -899,7 +917,9 @@ $noscript-height: lines(4);
     padding-top: lines(0.5);
     a {
       color: $body;
-      &:hover { color: $link; }
+      &:hover {
+        color: $link;
+      }
     }
   }
 
@@ -923,7 +943,8 @@ $noscript-height: lines(4);
       float: none;
       margin: 0;
       position: absolute;
-      right: lines(0); top: lines(4);
+      right: lines(0);
+      top: lines(4);
       width: lines(15);
       height: lines(11.25);
       img {
@@ -942,7 +963,8 @@ $noscript-height: lines(4);
 
     @include media(tablet) {
       position: absolute;
-      right: lines(0); top: lines(17);
+      right: lines(0);
+      top: lines(17);
       width: lines(15);
       height: lines(10);
     }
@@ -972,7 +994,7 @@ $noscript-height: lines(4);
       top: lines(1);
       left: em(3);
       @include border-radius(em(5));
-      @include box-shadow(rgba(0,0,0,0.2) 0 0 em(3) em(2));
+      @include box-shadow(rgba(0, 0, 0, 0.2) 0 0 em(3) em(2));
       width: lines(2);
 
       img {
@@ -1059,7 +1081,8 @@ $noscript-height: lines(4);
 
       .avatar {
         position: absolute;
-        left: 0; top: lines(0.5);
+        left: 0;
+        top: lines(0.5);
         img {
           @include border-radius(em(5));
         }
@@ -1170,7 +1193,8 @@ $noscript-height: lines(4);
       @include big-button($link);
       margin: 0;
       position: absolute;
-      right: 0; top: 0;
+      right: 0;
+      top: 0;
       width: lines(8.5) + em(5);
     }
   }
@@ -1193,7 +1217,8 @@ $noscript-height: lines(4);
       float: none;
       margin: 0;
       position: absolute;
-      right: lines(0); top: lines(4);
+      right: lines(0);
+      top: lines(4);
       width: lines(12);
       height: lines(12);
       img {
@@ -1218,7 +1243,8 @@ $noscript-height: lines(4);
       margin-top: 0;
       margin-bottom: lines(2);
       position: absolute;
-      right: lines(0); top: lines(17.5);
+      right: lines(0);
+      top: lines(17.5);
       width: lines(12);
       height: lines(10);
     }
@@ -1232,7 +1258,8 @@ $noscript-height: lines(4);
 
     @include media(tablet) {
       position: absolute;
-      right: 0; top: lines(17.5);
+      right: 0;
+      top: lines(17.5);
       width: lines(10.5);
       text-align: left;
       padding-bottom: lines(0.25);
@@ -1401,7 +1428,7 @@ $noscript-height: lines(4);
   display: inline;
 }
 
-.delivery-options-container{
+.delivery-options-container {
   margin-top: lines(0.5);
 }
 
@@ -1576,9 +1603,9 @@ input[type=text].delivery-price-field {
 */
 
 .initiate-transaction-totals {
-    background-color: $highlight;
-    padding: lines(0.5);
-    margin-bottom: lines(0.5);
+  background-color: $highlight;
+  padding: lines(0.5);
+  margin-bottom: lines(0.5);
 }
 
 .initiate-transaction-per-unit-wrapper,
@@ -1587,7 +1614,7 @@ input[type=text].delivery-price-field {
 .initiate-transaction-sum-wrapper,
 .initiate-transaction-shipping-price-wrapper,
 .initiate-transaction-total-wrapper {
-    @include clearfix;
+  @include clearfix;
 }
 
 .initiate-transaction-per-unit-label,
@@ -1596,7 +1623,7 @@ input[type=text].delivery-price-field {
 .initiate-transaction-sum-label,
 .initiate-transaction-shipping-price-label,
 .initiate-transaction-total-label {
-    float: left;
+  float: left;
 }
 
 .initiate-transaction-per-unit-value,
@@ -1605,12 +1632,12 @@ input[type=text].delivery-price-field {
 .initiate-transaction-sum-value,
 .initiate-transaction-shipping-price-value,
 .initiate-transaction-total-value {
-    float: right;
-    margin-right: lines(0.25);
+  float: right;
+  margin-right: lines(0.25);
 }
 
 .initiate-transaction-total-wrapper {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 /*
@@ -1620,14 +1647,14 @@ input[type=text].delivery-price-field {
 */
 
 .shipping-address-container {
-    background-color: $highlight;
-    padding: lines(0.5);
-    margin-bottom: lines(0.5);
-    margin-top: lines(0.5);
+  background-color: $highlight;
+  padding: lines(0.5);
+  margin-bottom: lines(0.5);
+  margin-top: lines(0.5);
 }
 
 .shipping-address-name {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 /*
@@ -1645,7 +1672,7 @@ input[type=text].delivery-price-field {
   // Pushes content after about-section (mainly branding footer) down,
   // so that it doesn't overlap in any case with the left hand
   // navigation
-  @include media(tablet){
+  @include media(tablet) {
     min-height: 250px;
   }
 }
@@ -1841,16 +1868,19 @@ input[type=text].delivery-price-field {
   margin: -50px -170px;
   text-align: center;
 }
+
 .paypal-loading-title {
   font-size: 150%;
   margin-bottom: 0;
   width: 100%;
   text-align: center;
 }
+
 .paypal-loading-desc {
   width: 100%;
   text-align: center;
 }
+
 .paypal-loading-spinner {
   display: inline-block;
   margin-top: 12px;
@@ -1883,7 +1913,8 @@ $network-green: #00a26c;
     background: darken($color, 5%);
     color: $background;
     border-color: darken($color, 20%);
-  };
+  }
+;
 
   @include media(tablet) {
     @include big-type;
@@ -1905,8 +1936,8 @@ $network-green: #00a26c;
   height: $height;
 
   background-size: cover;
-  -moz-background-size: cover;  /* Firefox 3.6 */
-  background-position: center;  /* Internet Explorer 7/8 */
+  -moz-background-size: cover; /* Firefox 3.6 */
+  background-position: center; /* Internet Explorer 7/8 */
 }
 
 /* User both for marketplace and network landers */
@@ -1923,8 +1954,8 @@ figure.fluidratio {
   display: block;
   height: lines(4.3);
   background-size: cover;
-  -moz-background-size: cover;  /* Firefox 3.6 */
-  background-position: center;  /* Internet Explorer 7/8 */
+  -moz-background-size: cover; /* Firefox 3.6 */
+  background-position: center; /* Internet Explorer 7/8 */
   background-position: center center;
 }
 
@@ -2128,7 +2159,6 @@ figure.fluidratio {
   }
 
   @include media(tablet) {
-
 
     .marketplace-lander-content-title {
       margin-bottom: 0;

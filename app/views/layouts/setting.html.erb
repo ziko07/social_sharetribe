@@ -1,0 +1,66 @@
+<%= render :partial => 'layouts/head' %>
+<body class="social-body">
+<%= render partial: 'layouts/global_header', locals: header_props() %>
+<div class="social-container">
+  <div id="settings-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="col-sm-3 setting-left-nav">
+          <%= yield :left_navi %>
+        </div>
+        <div class="col-sm-9">
+          <%= yield :right_content %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= yield %>
+</div>
+<script type="text/javascript">
+    window.I18n = {};
+</script>
+<%= javascript_include_tag "i18n/#{I18n.locale}" %>
+<%= javascript_include_tag 'application' %>
+
+<script type="text/javascript">
+    window.ST.jsonTranslations = <%= raw JSONTranslations.get(I18n.locale) %>;
+</script>
+
+<% if @analytics_event %>
+    <script type="text/javascript">
+        report_analytics_event.apply(null, '<%= @analytics_event %>');
+    </script>
+<% end %>
+<% if @gtm_datalayer %>
+    <script type="text/javascript">
+        if (window.ST != null && typeof window.ST.gtmPush === 'function') {
+            window.ST.gtmPush('<%= @gtm_datalayer.to_json%>');
+        }
+    </script>
+<% end %>
+<script type="text/javascript">
+    $(function () {
+        if ('touchAction' in document.body.style) {
+            document.body.style.touchAction = 'manipulation';
+        } else {
+            window.FastClick.attach(document.body, {excludeNode: '^pac-'});
+        }
+    });
+</script>
+
+<%= yield :extra_javascript %>
+<script>
+    $(document).ready(function () {
+        initialize_defaults("<%= I18n.locale %>");
+        <%= yield :javascript %>
+    });
+</script>
+
+</body>
+<footer>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+</footer>
+</html>

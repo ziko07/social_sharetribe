@@ -1,0 +1,70 @@
+#settings-wrapper {
+  margin-top: 30px;
+  .left-navi-section {
+    padding: 0 5px 5px 5px;
+    margin: 0;
+  }
+  .settings-section {
+    padding: 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04), 0 -1px 0 0 rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04), 0 -1px 0 0 rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04), 0 -1px 0 0 rgba(0, 0, 0, 0.05);
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    min-height: 0;
+    background: #ffffff;
+    h2.ptit {
+      padding: 0 17px;
+      color: #4b4f5d;
+      font-size: 15px;
+      line-height: 48px;
+      margin: 0;
+      border-bottom: 1px solid #ebecef;
+    }
+    #setting-main-content {
+      padding: 20px;
+    }
+  }
+}
+
+.setting-left-nav {
+  .left-navi {
+    width: 100%;
+    position: relative;
+    background: #FFF;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04), 0 -1px 0 0 rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04), 0 -1px 0 0 rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04), 0 -1px 0 0 rgba(0, 0, 0, 0.05);
+    .set_menu {
+      position: relative;
+      padding: 7px 0;
+      border: 0;
+      a {
+        position: relative;
+        display: block;
+        font-size: 13px;
+        color: #808592;
+        padding: 0 15px;
+        min-height: unset;
+        width: 100%;
+        line-height: 29px;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        &.selected {
+          font-weight: bold;
+          color: #383d48;
+          background: #f6f6f7;
+          -webkit-border-radius: 0;
+          -moz-border-radius: 0;
+          border-radius: 0;
+        }
+        &:after {
+          content: '';
+        }
+      }
+    }
+  }
+}
