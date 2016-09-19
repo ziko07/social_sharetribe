@@ -802,6 +802,75 @@ module ApplicationHelper
     raw content
   end
 
+  def message_list
+    @person = @current_user
+    params[:page] = 1 unless request.xhr?
+
+    pagination_opts = PaginationViewUtils.parse_pagination_opts(params)
+
+    inbox_rows = MarketplaceService::Inbox::Query.inbox_data(
+        @current_user.id,
+        @current_community.id,
+        pagination_opts[:limit],
+        pagination_opts[:offset])
+
+    count = MarketplaceService::Inbox::Query.inbox_data_count(@current_user.id, @current_community.id)
+    inbox_rows = inbox_rows.map { |inbox_row|
+      extended_inbox = inbox_row.merge(
+          path: path_to_conversation_or_transaction_message(inbox_row),
+          other: person_entity_with_url_message(inbox_row[:other]),
+          last_activity_ago: time_ago(inbox_row[:last_activity_at]),
+          title: inbox_title_message(inbox_row, inbox_payment_message(inbox_row))
+      )
+
+      if inbox_row[:type] == :transaction
+        extended_inbox.merge(
+            listing_url: listing_path(id: inbox_row[:listing_id])
+        )
+      else
+        extended_inbox
+      end
+    }
+
+    return inbox_rows
+  end
+
+  def inbox_payment_message(inbox_item)
+    Maybe(inbox_item)[:payment_total].or_else(nil)
+  end
+
+
+  def path_to_conversation_or_transaction_message(inbox_item)
+    if inbox_item[:type] == :transaction
+      person_transaction_path(:person_id => inbox_item[:current][:username], :id => inbox_item[:transaction_id])
+    else
+      single_conversation_path(:conversation_type => "received", person_id: inbox_item[:current][:username],  :id => inbox_item[:conversation_id])
+    end
+  end
+
+  def person_entity_with_url_message(person_entity)
+    person_entity.merge({
+                            url: person_path(username: person_entity[:username]),
+                            display_name: PersonViewUtils.person_entity_display_name(person_entity, @current_community.name_display_type)
+                        })
+  end
+
+
+  def inbox_title_message(inbox_item, payment_sum)
+    title = if MarketplaceService::Inbox::Entity.last_activity_type(inbox_item) == :message
+              inbox_item[:last_message_content]
+            else
+              action_messages = TransactionViewUtils.create_messages_from_actions(
+                  inbox_item[:transitions],
+                  inbox_item[:other],
+                  inbox_item[:starter],
+                  payment_sum
+              )
+
+              action_messages.last[:content]
+            end
+  end
+
   def render_listing_item(ids)
     listing_item = ''
     listing_wrapper = "<div class='activity-timelet-image-wrapper'>"

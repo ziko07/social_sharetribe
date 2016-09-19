@@ -1,6 +1,6 @@
-.row-with-divider.without-margin.conversation-row.row{:class => conversation[:should_notify] ? "conversation-unread" : ""}
+.row-with-divider.without-margin.conversation-row{:class => conversation[:should_notify] ? "conversation-unread" : ""}
 
-  .col-sm-3
+  .col-sm-4
     .conversation-details-container
       = link_to conversation[:other][:url] do
         = image_tag conversation[:other][:avatar], :class => "conversation-avatar"
@@ -10,7 +10,7 @@
         .conversation-last-message-at
           = conversation[:last_activity_ago]
 
-  %div{class: payments_in_use ? "col-sm-6" : "col-sm-9"}
+  %div{class: payments_in_use ? "col-sm-6" : "col-sm-8"}
     = link_to conversation[:path], class:(conversation[:should_notify] ? 'conversation-title-link-unread' : 'conversation-title-link') do
       - if conversation[:title].present?
         = conversation[:title]

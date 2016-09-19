@@ -35,7 +35,7 @@
                 <li class="gnb none">
                   <a href="javascript:void(0);" class="mn-notification dropdown-toggle" id="dropdown-notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <i class="fa fa-bell-o"> </i>
-                    <span class="count">0</span>
+                    <span class="count"><%= UserNotification.all.count %></span>
                   </a>
 
                   <div class="feed-activity dropdown-menu">
@@ -77,12 +77,12 @@
                     <h4 class="msg">
                       Messages
                     </h4>
-
                     <div class="feed messages">
                       <div class="loading" style="display: none;"><i></i></div>
-                      <div class="empty" style="">
-                        <p><b>No Unread Messages</b></p>
-                      </div>
+                      <!--<div class="empty" style="">-->
+                        <!--<p><b>No Unread Messages</b></p>-->
+                      <!--</div>-->
+                      <%= render :partial => "inboxes/inbox_row", :collection => message_list, :as => :conversation,locals: { payments_in_use: @current_community.payments_in_use? } %>
                     </div>
                     <a href="<%= inbox_path %>" class="more">View all messages</a>
                   </div>
@@ -102,7 +102,7 @@
                       <div class="loading" style="display: none;"><i></i></div>
                       <% if Post.all.present? %>
                           <ul class="user-activity-wrapper">
-                            <% Post.all.order(id: :desc).limit(300).each do |post| %>
+                            <% Post.all.order(id: :desc).each do |post| %>
                                 <li class="notification-item">
                                   <div class="sender-picture profile-pic">
                                     <%= small_avatar_thumb(post.person) %>
