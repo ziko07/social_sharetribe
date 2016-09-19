@@ -1,0 +1,180 @@
+<header id="header-top-navi" class="v2" style="left: 0px; padding-right: 0px;">
+  <div class="header-wrapper">
+    <div class="inner">
+      <div id="navigation" class="hover_submenu">
+        <div class="pull-left">
+          <form id="nav-search-form" action="/search" class="search">
+            <span class="trick" style="top: 95px;"></span>
+            <fieldset>
+              <input type="text" name="q" class="text" id="search-query" placeholder="Search Timelet" value="" data-query="" autocomplete="off">
+            </fieldset>
+          </form>
+          <div class="logo">
+            <%= link_to landing_page_path, :class => "header-logo", :id => "header-logo" do %>
+                <% if @current_community.logo.present? %>
+                    <i class="header-square-logo hidden-tablet"></i>
+                <% else %>
+                    <span class="header-square-logo-text hidden-tablet">
+                        <%= @current_community.name(I18n.locale)[0] %>
+                    </span>
+                <% end %>
+                <% if @current_community.wide_logo.present? %>
+                    <i class="header-wide-logo visible-tablet"></i>
+                <% else %>
+                    <span class="header-wide-logo-text visible-tablet">
+                      <%= @current_community.name(I18n.locale) %>
+                    </span>
+                <% end %>
+            <% end %>
+          </div>
+        </div>
+        <% if logged_in? %>
+            <div class="pull-right">
+              <ul class="gnb-wrap">
+
+                <li class="gnb none">
+                  <a href="javascript:void(0);" class="mn-notification dropdown-toggle" id="dropdown-notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <i class="fa fa-bell-o"> </i>
+                    <span class="count">0</span>
+                  </a>
+
+                  <div class="feed-activity dropdown-menu">
+                    <h4> Notifications </h4>
+
+                    <div class="feed messages">
+                      <div class="loading" style="display: none;"><i></i></div>
+                      <!--<div class="empty">-->
+                      <!--<p><b>No Notification </b></p>-->
+                      <!--</div>-->
+                      <ul class="user-notification-wrapper">
+                        <% UserNotification.all.order(id: :desc).limit(10).each do |notification| %>
+                            <li class="notification-item" onclick="location.href='<%= notification.link %>';">
+                              <div class="sender-picture profile-pic">
+                                <%= small_avatar_thumb(notification.notification_sender) %>
+                              </div>
+                              <div class="notification-content">
+                                <%= link_to notification.notification_sender.full_name, person_path(notification.notification_sender.username) %>
+                                <%= notification.content %> <br/>
+                                <i> <i class="fa fa-clock-o"></i> <%= time_ago_in_words(notification.created_at) %>  ago
+                                </i>
+                              </div>
+                            </li>
+                        <% end %>
+                      </ul>
+                      <ul style="display: none;"></ul>
+                    </div>
+                    <a href="<%= inbox_path %>" class="more">View all notification</a>
+                  </div>
+                </li>
+
+                <li class="gnb">
+                  <a href="javascript:void(0);" class="mn-msg dropdown-toggle" id="dropdown-message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <i class="fa fa-inbox"></i>
+                    <span class="count"> <%= unread_count %> </span>
+                  </a>
+
+                  <div class="feed-activity dropdown-menu">
+                    <h4 class="msg">
+                      Messages
+                    </h4>
+
+                    <div class="feed messages">
+                      <div class="loading" style="display: none;"><i></i></div>
+                      <div class="empty" style="">
+                        <p><b>No Unread Messages</b></p>
+                      </div>
+                    </div>
+                    <a href="<%= inbox_path %>" class="more">View all messages</a>
+                  </div>
+                </li>
+
+                <li class="gnb">
+                  <a href="javascript:void(0);" class="mn-noti dropdown-toggle" id="dropdown-message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <i class="fa fa-bolt"></i>
+                  </a>
+
+                  <div class="feed-activity dropdown-menu">
+                    <h4 class="msg">
+                      Activity
+                    </h4>
+
+                    <div class="feed activity">
+                      <div class="loading" style="display: none;"><i></i></div>
+                      <div class="empty">
+                        <p>
+                          <b>No new Activity</b>
+                          <span>Follow friends and stores to see what they're up to on Timelet.</span>
+                        </p>
+                      </div>
+                      <ul class="activity"></ul>
+                    </div>
+                    <a href="/activity" class="more">View all activity</a>
+                  </div>
+                </li>
+
+                <li class="gnb">
+                  <a href="javascript:void(0);" class="mn-you dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    You <span class="caret"></span>
+                  </a>
+
+                  <div class="dropdown-menu menu-contain-you" aria-labelledby="dropdownMenu1">
+                    <div class="menu-container-you">
+                      <div class="you-main">
+                        <p>
+                          <a href="<%= profile_path %>">
+                            <img src="<%= avatar_url %>" alt="info7943328337" class="default">
+                            <b><%= @current_user.full_name %></b> <%= current_user_name %></a>
+                        </p>
+                        <ul>
+                          <li> <%= link_to 'Add new timelet', new_listing_path %> </li>
+                          <li><a href="<%= manage_listings_path %>">Manage timelet</a></li>
+                          <li><a href="<%= inbox_path %>">Message</a></li>
+                        </ul>
+                        <ul>
+                          <li><a href="<%= settings_path %>">Settings</a></li>
+                          <li><a href="<%= logout_path %>">Log Out</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="gnb hide"><a href="/" class="mn-home">Back to Fancy</a></li>
+              </ul>
+            </div>
+        <% else %>
+            <div class="pull-right">
+              <ul class="gnb-wrap">
+                <li class="gnb">
+                  <% if available_locales.size > 1 %>
+                      <div class="header-right visible-desktop">
+                        <div class="toggle header-hover" data-toggle-position="absolute" data-toggle='#header-locales-toggle-menu' id="header-locales-menu">
+                          <span class="header-text-link">
+                            <%= current_locale_name %>
+                            <%= icon_map_tag(icons, "dropdown", ["icon-dropdown"]) %>
+                          </span>
+                        </div>
+                        <div class="toggle-menu header-toggle-menu-language hidden" id="header-locales-toggle-menu">
+                          <%= render :partial => "layouts/locale_select", :collection => available_locales, :as => :loc_array, locals: {return_after_locale_change: return_after_locale_change} %>
+                        </div>
+                      </div>
+                  <% end %>
+                </li>
+                <li class="gnb">
+                  <%= link_to sign_up_path, class: "header-text-link header-hover" do %>
+                      Join Timelet
+                      <%#= t("header.signup") %>
+                  <% end %>
+                </li>
+                <li class="gnb">
+                  <%= link_to login_path, class: "header-text-link header-hover", id: "header-login-link" do %>
+                      <%= t("header.login") %>
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</header>

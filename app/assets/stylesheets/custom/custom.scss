@@ -1,0 +1,25 @@
+.toggle-menu {
+  min-width: 200px;
+}
+
+.rating-container {
+  vertical-align: middle;
+}
+
+.home-fluid-thumbnail-grid-author-avatar-image {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.listing-item-price {
+  padding: 5px 0 8px 0;
+  .fluid-thumbnail-grid-image-price {
+    font-size: 14px;
+  }
+}
+
+#header-locales-toggle-menu {
+  left: 0 !important;
+  top: 48px !important;
+}

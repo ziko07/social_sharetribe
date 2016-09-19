@@ -1,0 +1,56 @@
+<% frontpage_fragment_cache("grid_item", listing) do %>
+    <li class="col-sm-3">
+      <div class="figure-item">
+        <figure>
+          <%= link_to listings_path(listing.url) do %>
+              <span class="back"></span>
+              <% with_first_listing_image(listing) do |first_image_url| %>
+                  <span class="figure grid" style="background-image:url(<%= first_image_url %>)"></span>
+              <% end %>
+          <% end %>
+        </figure>
+        <figcaption style="border-top: dotted 1px #ccc; margin-top: 3px;">
+          <%= link_to listings_path(listing.url), class: 'title' do %>
+              <%= listing.title %>
+          <% end %>
+          <em class="figure-detail">
+            <div class="listing-item-price">
+              <% if listing.price %>
+                  <span class="fluid-thumbnail-grid-image-price">
+                    <%= humanized_money_with_symbol(listing.price).upcase %>
+                    <% price_unit = price_quantity_slash_unit(listing) %>
+                  </span>
+                  <% if !price_unit.blank? %>
+                      <% price_text = " " + price_unit %>
+                      <span class="fluid-thumbnail-grid-image-quantity" title="<%= price_text %>">
+                     <%= price_text %>
+                    </span>
+                  <% end %>
+              <% end %>
+            </div>
+            <div class="username">
+              <% name = PersonViewUtils::person_entity_display_name(listing.author, @current_community.name_display_type) %>
+              <%= link_to person_path(username: listing.author.username) do %>
+                  <%= image_tag(listing.author.avatar.thumb || missing_avatar(:thumb), :class => "home-fluid-thumbnail-grid-author-avatar-image") %>
+                  <%= name %>
+              <% end %>
+              <% author = Person.find(listing.author.id) %>
+              <% feedback, total_feedback = get_feedback_rating(author) %>
+              <input type="hidden" name='feedback' value="<%= feedback %>" class='rating-loading feedback'>
+              (<%= total_feedback %>)
+            </div>
+          </em>
+        </figcaption>
+      </div>
+    </li>
+<% end %>
+
+<%= content_for :extra_javascript do %>
+    <script type="text/javascript">
+        $(function () {
+            $(document).on('ready', function () {
+                $('.feedback').rating({displayOnly: true, step: 0.5});
+            });
+        });
+    </script>
+<% end %>
