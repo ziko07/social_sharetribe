@@ -517,7 +517,7 @@
 /* User profile */
 
 .user-profile-content-wrapper, .user-inbox-wrapper, .friendship-wrapper {
-  padding: 0 10px 10px 10px;
+  //padding: 0 10px 0 10px;
 }
 
 .person-description {
@@ -622,7 +622,7 @@
 aside {
   padding-left: 0 !important;
   &.sidebar {
-    margin-top: 10px;
+    //margin-top: 10px;
     .wrapper-notifications {
       font-size: 12px;
       line-height: 16px;

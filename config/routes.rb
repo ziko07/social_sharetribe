@@ -405,6 +405,7 @@ Kassi::Application.routes.draw do
           get 'find_mention'
           get :report_user_post
           get :notification
+          get :activity
         end
       end
 

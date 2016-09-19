@@ -1,9 +1,5 @@
-<%= render 'social/user_profile_header', person: @person %>
-<%= render partial: 'social/social_nav', locals: profile_header_porps(@person) %>
-
 <div class="col-md-9 wall_content reset-padding">
   <div class="user-profile-content-wrapper">
-    <%= render 'social/wall_post_form' if current_user?(@person) %>
     <div class="wall-posts">
       <ul class="all_post">
         <% posts.each do |post| %>
@@ -13,8 +9,7 @@
     </div>
   </div>
 </div>
-<% if @current_user.present? %>
-    <aside class="col-md-3 sidebar" style="position: relative;">
+    <aside class="col-md-3 sidebar" style="position: relative;padding-top: 20px">
       <div class="wrapper-notifications">
         <h3 class="stit">Notifications</h3>
         <ul>
@@ -33,7 +28,6 @@
           notifications</a>
       </div>
     </aside>
-<% end %>
 
 <%= content_for :extra_javascript do %>
     <script type="text/javascript">

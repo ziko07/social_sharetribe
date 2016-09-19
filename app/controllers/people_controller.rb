@@ -5,7 +5,7 @@ class PeopleController < Devise::RegistrationsController
   skip_before_filter :verify_authenticity_token, :only => [:creates]
   skip_before_filter :require_no_authentication, :only => [:new]
 
-  layout 'social', only: [:show, :wall, :friend, :timelets, :reviews, :all_notification]
+  layout 'social', only: [:show, :wall, :friend, :timelets, :reviews, :all_notification, :activity]
 
   before_filter EnsureCanAccessPerson.new(
                     :id, error_message_key: "layouts.notifications.you_are_not_authorized_to_view_this_content"), only: [:update, :destroy]
@@ -64,7 +64,7 @@ class PeopleController < Devise::RegistrationsController
     received_testimonials = TestimonialViewUtils.received_testimonials_in_community(@person, @current_community)
     received_positive_testimonials = TestimonialViewUtils.received_positive_testimonials_in_community(@person, @current_community)
     feedback_positive_percentage = @person.feedback_positive_percentage_in_community(@current_community)
-
+    listings = @person.listings
     render locals: {listings: listings,
                     followed_people: @person.followed_people,
                     received_testimonials: received_testimonials,
@@ -91,6 +91,12 @@ class PeopleController < Devise::RegistrationsController
 
   def wall
     @person = Person.find_by_username(params[:username])
+    posts = Post.all.order('created_at desc')
+    render locals: {posts: posts}
+  end
+
+  def activity
+    @person = @current_user
     posts = Post.all.order('created_at desc')
     render locals: {posts: posts}
   end

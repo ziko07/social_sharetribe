@@ -440,6 +440,9 @@ Based on Rails routes of Kassi::Application
 // account_person_settings => (/:locale)/:person_id/settings/account(.:format)
   // function(person_id, options)
   account_person_settings_path: Utils.route(["person_id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"settings",false],[2,[7,"/",false],[2,[6,"account",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
+// activity_people => (/:locale)/activity(.:format)
+  // function(options)
+  activity_people_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"activity",false],[1,[2,[8,".",false],[3,"format",false]],false]]]], {}),
 // add_friend => (/:locale)/people/:username/add_friend(.:format)
   // function(username, options)
   add_friend_path: Utils.route(["username"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"people",false],[2,[7,"/",false],[2,[3,"username",false],[2,[7,"/",false],[2,[6,"add_friend",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]], {}),
