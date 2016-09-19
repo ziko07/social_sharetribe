@@ -41,6 +41,24 @@
   }
 }
 
+.feed-activity {
+  .feed {
+    .conversation-last-message-at {
+      display: none;
+
+    }
+    .conversation-other-party-name {
+      a {
+        font-size: 10px;
+      }
+    }
+    .conversation-unread {
+      background: #ffffff;
+    }
+  }
+}
+}
+
 .rating-container {
   .star {
     font-size: 10px;

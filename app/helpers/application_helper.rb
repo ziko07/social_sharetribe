@@ -780,6 +780,16 @@ module ApplicationHelper
     raw attachment_wrapper << '</div>'
   end
 
+  def render_post_attachment_for_activity(attachments)
+    attachment_wrapper = "<div class='post-attachment-wrapper'>"
+    first_attachment = attachments.all.limit(3)
+    first_attachment.each do |attachment|
+      attachment_big_item = "<div style='display: inline-block; padding-left: 5px;'> #{image_tag(attachment.attachment_url(:big), height: 56 ,width:  56)} </div>"
+      attachment_wrapper << attachment_big_item
+    end
+    raw attachment_wrapper << '</div>'
+  end
+
   def render_post_content(content)
     #content
     regx = /\[([^\]]+)\]\(([^)]+)\)/
@@ -790,6 +800,75 @@ module ApplicationHelper
       content = content.gsub "[#{full_name}](#{mention.last})", "<a href='/#{username}'>#{full_name}</a>"
     end
     raw content
+  end
+
+  def message_list
+    @person = @current_user
+    params[:page] = 1 unless request.xhr?
+
+    pagination_opts = PaginationViewUtils.parse_pagination_opts(params)
+
+    inbox_rows = MarketplaceService::Inbox::Query.inbox_data(
+        @current_user.id,
+        @current_community.id,
+        pagination_opts[:limit],
+        pagination_opts[:offset])
+
+    count = MarketplaceService::Inbox::Query.inbox_data_count(@current_user.id, @current_community.id)
+    inbox_rows = inbox_rows.map { |inbox_row|
+      extended_inbox = inbox_row.merge(
+          path: path_to_conversation_or_transaction_message(inbox_row),
+          other: person_entity_with_url_message(inbox_row[:other]),
+          last_activity_ago: time_ago(inbox_row[:last_activity_at]),
+          title: inbox_title_message(inbox_row, inbox_payment_message(inbox_row))
+      )
+
+      if inbox_row[:type] == :transaction
+        extended_inbox.merge(
+            listing_url: listing_path(id: inbox_row[:listing_id])
+        )
+      else
+        extended_inbox
+      end
+    }
+
+    return inbox_rows
+  end
+
+  def inbox_payment_message(inbox_item)
+    Maybe(inbox_item)[:payment_total].or_else(nil)
+  end
+
+
+  def path_to_conversation_or_transaction_message(inbox_item)
+    if inbox_item[:type] == :transaction
+      person_transaction_path(:person_id => inbox_item[:current][:username], :id => inbox_item[:transaction_id])
+    else
+      single_conversation_path(:conversation_type => "received", person_id: inbox_item[:current][:username],  :id => inbox_item[:conversation_id])
+    end
+  end
+
+  def person_entity_with_url_message(person_entity)
+    person_entity.merge({
+                            url: person_path(username: person_entity[:username]),
+                            display_name: PersonViewUtils.person_entity_display_name(person_entity, @current_community.name_display_type)
+                        })
+  end
+
+
+  def inbox_title_message(inbox_item, payment_sum)
+    title = if MarketplaceService::Inbox::Entity.last_activity_type(inbox_item) == :message
+              inbox_item[:last_message_content]
+            else
+              action_messages = TransactionViewUtils.create_messages_from_actions(
+                  inbox_item[:transitions],
+                  inbox_item[:other],
+                  inbox_item[:starter],
+                  payment_sum
+              )
+
+              action_messages.last[:content]
+            end
   end
 
   def render_listing_item(ids)
@@ -807,6 +886,25 @@ module ApplicationHelper
         listing_item << "<div class='attachment-container'>"
         listing_item << "#{image_missing}"
         listing_item << "<p class='listing-link'> #{link_to listing.title, listing_path(listing)}</p> $60 | #{link_to listing.author.full_name, person_path(listing.author)}  <input class='feedback' name='feedback' value=#{feedback} class='rating-loading'>(#{total_feedback})"
+        listing_item << '</div>'
+      end
+    end
+    raw listing_wrapper << listing_item << '</div>'
+  end
+
+  def render_listing_item_for_activity(ids)
+    listing_item = ''
+    listing_wrapper = "<div class='activity-timelet-image-wrapper'>"
+    listings = Listing.where(id: ids.split(','))
+    listings.each do |listing|
+      feedback, total_feedback = get_feedback_rating(listing.author, @current_community)
+      if listing.listing_images.present?
+        listing_item << "<div class='attachment-container'>"
+        listing_item << "#{image_tag listing.listing_images.first.image.url(:thumb), height: 56 ,width:  56}"
+        listing_item << '</div>'
+      else
+        listing_item << "<div class='attachment-container'>"
+        listing_item << "#{image_tag 'image_not_found.jpg',height: 56 ,width:  56}"
         listing_item << '</div>'
       end
     end

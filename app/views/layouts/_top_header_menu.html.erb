@@ -35,7 +35,7 @@
                 <li class="gnb none">
                   <a href="javascript:void(0);" class="mn-notification dropdown-toggle" id="dropdown-notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <i class="fa fa-bell-o"> </i>
-                    <span class="count">0</span>
+                    <span class="count"><%= UserNotification.all.count %></span>
                   </a>
 
                   <div class="feed-activity dropdown-menu">
@@ -77,12 +77,12 @@
                     <h4 class="msg">
                       Messages
                     </h4>
-
                     <div class="feed messages">
                       <div class="loading" style="display: none;"><i></i></div>
-                      <div class="empty" style="">
-                        <p><b>No Unread Messages</b></p>
-                      </div>
+                      <!--<div class="empty" style="">-->
+                        <!--<p><b>No Unread Messages</b></p>-->
+                      <!--</div>-->
+                      <%= render :partial => "inboxes/inbox_row", :collection => message_list, :as => :conversation,locals: { payments_in_use: @current_community.payments_in_use? } %>
                     </div>
                     <a href="<%= inbox_path %>" class="more">View all messages</a>
                   </div>
@@ -100,12 +100,36 @@
 
                     <div class="feed activity">
                       <div class="loading" style="display: none;"><i></i></div>
-                      <div class="empty">
-                        <p>
-                          <b>No new Activity</b>
-                          <span>Follow friends and stores to see what they're up to on Timelet.</span>
-                        </p>
-                      </div>
+                      <% if Post.all.present? %>
+                          <ul class="user-activity-wrapper">
+                            <% Post.all.order(id: :desc).each do |post| %>
+                                <li class="notification-item">
+                                  <div class="sender-picture profile-pic">
+                                    <%= small_avatar_thumb(post.person) %>
+                                  </div>
+                                  <div class="notification-content">
+                                    <%= link_to post.person.full_name, person_path(post.person.username) %>
+                                    <p>
+                                      <%= render_post_content(post.description) %>
+                                    </p>
+                                    <% if post.listings_ids.present? %>
+                                        <%= render_listing_item_for_activity(post.listings_ids) %>
+                                    <% end %>
+                                    <% if post.post_attachments.present? %>
+                                        <%= render_post_attachment_for_activity(post.post_attachments) %>
+                                    <% end %>
+                                  </div>
+                                </li>
+                            <% end %>
+                          </ul>
+                      <% else %>
+                          <div class="empty">
+                            <p>
+                              <b>No new Activity</b>
+                              <span>Follow friends and stores to see what they're up to on Timelet.</span>
+                            </p>
+                          </div>
+                      <% end %>
                       <ul class="activity"></ul>
                     </div>
                     <a href="/activity" class="more">View all activity</a>
