@@ -780,6 +780,16 @@ module ApplicationHelper
     raw attachment_wrapper << '</div>'
   end
 
+  def render_post_attachment_for_activity(attachments)
+    attachment_wrapper = "<div class='post-attachment-wrapper'>"
+    first_attachment = attachments.all.limit(3)
+    first_attachment.each do |attachment|
+      attachment_big_item = "<div style='display: inline-block; padding-left: 5px;'> #{image_tag(attachment.attachment_url(:big), height: 56 ,width:  56)} </div>"
+      attachment_wrapper << attachment_big_item
+    end
+    raw attachment_wrapper << '</div>'
+  end
+
   def render_post_content(content)
     #content
     regx = /\[([^\]]+)\]\(([^)]+)\)/
@@ -807,6 +817,25 @@ module ApplicationHelper
         listing_item << "<div class='attachment-container'>"
         listing_item << "#{image_missing}"
         listing_item << "<p class='listing-link'> #{link_to listing.title, listing_path(listing)}</p> $60 | #{link_to listing.author.full_name, person_path(listing.author)}  <input class='feedback' name='feedback' value=#{feedback} class='rating-loading'>(#{total_feedback})"
+        listing_item << '</div>'
+      end
+    end
+    raw listing_wrapper << listing_item << '</div>'
+  end
+
+  def render_listing_item_for_activity(ids)
+    listing_item = ''
+    listing_wrapper = "<div class='activity-timelet-image-wrapper'>"
+    listings = Listing.where(id: ids.split(','))
+    listings.each do |listing|
+      feedback, total_feedback = get_feedback_rating(listing.author, @current_community)
+      if listing.listing_images.present?
+        listing_item << "<div class='attachment-container'>"
+        listing_item << "#{image_tag listing.listing_images.first.image.url(:thumb), height: 56 ,width:  56}"
+        listing_item << '</div>'
+      else
+        listing_item << "<div class='attachment-container'>"
+        listing_item << "#{image_tag 'image_not_found.jpg',height: 56 ,width:  56}"
         listing_item << '</div>'
       end
     end

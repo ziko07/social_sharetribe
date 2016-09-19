@@ -100,12 +100,36 @@
 
                     <div class="feed activity">
                       <div class="loading" style="display: none;"><i></i></div>
-                      <div class="empty">
-                        <p>
-                          <b>No new Activity</b>
-                          <span>Follow friends and stores to see what they're up to on Timelet.</span>
-                        </p>
-                      </div>
+                      <% if Post.all.present? %>
+                          <ul class="user-activity-wrapper">
+                            <% Post.all.order(id: :desc).limit(300).each do |post| %>
+                                <li class="notification-item">
+                                  <div class="sender-picture profile-pic">
+                                    <%= small_avatar_thumb(post.person) %>
+                                  </div>
+                                  <div class="notification-content">
+                                    <%= link_to post.person.full_name, person_path(post.person.username) %>
+                                    <p>
+                                      <%= render_post_content(post.description) %>
+                                    </p>
+                                    <% if post.listings_ids.present? %>
+                                        <%= render_listing_item_for_activity(post.listings_ids) %>
+                                    <% end %>
+                                    <% if post.post_attachments.present? %>
+                                        <%= render_post_attachment_for_activity(post.post_attachments) %>
+                                    <% end %>
+                                  </div>
+                                </li>
+                            <% end %>
+                          </ul>
+                      <% else %>
+                          <div class="empty">
+                            <p>
+                              <b>No new Activity</b>
+                              <span>Follow friends and stores to see what they're up to on Timelet.</span>
+                            </p>
+                          </div>
+                      <% end %>
                       <ul class="activity"></ul>
                     </div>
                     <a href="/activity" class="more">View all activity</a>
