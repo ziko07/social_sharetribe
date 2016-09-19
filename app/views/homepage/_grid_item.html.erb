@@ -2,7 +2,7 @@
     <li class="col-sm-3">
       <div class="figure-item">
         <figure>
-          <%= link_to listings_path(listing.url) do %>
+          <%= link_to listing_path(listing.url) do %>
               <span class="back"></span>
               <% with_first_listing_image(listing) do |first_image_url| %>
                   <span class="figure grid" style="background-image:url(<%= first_image_url %>)"></span>
@@ -10,7 +10,7 @@
           <% end %>
         </figure>
         <figcaption style="border-top: dotted 1px #ccc; margin-top: 3px;">
-          <%= link_to listings_path(listing.url), class: 'title' do %>
+          <%= link_to listing_path(listing.url), class: 'title' do %>
               <%= listing.title %>
           <% end %>
           <em class="figure-detail">

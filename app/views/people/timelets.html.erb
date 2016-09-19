@@ -7,13 +7,13 @@
           <li class="col-md-3">
             <div class="figure-item">
               <figure>
-                <%= link_to listings_path(listing) do %>
+                <%= link_to listing_path(listing) do %>
                     <span class="back"></span>
                     <span class="figure grid" style="background-image:url(<%= get_listing_view_image(listing) %>)"></span>
                 <% end %>
               </figure>
               <figcaption style="border-top: dotted 1px #ccc; margin-top: 3px;">
-                <%= link_to listings_path(listing), class: 'title' do %>
+                <%= link_to listing_path(listing), class: 'title' do %>
                     <%= listing.title %>
                 <% end %>
                 <em class="figure-detail">
