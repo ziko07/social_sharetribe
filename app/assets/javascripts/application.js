@@ -97,4 +97,6 @@
 //= require jquery.nicescroll
 //= require social-share-button
 //= require social/sticky-kit.min
+//= require social/bootstrap-switch
+//= require social/highlight
 //= require_self

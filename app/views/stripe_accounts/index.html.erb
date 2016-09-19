@@ -3,133 +3,145 @@
       <%= t("layouts.no_tribe.settings") %>
     </h1>
 <% end %>
+<% content_for :left_navi do %>
+    <%= render :partial => "layouts/left_hand_navigation", :locals => { :links => settings_links_for(@current_user, @current_community) } %>
+<% end %>
+<% content_for :right_content do %>
+    <div class="left-navi-section settings-section notification-settings clearfix" id="person_settings_form">
+      <h2 class="ptit">
+        <%= 'Payment Setting' %>
+      </h2>
+      <div id="setting-main-content">
+        <% if community_ready_for_payments %>
+            <% if next_action == :create_account %>
+                <div>
+                  <p> Create Stripe account, Marketplace currency <b><%= currency %> </b> and commission from
+                    seller <b> <%= commission_from_seller %> </b></p>
 
-<%= render :partial => "layouts/left_hand_navigation", :locals => {:links => left_hand_navigation_links} %>
+                  <p>
+                    Select Country and connect stripe account, Be careful about choose country, You could not change it in
+                    future
+                  </p>
+                </div>
+                <%= form_for my_account, url: create_account_person_stripe_account_path(@current_user) do |f| %>
+                    <div class="info-item clearfix">
+                      <%= f.label :country %>
+                      <%= f.select :country, options_for_select(StripeAccount::SUPPORTED_COUNTRY.collect { |key, val| [key, val] }, f.object.country) %>
+                    </div>
+
+                    <h3> Personal Information </h3>
+
+                    <div class="info-item clearfix">
+                      <%= f.label :first_name %>
+                      <%= f.text_field :first_name, value: (f.object.first_name.present? ? f.object.first_name : @current_user.given_name), required: 'required' %>
+                    </div>
+
+                    <div class="info-item">
+                      <%= f.label :last_name %>
+                      <%= f.text_field :last_name, value: (f.object.last_name.present? ? f.object.last_name : @current_user.family_name), required: 'required' %>
+                    </div>
+
+                    <div class="info-item clearfix">
+                      <div class="col-12">
+                        <div class="col-4">
+                          <%= f.label :dob_day %>
+                          <%= f.select :dob_day, options_for_select(31.times.collect { |x| [x + 1] }, f.object.dob_day), {}, {class: 'full-width'} %>
+                        </div>
+                        <div class="col-4">
+                          <%= f.label :dob_month %>
+                          <%= f.select :dob_month, options_for_select(12.times.collect { |x| [x + 1] }, f.object.dob_month), {}, {class: 'full-width'} %>
+                        </div>
+                        <div class="col-4">
+                          <%= f.label :dob_year %>
+                          <%= f.select :dob_year, options_for_select(((Date.today.year - 50)..Date.today.year), f.object.dob_year), {}, {class: 'full-width'} %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="info-item clearfix">
+                      <div class="col-6">
+                        <%= f.label :address %>
+                        <%= f.text_area :address, value: (f.object.address.present? ? f.object.address : (@current_user.location.present? ? @current_user.location.address : '')), class: 'min-height', required: 'required' %>
+                      </div>
+                      <div class="col-6">
+                        <%= f.label :city %>
+                        <%= f.text_field :city, required: 'required' %>
+                      </div>
+                    </div>
+
+                    <div class="info-item clearfix">
+                      <div class="col-6">
+                        <%= f.label :state_line, 'State' %>
+                        <%= f.text_field :state_line, required: 'required' %>
+                      </div>
+                      <div class="col-6">
+                        <%= f.label :zip %>
+                        <%= f.text_field :zip, required: 'required' %>
+                      </div>
+                    </div>
+
+                    <h3> Bank Information </h3>
+
+                    <p>
+                      Provide bank account and routing numbers carefully, entering them incorrectly will cause payment
+                      transfers to <b>fail</b>
+                    </p>
+
+                    <div class="info-item">
+                      <%= f.label :account_number, 'Account Number' %>
+                      <%= f.text_field :account_number, required: 'required' %>
+                    </div>
+                    <div class="infor-item">
+                      <%= f.label :routing_number, 'Routing Number' %>
+                      <%= f.text_field :routing_number, required: 'required' %>
+                    </div>
+                    <div class="info-item clearfix">
+                      <div style="float: right; margin-top: 10px;">
+                        <%= f.button t("admin.stripe_accounts.stripe_account_setup") %>
+                      </div>
+                    </div>
+                <% end %>
+            <% elsif next_action == :verify_account %>
+                <%= render 'verification_form', verification: verification_form, account_id: my_account.account_id %>
+            <% elsif next_action == :none %>
+                <div class="row paypal-wizard">
+                  <div class="col-12">
+                    <div class="paypal-wizard-content">
+                      <div class="row">
+                        <div class="col-12">
+                          <h3 class="paypal-wizard-step-complete">
+                            <%= t("paypal_accounts.paypal_account_all_set_up") %>
+                          </h3>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12">
+                          <%= t("paypal_accounts.can_receive_payments") %>
+                        </div>
+                      </div>
+                      <%= render 'stripe_accounts/account_info', account: stripe_account if stripe_account.present? %>
+                      <!--<div class="row paypal-first-steps-list">-->
+                      <!--<div class="col-12">-->
+                      <!--<%#= icon_tag("check", ["icon-fix", "paypal-success-mark"]) %>-->
+                      <!--Stripe account connected successfully-->
+                      <!--</div>-->
+                      <!--</div>-->
+                      <!--<div class="row paypal-last-steps-list">-->
+                      <!--<div class="col-12">-->
+                      <!--<%#= icon_tag("check", ["icon-fix", "paypal-success-mark"]) %>-->
+                      <!--Permission for transaction fees granted-->
+                      <!--</div>-->
+                      <!--</div>-->
+                    </div>
+                  </div>
+                </div>
+            <% end %>
+        <% else %>
+            <%= t("paypal_accounts.admin_account_not_connected", contact_admin_link: link_to(t("paypal_accounts.contact_admin_link_text"), new_user_feedback_path)).html_safe %>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
 <div class="left-navi-section settings-section payment-settings">
-  <% if community_ready_for_payments %>
-      <% if next_action == :create_account %>
-          <div>
-            <p> Create Stripe account, Marketplace currency <b><%= currency %> </b> and commission from
-              seller <b> <%= commission_from_seller %> </b></p>
 
-            <p>
-              Select Country and connect stripe account, Be careful about choose country, You could not change it in
-              future
-            </p>
-          </div>
-          <%= form_for my_account, url: create_account_person_stripe_account_path(@current_user) do |f| %>
-              <div class="info-item clearfix">
-                <%= f.label :country %>
-                <%= f.select :country, options_for_select(StripeAccount::SUPPORTED_COUNTRY.collect { |key, val| [key, val] }, f.object.country) %>
-              </div>
-
-              <h3> Personal Information </h3>
-
-              <div class="info-item clearfix">
-                <%= f.label :first_name %>
-                <%= f.text_field :first_name, value: (f.object.first_name.present? ? f.object.first_name : @current_user.given_name), required: 'required' %>
-              </div>
-
-              <div class="info-item">
-                <%= f.label :last_name %>
-                <%= f.text_field :last_name, value: (f.object.last_name.present? ? f.object.last_name : @current_user.family_name), required: 'required' %>
-              </div>
-
-              <div class="info-item clearfix">
-                <div class="col-12">
-                  <div class="col-4">
-                    <%= f.label :dob_day %>
-                    <%= f.select :dob_day, options_for_select(31.times.collect { |x| [x + 1] }, f.object.dob_day), {}, {class: 'full-width'} %>
-                  </div>
-                  <div class="col-4">
-                    <%= f.label :dob_month %>
-                    <%= f.select :dob_month, options_for_select(12.times.collect { |x| [x + 1] }, f.object.dob_month), {}, {class: 'full-width'} %>
-                  </div>
-                  <div class="col-4">
-                    <%= f.label :dob_year %>
-                    <%= f.select :dob_year, options_for_select(((Date.today.year - 50)..Date.today.year), f.object.dob_year), {}, {class: 'full-width'} %>
-                  </div>
-                </div>
-              </div>
-              <div class="info-item clearfix">
-                <div class="col-6">
-                  <%= f.label :address %>
-                  <%= f.text_area :address, value: (f.object.address.present? ? f.object.address : (@current_user.location.present? ? @current_user.location.address : '')), class: 'min-height', required: 'required' %>
-                </div>
-                <div class="col-6">
-                  <%= f.label :city %>
-                  <%= f.text_field :city, required: 'required' %>
-                </div>
-              </div>
-
-              <div class="info-item clearfix">
-                <div class="col-6">
-                  <%= f.label :state_line, 'State' %>
-                  <%= f.text_field :state_line, required: 'required' %>
-                </div>
-                <div class="col-6">
-                  <%= f.label :zip %>
-                  <%= f.text_field :zip, required: 'required' %>
-                </div>
-              </div>
-
-              <h3> Bank Information </h3>
-
-              <p>
-                Provide bank account and routing numbers carefully, entering them incorrectly will cause payment
-                transfers to <b>fail</b>
-              </p>
-
-              <div class="info-item">
-                <%= f.label :account_number, 'Account Number' %>
-                <%= f.text_field :account_number, required: 'required' %>
-              </div>
-              <div class="infor-item">
-                <%= f.label :routing_number, 'Routing Number' %>
-                <%= f.text_field :routing_number, required: 'required' %>
-              </div>
-              <div class="info-item clearfix">
-                <div style="float: right; margin-top: 10px;">
-                  <%= f.button t("admin.stripe_accounts.stripe_account_setup") %>
-                </div>
-              </div>
-          <% end %>
-      <% elsif next_action == :verify_account %>
-          <%= render 'verification_form', verification: verification_form, account_id: my_account.account_id %>
-      <% elsif next_action == :none %>
-          <div class="row paypal-wizard">
-            <div class="col-12">
-              <div class="paypal-wizard-content">
-                <div class="row">
-                  <div class="col-12">
-                    <h3 class="paypal-wizard-step-complete">
-                      <%= t("paypal_accounts.paypal_account_all_set_up") %>
-                    </h3>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12">
-                    <%= t("paypal_accounts.can_receive_payments") %>
-                  </div>
-                </div>
-                <%= render 'stripe_accounts/account_info', account: stripe_account if stripe_account.present? %>
-                <!--<div class="row paypal-first-steps-list">-->
-                <!--<div class="col-12">-->
-                <!--<%#= icon_tag("check", ["icon-fix", "paypal-success-mark"]) %>-->
-                <!--Stripe account connected successfully-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="row paypal-last-steps-list">-->
-                <!--<div class="col-12">-->
-                <!--<%#= icon_tag("check", ["icon-fix", "paypal-success-mark"]) %>-->
-                <!--Permission for transaction fees granted-->
-                <!--</div>-->
-                <!--</div>-->
-              </div>
-            </div>
-          </div>
-      <% end %>
-  <% else %>
-      <%= t("paypal_accounts.admin_account_not_connected", contact_admin_link: link_to(t("paypal_accounts.contact_admin_link_text"), new_user_feedback_path)).html_safe %>
-  <% end %>
 </div>

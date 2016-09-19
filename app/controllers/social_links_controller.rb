@@ -1,5 +1,6 @@
 class SocialLinksController < ApplicationController
 
+   layout 'setting'
   def index
     @social_links = social_link_account(@current_user.id)
     @selected_left_navi_link = "social_links"

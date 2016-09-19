@@ -5,6 +5,7 @@ class StripeAccountsController < ApplicationController
 
   before_filter :ensure_stripe_enabled, except: [:webhooks]
   skip_before_action :verify_authenticity_token, only: [:webhooks]
+  layout 'setting'
 
   def index
     @m_account = accounts_api(@current_user.id)

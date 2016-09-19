@@ -3,20 +3,28 @@
       <%= t("layouts.no_tribe.settings") %>
     </h1>
 <% end %>
-<%= render :partial => "layouts/left_hand_navigation", :locals => { :links => settings_links_for(@current_user, @current_community) } %>
+<% content_for :left_navi do %>
+    <%= render :partial => "layouts/left_hand_navigation", :locals => { :links => settings_links_for(@current_user, @current_community) } %>
+<% end %>
 
-<div class="left-navi-section settings-section notification-settings" id="person_settings_form">
-  <%= form_for @social_links do |f| %>
-      <%= f.label 'Facebook Link(Please Include Prototype http or https)' %>
-      <%= f.text_field :facebook,placeholder: "Please provide full link with http" %>
+<% content_for :right_content do %>
+    <div class="left-navi-section settings-section notification-settings clearfix" id="person_settings_form">
+      <h2 class="ptit">
+        <%= 'Social Links' %>
+      </h2>
+      <div id="setting-main-content">
+        <%= form_for @social_links do |f| %>
+            <%= f.label 'Facebook Link(Please Include Prototype http or https)' %>
+            <%= f.text_field :facebook,placeholder: "Please provide full link with http" %>
 
-      <%= f.label 'Twitter Link(Please Include Prototype http or https)' %>
-      <%= f.text_field :twitter,placeholder: "Please provide full link with http" %>
-      <div class="info-item clearfix">
-        <div style="float: right; margin-top: 10px;">
-          <%= f.button  %>
-        </div>
+            <%= f.label 'Twitter Link(Please Include Prototype http or https)' %>
+            <%= f.text_field :twitter,placeholder: "Please provide full link with http" %>
+            <div class="info-item clearfix">
+              <div style="float: right; margin-top: 10px;">
+                <%= f.button  %>
+              </div>
+            </div>
+        <% end %>
       </div>
-  <% end %>
-
-</div>
+    </div>
+<% end %>

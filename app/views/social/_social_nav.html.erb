@@ -34,7 +34,7 @@
       </li>
 
       <li>
-        <%= link_to timelets_person_path(@person.username), class: "#{'current' if action_name == 'timelets' }" do %>
+        <%= link_to timelets_person_path(@person.username), class: "#{'current' if (action_name == 'timelets' || (controller_name == 'people' && action_name == 'show' )) }" do %>
             <b>Timelets</b>
             <span><%= timelets %></span>
         <% end %>

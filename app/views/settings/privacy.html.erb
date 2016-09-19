@@ -3,14 +3,24 @@
       <%= t("layouts.no_tribe.settings") %>
     </h1>
 <% end %>
-<%= render :partial => "layouts/left_hand_navigation", :locals => { :links => settings_links_for(@current_user, @current_community) } %>
+<% content_for :left_navi do %>
+    <%= render :partial => "layouts/left_hand_navigation", :locals => { :links => settings_links_for(@current_user, @current_community) } %>
+<% end %>
 
-<div class="left-navi-section settings-section notification-settings" id="person_settings_form">
-  <h2 class="lower" style="padding-bottom: 20px;">Privacy Setting</h2>
-  <%= form_for(privacy, url: update_privacy_person_settings_path(target_user))  do |f| %>
-      <%= f.check_box :auto_follower %>
-      <%= f.label :auto_follower, 'Allow Auto Follower', style: 'display: inline; padding-left: 10px;' %>
-      <%= f.button %>
-  <% end %>
-</div>
+
+<% content_for :right_content do %>
+    <div class="left-navi-section settings-section notification-settings clearfix" id="person_settings_form">
+      <h2 class="ptit">
+        <%= 'Privacy Setting' %>
+      </h2>
+      <div id="setting-main-content">
+        <%= form_for(privacy, url: update_privacy_person_settings_path(target_user))  do |f| %>
+            <%= f.check_box :auto_follower %>
+            <%= f.label :auto_follower, 'Allow Auto Follower', style: 'display: inline; padding-left: 10px;padding-buttom: 10px;' %>
+            <div style="padding-top: 15px; " ><%= f.button %></div>
+
+        <% end %>
+      </div>
+    </div>
+<% end %>
 
