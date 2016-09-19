@@ -60,6 +60,7 @@
 }
 
 .setting-left-nav {
+  margin-top: 6px;
   .left-navi {
     width: 100%;
     position: relative;
@@ -94,6 +95,9 @@
         }
         &:after {
           content: '';
+        }
+        &:hover {
+          background: #f6f6f7;
         }
       }
     }

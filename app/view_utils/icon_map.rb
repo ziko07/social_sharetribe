@@ -247,5 +247,12 @@ ICON_MAP = {
       "edit" => "icon-edit",
       "reply" => "icon-reply",
       "topbar_menu" => "icon-minus",
+
+      "profile" => 'ic-profile',
+      "privacy" => 'ic-pre',
+      "notifications" => 'ic-noti',
+      "payments" => 'ic-pay',
+      "account" => 'ic-app',
+      "social_links" => 'ic-social',
     }
   }

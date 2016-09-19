@@ -535,14 +535,14 @@ module ApplicationHelper
         {
             :id => "settings-tab-account",
             :text => t("layouts.settings.account"),
-            :icon_class => icon_class("account_settings"),
+            :icon_class => icon_class("account"),
             :path => account_person_settings_path(person),
             :name => "account"
         },
         {
             :id => "settings-tab-notifications",
             :text => t("layouts.settings.notifications"),
-            :icon_class => icon_class("notification_settings"),
+            :icon_class => icon_class("notifications"),
             :path => notifications_person_settings_path(person),
             :name => "notifications"
         },
@@ -550,18 +550,18 @@ module ApplicationHelper
         {
             :id => "settings-tab-social-link",
             :text => t("layouts.settings.sosial_links"),
-            :icon_class => icon_class("notification_settings"),
+            :icon_class => icon_class("social_links"),
             :path => social_link_settings_path(person),
             :name => "social_links"
         },
 
-    {
-        :id => "settings-tab-privacy-link",
-        :text => t("layouts.settings.privacy"),
-        :icon_class => icon_class("notification_settings"),
-        :path => privacy_path(person),
-        :name => "privacy"
-    }
+        {
+            :id => "settings-tab-privacy-link",
+            :text => t("layouts.settings.privacy"),
+            :icon_class => icon_class("privacy"),
+            :path => privacy_path(person),
+            :name => "privacy"
+        }
     ]
 
     payment_type = MarketplaceService::Community::Query.payment_type(@current_community.id)

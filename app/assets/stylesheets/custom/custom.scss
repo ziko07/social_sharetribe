@@ -40,3 +40,51 @@
     }
   }
 }
+
+.rating-container {
+  .star {
+    font-size: 10px;
+  }
+  .filled-star {
+    font-size: 10px;
+  }
+}
+
+#header-top-navi, .timelet-list {
+  opacity: 0;
+}
+
+[class^="ic-"] {
+  background: image-url("setting_icon.png") no-repeat;
+  background-size: 70px 380px;
+  margin-right: 3px;
+  display: inline-block;
+  width: 18px;
+  height: 19px;
+  vertical-align: middle;
+  margin-top: -4px;
+}
+
+.ic-profile {
+  background-position: -25px 2px;
+}
+
+.ic-pre {
+  background-position: 0 -26px;
+}
+
+.ic-noti {
+  background-position: 0 -82px;
+}
+
+.ic-pay {
+  background-position: 1px -236px;
+}
+
+.ic-app {
+  background-position: 0 -110px;
+}
+
+.ic-social {
+  background-position: -51px -75px;
+}

@@ -48,6 +48,7 @@ $(document).ready(function () {
     var scrollWrapper = $(".feed-activity .feed");
     scrollWrapper.niceScroll();
     scrollWrapper.getNiceScroll().hide();
+    $('#header-top-navi, .timelet-list').fadeTo("slow", 1);
 });
 
 $('#notification-list ul').scroll(function () {
