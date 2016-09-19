@@ -45,7 +45,9 @@ $(document).on('click', '.cancel-comments', function () {
 //});
 
 $(document).ready(function () {
-    $(".user-notification-wrapper").niceScroll();
+    var scrollWrapper = $(".feed-activity .feed");
+    scrollWrapper.niceScroll();
+    scrollWrapper.getNiceScroll().hide();
 });
 
 $('#notification-list ul').scroll(function () {

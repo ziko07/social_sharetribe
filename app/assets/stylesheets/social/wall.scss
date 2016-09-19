@@ -6,6 +6,7 @@
   margin: auto;
   padding: 0;
   max-width: 1000px;
+  margin-top: 65px;
   //background: #ffffff;
   .social-header {
     min-height: 320px;
@@ -581,15 +582,13 @@
   padding: 0 2px;
   list-style: none;
   color: white;
-  max-height: 400px;
-  overflow: hidden;
   word-break: break-all;
   .notification-item {
     cursor: pointer;
     padding: 8px;
-    border-bottom: solid 1px #555;
+    border-bottom: solid 1px #dddddd;
     &:hover {
-      background: #888888;
+      background: #CCCCCC;
     }
     .profile-pic {
       display: inline-block;
@@ -610,6 +609,7 @@
       width: calc(100% - 60px);
       vertical-align: top;
       padding-left: 15px;
+      color: #555555;
       a {
         display: inline-block;
         font-weight: bold;

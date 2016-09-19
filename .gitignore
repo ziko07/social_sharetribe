@@ -31,3 +31,4 @@ public/lesson/*
 .rspec
 coverage
 /config/database.yml
+/public/system

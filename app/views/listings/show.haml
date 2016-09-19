@@ -36,10 +36,10 @@
 - if local_assigns[:show_onboarding_popup]
   = render :layout => "layouts/lightbox", :partial => "layouts/onboarding_popup", locals: {title: t(popup_title_key), body: t(popup_body_key), action_label: t(popup_button_key), action_link: popup_action_link, image: asset_path(popup_image), id: "onboarding-popup" }
 
-.row
-  .col-8.listing-details-container
-    .row
-      .col-12
+.rowx
+  .col-sm-8.listing-details-container
+    .rowx
+      .col-lg-12
         - with_image_frame(@listing) do |reason, listing_images|
           - if reason == :images_ok
             .listing-image-carousel
@@ -72,8 +72,8 @@
                       - else
                         = t(".no_description")
 
-    .row
-      .col-12
+    .rowx
+      .col-lg-12
         - if @listing.description && !@listing.description.blank?
           - text_with_line_breaks do
             = @listing.description
@@ -83,14 +83,14 @@
                 %iframe.listing-description-youtube-iframe{ title: t("listings.show.youtube_video_player"), width: 640, height:390, src: "//www.youtube.com/embed/#{ youtube_id }", frameborder: 0, allowfullscreen: true}
 
     - @listing.custom_field_values.each do |custom_field_value|
-      .row
-        .col-12
+      .rowx
+        .col-lg-12
           - custom_field_value.with_type do |question_type|
             = render :partial => "listings/custom_field_partials/#{question_type}", :locals => { :custom_field_value => custom_field_value }
 
     - if @current_community.show_listing_publishing_date?
-      .row
-        .col-12
+      .rowx
+        .col-lg-12
           .icon-with-text-container
             = icon_tag("calendar", ["icon-part"])
             .text-part
@@ -99,8 +99,8 @@
                 = l @listing.created_at, :format => :short_date
 
     - if !@current_community.private?
-      .row
-        .col-12
+      .rowx
+        .col-lg-12
           .listing-social
             .listing-fb-like-button
               = facebook_like(current_user?(@listing.author))
@@ -125,9 +125,9 @@
           #comment-form
             = render :partial => "comment_form"
 
-  %aside.col-4
+  %aside.col-sm-4
     - if @listing.price
-      .row
+      .rowx
         .col-12
           .listing-price
             %span.listing-price-amount
@@ -137,12 +137,12 @@
                 = text
 
     .row-with-divider
-      .col-12
+      .col-lg-12
         #listing-message-links
           = render :partial => "listing_actions", locals: { form_path: form_path, payment_gateway: payment_gateway, delivery_opts: delivery_opts, process: process, listing_unit_type: listing_unit_type, country_code: country_code }
 
     .row-with-divider
-      .col-12
+      .col-lg-12
         .listing-author
           .listing-author-avatar
             = medium_avatar_thumb(@listing.author, {:class => "listing-author-avatar-image"})
@@ -160,7 +160,7 @@
 
     - if received_testimonials.size > 0
       .row-with-divider.listing-author-activity
-        .col-12
+        .col-lg-12
           %i.listing-author-activity-icon{:class => icon_class("testimonial")}
           .listing-author-activity-item
             .listing-author-activity-value
@@ -174,8 +174,8 @@
               = t(".feedback")
 
     - if @listing.origin_loc && @listing.origin_loc.address != ""
-      .row
-        .col-12
+      .rowx
+        .col-lg-12
           #googlemap
             = render :partial => "googlemap", :locals => { :listing => @listing}
             = render :partial => "origin", :locals => { :origin_loc => @listing.origin_loc }

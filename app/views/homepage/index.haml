@@ -108,7 +108,7 @@
           #filters
             = render :partial => "filters", :locals => { show_price_filter: show_price_filter, show_custom_fields: @show_custom_fields, filters: filters }
 
-  .row
+  .rowx
     - if @category_menu_enabled
       .col-3.visible-tablet
         - if @show_categories
@@ -136,8 +136,11 @@
         - else
           - if @view_type.eql?("grid")
             %div{class: @category_menu_enabled ? "home-fluid-thumbnail-grid-narrow" : "home-fluid-thumbnail-grid-wide"}
-              .home-fluid-thumbnail-grid
-                = render partial: "grid_item", collection: @listings, as: :listing, locals: { show_distance: location_search_in_use }
+              .home-fluid-thumbnail-gridxx
+                .timelet-list
+                  .products
+                    %ul.row
+                      = render partial: "grid_item", collection: @listings, as: :listing, locals: { show_distance: location_search_in_use }
           - else
             .home-listings
               - if (location_search_in_use)

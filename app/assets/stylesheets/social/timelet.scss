@@ -43,10 +43,12 @@
           overflow: hidden;
           text-overflow: ellipsis;
           color: #494F59 !important;
-          margin-bottom: 1px;
           text-decoration: none;
-          padding: 3px 0;
+
+          padding: .5em 0;
+          margin: 0;
           font-size: 14px;
+          font-weight: bold;
         }
         .figure-detail {
           position: relative;
