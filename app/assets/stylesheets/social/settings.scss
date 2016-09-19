@@ -24,6 +24,17 @@
     }
     #setting-main-content {
       padding: 20px;
+      input[type=text], input[type=password], input[type=number], textarea {
+        -webkit-border-radius: 0.3125em;
+        -moz-border-radius: 0.3125em;
+        -ms-border-radius: 0.3125em;
+        -o-border-radius: 0.3125em;
+        border-radius: 0.3125em;
+        border: 2px solid #c3c3c3;
+        min-height: 42px;
+        width: 200px;
+        padding: 0.25em 0.5em;
+      }
     }
   }
 }
