@@ -13,6 +13,10 @@ module HomepageHelper
     }
   end
 
+  def linting_grid_view_image(listing)
+    listing.listing_images.present? ? listing.listing_images.first.small_3x2 : '/assets/image_not_found.jpg'
+  end
+
   def get_listing_view_image(listing)
     listing.listing_images.present? ? listing.listing_images.first.image.url(:small_3x2) : '/assets/image_not_found.jpg'
   end

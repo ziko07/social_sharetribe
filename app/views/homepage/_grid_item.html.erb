@@ -1,12 +1,12 @@
 <% frontpage_fragment_cache("grid_item", listing) do %>
-    <li class="col-sm-3">
+    <li class="col-sm-4">
       <div class="figure-item">
         <figure>
           <%= link_to listing_path(listing.url) do %>
               <span class="back"></span>
-              <% with_first_listing_image(listing) do |first_image_url| %>
-                  <span class="figure grid" style="background-image:url(<%= first_image_url %>)"></span>
-              <% end %>
+              <%# with_first_listing_image(listing) do |first_image_url| %>
+              <span class="figure grid" style="background-image:url(<%= linting_grid_view_image(listing) %>)"></span>
+              <%# end %>
           <% end %>
         </figure>
         <figcaption style="border-top: dotted 1px #ccc; margin-top: 3px;">

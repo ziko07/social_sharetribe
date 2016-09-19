@@ -23,3 +23,20 @@
   left: 0 !important;
   top: 48px !important;
 }
+
+.category-list {
+  //min-height: 700px;
+  //border-right: solid 1px #CCCCCC;
+}
+
+.products {
+  ul {
+    li {
+      margin-bottom: 15px;
+    }
+    li:last-child {
+      padding-left: 0;
+      padding-right: 15px;
+    }
+  }
+}
