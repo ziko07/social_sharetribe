@@ -22,7 +22,7 @@
                       <%= listing.author.given_name_or_username %>
                     <%end%>
                     <% feedback, total_feedback =  get_feedback_rating(listing.author) %>
-                    <input class='feedback' name='feedback' value="<%= feedback %>" class='rating-loading'> (<%= total_feedback %>)
+                    <input type="hidden" name='feedback' value="<%= feedback %>" class='feedback rating-loading'> (<%= total_feedback %>)
                   </span>
                 </em>
               </figcaption>

@@ -34,10 +34,10 @@
     li {
       margin-bottom: 15px;
     }
-    li:last-child {
-      padding-left: 0;
-      padding-right: 15px;
-    }
+    //li:last-child {
+    //  padding-left: 0;
+    //  padding-right: 15px;
+    //}
   }
 }
 
@@ -65,6 +65,10 @@
   .filled-star {
     font-size: 10px;
   }
+}
+
+.home-toolbar-button-group-button {
+  line-height: 38px !important;
 }
 
 #header-top-navi, .timelet-list {
@@ -113,4 +117,54 @@ h2 {
 .listing-details-text {
   padding-top: 15px
 ;
+}
+
+.conversation-row {
+  background: #fdfdfd;
+  &.conversation-row:last-child {
+    &.row-with-divider {
+      border-bottom: none;
+    }
+  }
+}
+
+.testimonial {
+  background: #fdfdfd;
+  padding-top: 5px;
+  .testimonial-avatar {
+    left: 6px;
+    top: 8px;
+  }
+  .testimonial-details {
+    padding-left: 4.5em;
+    margin-bottom: 0;
+    .testimonial-message {
+      p {
+        margin-bottom: 2px;
+      }
+    }
+  }
+  .testimonial-icon {
+    top: 10px;
+  }
+}
+
+aside {
+  &.sidebar {
+    margin-top: 20px;
+  }
+}
+
+/* Overwride button design */
+
+.book-button .content {
+  margin-top: 10px;
+}
+
+.new-listing-form a.select .link-text, .edit-listing-form a.select .link-text {
+  padding: 0.70em 0 0.5em 0;
+}
+
+.message-content-container-left {
+  padding-left: 4.2em;
 }

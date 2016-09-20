@@ -19,7 +19,7 @@
     .tab {
       float: left;
       position: static;
-      border-right: 1px solid rgba(220, 221, 224, 0.7);
+      //border-right: 1px solid rgba(220, 221, 224, 0.7);
       top: 0;
       right: 0;
     }
@@ -61,7 +61,7 @@
             background: -o-linear-gradient(top, #ffffff, #fafafa);
             color: #585d6b;
             border-left-color: #DFE0E2;
-            border-right: 1px solid #DFE0E2;
+            //border-right: 1px solid #DFE0E2;
             position: relative;
             margin-right: -1px;
           }
@@ -70,6 +70,11 @@
           a {
             border-left: 0;
             border-radius: 3px 0 0 3px;
+          }
+        }
+        &:last-child {
+          a {
+            border-right: 1px solid rgba(220, 221, 224, 0.7)
           }
         }
       }

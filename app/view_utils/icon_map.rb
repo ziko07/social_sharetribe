@@ -254,5 +254,7 @@ ICON_MAP = {
       "payments" => 'ic-pay',
       "account" => 'ic-app',
       "social_links" => 'ic-social',
+
+      "grid" => 'fa fa-th'
     }
   }

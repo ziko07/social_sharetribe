@@ -6,7 +6,7 @@
   <div class="products">
     <ul>
       <% listings.each do |listing| %>
-          <li class="col-md-3">
+          <li class="col-xs-6 col-sm-4 col-md-3">
             <div class="figure-item">
               <figure>
                 <%= link_to listing_path(listing) do %>
@@ -24,7 +24,7 @@
                       <%= listing.author.given_name_or_username %>
                     <%end%>
                     <% feedback, total_feedback =  get_feedback_rating(listing.author) %>
-                    <input class='feedback' name='feedback' value="<%= feedback %>" class='rating-loading'> (<%= total_feedback %>)
+                    <input class='feedback' type="hidden" name='feedback' value="<%= feedback %>" class='rating-loading'> (<%= total_feedback %>)
                   </span>
                 </em>
               </figcaption>

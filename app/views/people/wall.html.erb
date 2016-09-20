@@ -46,7 +46,10 @@
                 horizrailenabled: true
             });
             attWrapper.getNiceScroll().hide();
-            $(".sidebar").stick_in_parent();
+            $("aside .wrapper-notifications").sticky({
+                widthFromWrapper: false,
+                topSpacing: 70
+            });
         });
     </script>
 <% end %>

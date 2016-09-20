@@ -1983,7 +1983,7 @@ figure.fluidratio {
 
 .marketplace-lander {
   position: relative;
-  margin-top: 51px;
+  padding-top: 51px;
 
   figure.marketplace-cover {
     background-image: url(image-path($cover-photo-url));
@@ -2043,7 +2043,7 @@ figure.fluidratio {
 
   .title-container {
     position: absolute;
-    top: 0;
+    top: 51px;
     left: 0;
     right: 0;
     bottom: 0;
