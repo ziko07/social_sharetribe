@@ -406,6 +406,7 @@ Kassi::Application.routes.draw do
           get :report_user_post
           get :notification
           get :activity
+          get :show_followers
         end
       end
 

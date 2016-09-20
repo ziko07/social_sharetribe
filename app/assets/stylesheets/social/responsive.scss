@@ -15,6 +15,11 @@
       }
     }
   }
+  .social-container {
+    .wall_content {
+      padding-left: 15px !important;
+    }
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -26,6 +31,15 @@
       }
       .gnb-wrap .gnb .menu-contain-you {
         right: 0;
+      }
+    }
+  }
+  form {
+    .checkbox-container {
+      label {
+        display: block;
+        padding: 2px 0 10px 20px;
+        margin-top: 0;
       }
     }
   }

@@ -1,0 +1,28 @@
+<ul class="follower-list" style="height: 230px;">
+  <% friends.each do |friend| %>
+      <li class="clearfix friend-item-<%= friend.id %>" style="border-bottom: 1px solid #ccc">
+        <div class="friend-item">
+          <div class="clearfix">
+            <div class="profile-pic">
+              <%= link_to person_path(friend.username) do %>
+                  <%= small_avatar_thumb(friend) %>
+              <% end %>
+            </div>
+            <div class="profile-info">
+              <%= link_to person_path(friend.username) do %>
+                  <%= friend.full_name %>
+              <% end %>
+              <p class="mutual-friend">
+                @<%= friend.username %>
+              </p>
+              <div class="follow-unfollow-wrapper">
+                <% unless current_user?(friend) %>
+                    <%= render 'friendships/follow_unfollow_button', person: friend %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+  <% end %>
+</ul>

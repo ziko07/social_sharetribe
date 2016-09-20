@@ -1385,6 +1385,9 @@ Based on Rails routes of Kassi::Application
 // settings_admin_community => (/:locale)/admin/communities/:id/settings(.:format)
   // function(id, options)
   settings_admin_community_path: Utils.route(["id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"admin",false],[2,[7,"/",false],[2,[6,"communities",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"settings",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),
+// show_followers_people => (/:locale)/show_followers(.:format)
+  // function(options)
+  show_followers_people_path: Utils.route([], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[6,"show_followers",false],[1,[2,[8,".",false],[3,"format",false]],false]]]], {}),
 // show_in_updates_email_person_listing => (/:locale)/:person_id/listings/:id/show_in_updates_email(.:format)
   // function(person_id, id, options)
   show_in_updates_email_person_listing_path: Utils.route(["person_id","id"], ["locale","format"], [2,[1,[2,[7,"/",false],[3,"locale",false]],false],[2,[7,"/",false],[2,[3,"person_id",false],[2,[7,"/",false],[2,[6,"listings",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"show_in_updates_email",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]]]]], {}),

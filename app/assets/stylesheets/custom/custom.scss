@@ -110,6 +110,15 @@
   background-position: -51px -75px;
 }
 
+h2 {
+  font-size: 1em !important;
+}
+
+.listing-details-text {
+  padding-top: 15px
+;
+}
+
 .conversation-row {
   background: #fdfdfd;
   &.conversation-row:last-child {
