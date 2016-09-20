@@ -114,6 +114,14 @@ class PeopleController < Devise::RegistrationsController
     end
   end
 
+  def show_followers
+    person = Person.find_by_username(params[:friend])
+    @followers = person.invited
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+  end
+
   def timelets
     @person = Person.find_by_username(params[:username])
     listings = @person.listings

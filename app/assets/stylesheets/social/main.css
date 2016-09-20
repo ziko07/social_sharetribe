@@ -44,3 +44,9 @@ body {
     display: block;
   }
 }
+
+.edit_person {
+  .checkbox-container input[type=radio] {
+    top: 0.40em !important;
+}
+}

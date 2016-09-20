@@ -22,7 +22,8 @@
               <li>
                 <%= small_avatar_thumb(notification.notification_sender, {class: 'photo'}) %>
                 <span class="noti-wrap">
-                <small class="date"><%= notification.created_at.strftime('%b %d') %></small>
+                  <small class="date"><i> <i class="fa fa-clock-o"></i> <%= time_ago_in_words(notification.created_at) %>  ago
+                  </i></small>
                   <%= link_to notification.notification_sender.given_name_or_username, person_path(notification.notification_sender.username), class: 'username' %>
                   <%= notification.content %>
               </span>

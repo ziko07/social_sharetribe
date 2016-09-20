@@ -102,13 +102,48 @@
     </div>
     <div class="followers">
       <a href="<%= friend_person_path(person) %>" class="_followers">Followers <b><%= person.invited_by.count %></b></a>
-      <a href="#" class="_following">Following <b><%= person.invited.count %></b></a>
+      <a href="javascript:void(0);" class="_following" data-friend="<%= person.username %>">Following <b><%= person.invited.count %></b></a>
     </div>
   </div>
 </div>
 
+
+<div class="modal fade" id="follower-modal" role="dialog">
+  <div class="modal-dialog  modal-sm" style="width: 400px;">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"> Following</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="follower-list">
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 <%= content_for :extra_javascript do %>
     <script type="text/javascript">
+        $(".follower-list").niceScroll();
+        $( "._following" ).click(function() {
+            var friend = $(this).attr('data-friend');
+            $.ajax({
+                url: "<%= show_followers_people_path %>",
+                type: 'get',
+                dataType: 'script',
+                data:{ friend: friend },
+            });
+        });
         $(function () {
             $(document).on('ready', function () {
                 $('.feedback').rating({displayOnly: true, step: 0.5});

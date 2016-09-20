@@ -1,0 +1,3 @@
+$('#follower-modal').modal('show');
+
+$(".follower-list").html("<%= escape_javascript(render(:partial => 'people/follower_lists', locals:{friends: @followers, person: @current_user})) %>");

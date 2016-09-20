@@ -12,7 +12,9 @@
         <% end %>
         <p class="mutual-friend">
           <% followers = friend.invited %>
-          <%= "#{followers.count} #{'Follower'.pluralize(followers.count)}" %>
+          <%= link_to friend_person_path(friend), class: 'follower' do %>
+              <%= "#{followers.count} #{'Follower'.pluralize(followers.count)}" %>
+          <% end %>
         </p>
 
         <div class="follow-unfollow-wrapper">
@@ -24,3 +26,5 @@
     </div>
   </div>
 </li>
+
+

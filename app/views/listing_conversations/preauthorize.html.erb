@@ -80,11 +80,11 @@
         <%= render partial: "payments/stripe/credit_card_info" %>
       </div>
       <div class="preauthorize-section">
-        <h2>
+        <h2 class="optional-message">
           <%= t("conversations.new.optional_message_to", author_name: link_to(author[:display_name], person_path(username: author[:username]))).html_safe %>
         </h2>
 
-        <div class="row">
+        <div class="form-row">
           <div class="col-12">
             <%= form.text_area :content, :class => "text_area" %>
             <%= form.hidden_field :sender_id, :value => @current_user.id %>
@@ -96,12 +96,12 @@
         <% if local_assigns.has_key?(:quantity) %>
             <%= form.hidden_field :quantity, value: quantity %>
         <% end %>
-        <div class="row">
-          <div class="col-12">
+        <div class="form-row" >
+          <div class="col-12" style="padding-top: 15px; padding-bottom: 15px;">
             <%= form.button t("preauthorize_payments.edit.confirm_payment"), :class => "send_button" %>
           </div>
         </div>
-        <div class="row">
+        <div class="form-row">
           <div class="col-12">
             <p>
               <%= t(".you_will_be_charged", author: author_link, expiration_period: expiration_period).html_safe %>
