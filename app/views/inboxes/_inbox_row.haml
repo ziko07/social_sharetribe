@@ -1,6 +1,6 @@
 .row-with-divider.without-margin.conversation-row{:class => conversation[:should_notify] ? "conversation-unread" : ""}
 
-  .col-sm-4
+  .col-xs-4
     .conversation-details-container
       = link_to conversation[:other][:url] do
         = image_tag conversation[:other][:avatar], :class => "conversation-avatar"

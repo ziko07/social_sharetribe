@@ -1,3 +1,36 @@
+@media screen and (max-width: 970px) {
+  #header-top-navi {
+    #navigation {
+      .gnb-wrap {
+        .gnb {
+          .menu-contain-you {
+            right: 0;
+          }
+          .feed-activity {
+            width: 340px;
+            margin-left: -278px;
+            margin-top: -10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #header-top-navi {
+    #navigation {
+      .logo {
+        left: 0;
+        margin: -5px 0 0 -19px;
+      }
+      .gnb-wrap .gnb .menu-contain-you {
+        right: 0;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 600px) {
   .friend-request-list li, .friend-list li {
     display: block;

@@ -38,6 +38,8 @@
       - else
         = render partial: "search_bar"
 
+=# render 'res'
+
 - if @current_community.private? && @big_cover_photo
   - if @community_customization && @community_customization.private_community_homepage_content
     .community-customization-wrapper
@@ -58,7 +60,7 @@
       - ["grid", "list", "map"].each do |view_type|
         - selected_class = @view_type == view_type ? "selected" : ""
         = link_to search_path(params.merge(view: view_type)), :class => "home-toolbar-button-group-button #{selected_class}", :title => t("homepage.filters.#{view_type}_button") do
-          = icon_tag(view_type, ["icon-fix", "home-button-group-icon"])
+          = icon_tag(view_type, ["home-button-group-icon"])
           %span.home-toolbar-button-text
             = t("homepage.filters.#{view_type}_button")
 

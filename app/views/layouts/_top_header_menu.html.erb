@@ -3,12 +3,14 @@
     <div class="inner">
       <div id="navigation" class="hover_submenu">
         <div class="pull-left">
-          <form id="nav-search-form" action="/search" class="search">
-            <span class="trick" style="top: 95px;"></span>
-            <fieldset>
-              <input type="text" name="q" class="text" id="search-query" placeholder="Search Timelet" value="" data-query="" autocomplete="off">
-            </fieldset>
-          </form>
+          <div class="hidden-xs">
+            <form id="nav-search-form" action="/" class="search">
+              <span class="trick" style="top: 95px;"></span>
+              <fieldset>
+                <input type="text" name="q" class="text" id="search-query" placeholder="Search Timelet" value="" data-query="" autocomplete="off">
+              </fieldset>
+            </form>
+          </div>
           <div class="logo">
             <%= link_to landing_page_path, :class => "header-logo", :id => "header-logo" do %>
                 <% if @current_community.logo.present? %>
@@ -77,14 +79,18 @@
                     <h4 class="msg">
                       Messages
                     </h4>
+
                     <div class="feed messages">
                       <div class="loading" style="display: none;"><i></i></div>
-                      <!--<div class="empty" style="">-->
-                        <!--<p><b>No Unread Messages</b></p>-->
-                      <!--</div>-->
-                      <%= render :partial => "inboxes/inbox_row", :collection => message_list, :as => :conversation,locals: { payments_in_use: @current_community.payments_in_use? } %>
+                      <% if message_list.present? %>
+                          <%= render :partial => "inboxes/inbox_row", :collection => message_list, :as => :conversation, locals: {payments_in_use: @current_community.payments_in_use?} %>
+                      <% else %>
+                          <div class="empty" style="">
+                            <p><b>No Messages</b></p>
+                          </div>
+                      <% end %>
                     </div>
-                    <a href="<%= inbox_path %>" class="more">View all messages</a>
+                    <%= link_to 'View all messages', inbox_path, class: 'more' if message_list.present? %>
                   </div>
                 </li>
 
