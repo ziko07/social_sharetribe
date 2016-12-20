@@ -52,6 +52,7 @@ module Kassi
     # Heroku requires this to be false.
     config.assets.initialize_on_precompile = false
 
+
     # Add webfonts folder which can contain icons used like fonts
     config.assets.paths << Rails.root.join("app", "assets", "webfonts")
     config.assets.paths << VENDOR_CSS_PATH
@@ -69,6 +70,8 @@ module Kassi
       'app-bundle.js',
       'vendor-bundle.js',
     ]
+
+    # config.assets.initialize_on_precompile = false
 
     # Read the config from the config.yml
     APP_CONFIG = ConfigLoader.load_app_config
