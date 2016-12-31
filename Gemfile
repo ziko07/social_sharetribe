@@ -42,7 +42,7 @@ gem 'aws-sdk-v1', "~> 1.64.0"
 gem 'aws-sdk', '~> 2'
 gem "will_paginate", '~>3.0.5'
 gem 'dalli', "~> 2.6.4"
-gem "memcachier", "~> 0.0.2"
+# gem "memcachier", "~> 0.0.2"
 gem 'kgio', "~>2.9.2"
 # gem 'thinking-sphinx', '~> 3.1.1'
 # gem 'flying-sphinx', "~>1.2.0"
@@ -132,7 +132,7 @@ gem "i18n-js",
 gem "request_store", "~> 1.3"
 
 group :staging, :production do
-  gem 'newrelic_rpm', '~> 3.9.1.236'
+  # gem 'newrelic_rpm', '~> 3.9.1.236'
   gem 'rails_12factor', '~> 0.0.3'
 end
 
