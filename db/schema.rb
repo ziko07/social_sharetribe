@@ -303,7 +303,7 @@ ActiveRecord::Schema.define(version: 20160905055625) do
     t.datetime "updated_at",                         null: false
   end
 
-  add_index "custom_field_option_titles", ["custom_field_option_id", "locale"], name: "locale_index", using: :btree
+  # add_index "custom_field_option_titles", ["custom_field_option_id", "locale"], name: "locale_index", using: :btree
   add_index "custom_field_option_titles", ["custom_field_option_id"], name: "index_custom_field_option_titles_on_custom_field_option_id", using: :btree
 
   create_table "custom_field_options", force: :cascade do |t|
