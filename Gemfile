@@ -132,7 +132,7 @@ gem "i18n-js",
 gem "request_store", "~> 1.3"
 
 group :staging, :production do
-  # gem 'newrelic_rpm', '~> 3.9.1.236'
+  gem 'newrelic_rpm', '~> 3.9.1.236'
   gem 'rails_12factor', '~> 0.0.3'
 end
 
