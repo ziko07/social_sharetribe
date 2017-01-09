@@ -10,7 +10,7 @@ gem 'uglifier', "~> 2.7.2"
 gem 'sass-rails', '~> 4.0.0'
 gem 'compass-rails', '~> 2.0'
 
-gem 'amistad'
+gem 'amistad', require: false
 # Requiring 'compass' gem directly is not normally needed,
 # 'compass-rails' already does that.
 #
@@ -24,13 +24,13 @@ gem 'jquery-rails', '3.1.3'
 # Bundle the extra gems:
 
 # gem 'heroku' install the Heroku toolbelt (https://toolbelt.heroku.com/) instead (as gem had some problems)
-gem "passenger", "~> 5.0.18"
+gem "passenger", "~> 5.0.18", require: false
 
-# gem "mysql2", "~> 0.3.14"
-gem 'pg'
+gem "mysql2", "~> 0.3.14", require: false
+# gem 'pg'
 gem 'haml', "~> 4.0.5"
 gem 'sass', "  ~> 3.2.9"
-gem 'rest-client', '~> 1.8.0'
+gem 'rest-client', '~> 1.8.0', require: false
 
 gem 'paperclip', '~> 4.3.6'
 gem 'delayed_paperclip', "~> 2.9.1"
@@ -42,7 +42,7 @@ gem 'aws-sdk-v1', "~> 1.64.0"
 gem 'aws-sdk', '~> 2'
 gem "will_paginate", '~>3.0.5'
 gem 'dalli', "~> 2.6.4"
-# gem "memcachier", "~> 0.0.2"
+gem "memcachier", "~> 0.0.2"
 gem 'kgio', "~>2.9.2"
 # gem 'thinking-sphinx', '~> 3.1.1'
 # gem 'flying-sphinx', "~>1.2.0"
@@ -52,39 +52,39 @@ gem 'kgio', "~>2.9.2"
 #     :git => 'git://github.com/pat/ts-delayed-delta.git',
 #     :branch => 'master',
 #     :ref => '839284f2f28b3f4caf3a3bf5ccde9a6d222c7f4d'
-gem 'possibly', '~> 0.2.0'
+gem 'possibly', '~> 0.2.0', require: false
 
 gem 'delayed_job', "~> 4.1.1"
-gem 'delayed_job_active_record', "~> 4.1.0"
+gem 'delayed_job_active_record', "~> 4.1.0", require: false
 
-gem 'web_translate_it', "~>2.1.8"
+gem 'web_translate_it', "~>2.1.8", require: false
 gem 'rails-i18n', '~> 4.0.8'
 gem 'devise', "~>3.5.0"
-gem 'devise-encryptable', '~> 0.2.0'
+gem 'devise-encryptable', '~> 0.2.0', require: false
 gem "omniauth-facebook", "~> 3.0.0"
 
 # Dynamic form adds helpers that are needed, e.g. error_messages
-gem 'dynamic_form', "~>1.1.4"
-gem "truncate_html", "~>0.9.1"
+gem 'dynamic_form', "~>1.1.4", require: false
+gem "truncate_html", "~>0.9.1", require: false
 gem 'money-rails', "~>1.3.0"
 
 # The latest release (0.9.0) is not Rails 4 compatible
 gem 'mercury-rails',
     git: 'git://github.com/jejacks0n/mercury.git',
     branch: 'master',
-    ref: '1cc637b0bccea19085f824d2881c6513ed5ee8ae'
+    ref: '1cc637b0bccea19085f824d2881c6513ed5ee8ae', require: false
 
-gem 'countries', '~> 1.2', '>= 1.2.2'
-gem "mail_view", "~> 1.0.3"
+gem 'countries', '~> 1.2', '>= 1.2.2', require: false
+gem "mail_view", "~> 1.0.3", require: false
 gem 'statesman', '~> 1.3.1'
-gem "premailer", "~> 1.8.2"
+gem "premailer", "~> 1.8.2", require: false
 gem 'stringex', '~> 2.5.2'
 gem 'paypal-sdk-permissions', '~> 1.96.4'
-gem 'paypal-sdk-merchant', '~> 1.116.0'
+gem 'paypal-sdk-merchant', '~> 1.116.0', require: false
 gem 'airbrake', '~> 4.1.0'
 gem 'librato-rails', "~> 0.11.1"
 
-gem 'jwt', '~> 1.5.2'
+gem 'jwt', '~> 1.5.2', require: false
 
 # Use Oauth2 from current master, because the newest release
 # uses old JWT version
@@ -92,10 +92,10 @@ gem 'jwt', '~> 1.5.2'
 gem 'oauth2',
     git: 'git://github.com/intridea/oauth2.git',
     branch: 'master',
-    ref: 'e0006cb5099bf392f011eb5c49cbec4f893bbdba'
+    ref: 'e0006cb5099bf392f011eb5c49cbec4f893bbdba', require: false
 
 gem 'lograge', "~> 0.3.2"
-gem 'public_suffix', "~> 1.5.1" # Needed currently to set GA hostname right, probably not
+gem 'public_suffix', "~> 1.5.1" , require: false# Needed currently to set GA hostname right, probably not
 # needed anymore when GA script updated.
 
 # Session store was removed from Rails 4
@@ -112,7 +112,7 @@ gem 'protected_attributes', "~> 1.1.3"
 # it's a hack and should be removed soon.
 gem 'demoji', "~> 0.0.5"
 
-gem 'faraday', '~> 0.9.1'
+gem 'faraday', '~> 0.9.1', require: false
 gem 'faraday_middleware', '~> 0.10.0'
 
 gem "react_on_rails", "~> 6.0.5"
@@ -132,7 +132,7 @@ gem "i18n-js",
 gem "request_store", "~> 1.3"
 
 group :staging, :production do
-  # gem 'newrelic_rpm', '~> 3.9.1.236'
+  gem 'newrelic_rpm', '~> 3.9.1.236'
   gem 'rails_12factor', '~> 0.0.3'
 end
 
@@ -152,24 +152,24 @@ group :development do
   gem 'quiet_assets', "~> 1.1.0"
   gem 'better_errors', "~> 2.1.1"
   gem 'web-console', '~> 2.0'
-  gem 'awesome_print', '~> 1.6.1'
+  gem 'awesome_print', '~> 1.6.1',require: false
 end
 
 group :test do
-  gem 'capybara', '~> 2.6.2'
+  gem 'capybara', '~> 2.6.2', require: false
   gem "rspec-rails", "~>3.0"
 
   gem 'cucumber-rails', '~> 1.4.0', require: false # require: false is needed for cucumber-rails
 
-  gem 'selenium-webdriver', '~> 2.45'
+  gem 'selenium-webdriver', '~> 2.45', require: false
 
   # Launchy is needed by Capybara, e.g. save_and_open command needs Launchy to open a browser
   gem 'launchy', '~> 2.4', '>= 2.4.3'
-  gem 'email_spec', '~> 1.6.0'
+  gem 'email_spec', '~> 1.6.0', require: false
   gem 'timecop', '~> 0.6.3'
-  gem 'rack-test', "~> 0.6.2"
+  gem 'rack-test', "~> 0.6.2", require: false
   gem 'database_cleaner', '~> 1.1'
-  gem 'connection_pool', "~> 0.9.3"
+  gem 'connection_pool', "~> 0.9.3", require: false
 
   # required for CircleCI automatic test balancing
   gem 'rspec_junit_formatter'
@@ -180,18 +180,20 @@ group :development, :test do
 end
 
 
-gem 'therubyracer', '~> 0.12.2', platforms: :ruby
+gem 'therubyracer', '~> 0.12.2', platforms: :ruby, require: false
 gem 'js-routes', '~> 1.2.5'
 
 # Color utilities needed for landing page
-gem 'color', '~> 1.8'
+gem 'color', '~> 1.8', require: false
 gem 'figaro'
 gem 'stripe', '1.30.0'
 
-gem 'capistrano'
+gem 'capistrano', require: false
 gem 'capistrano-bundler', '~> 1.1.2'
-gem 'capistrano-rails', '~> 1.1.1'
+gem 'capistrano-rails', '~> 1.1.1', require: false
 gem 'capistrano-rvm'
 gem 'carmen-rails'
 gem 'annotate', "~> 2.6.5"
-gem 'daemons'
+gem 'daemons', require: false
+
+gem 'gem_bench', :group => :console
