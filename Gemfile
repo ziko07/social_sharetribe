@@ -38,8 +38,8 @@ gem 'delayed_paperclip', "~> 2.9.1"
 #gem "rmagick"
 gem "carrierwave"
 
-gem 'aws-sdk-v1', "~> 1.64.0"
-gem 'aws-sdk', '~> 2'
+# gem 'aws-sdk-v1', "~> 1.64.0"
+# gem 'aws-sdk', '~> 2'
 gem "will_paginate", '~>3.0.5'
 gem 'dalli', "~> 2.6.4"
 gem "memcachier", "~> 0.0.2"
