@@ -52,7 +52,7 @@ gem 'kgio', "~>2.9.2"
 #     :git => 'git://github.com/pat/ts-delayed-delta.git',
 #     :branch => 'master',
 #     :ref => '839284f2f28b3f4caf3a3bf5ccde9a6d222c7f4d'
-gem 'possibly', '~> 0.2.0', require: false
+gem 'possibly', '~> 0.2.0'#, require: false
 
 gem 'delayed_job', "~> 4.1.1"
 gem 'delayed_job_active_record', "~> 4.1.0", require: false
@@ -169,7 +169,7 @@ group :test do
   gem 'timecop', '~> 0.6.3'
   gem 'rack-test', "~> 0.6.2", require: false
   gem 'database_cleaner', '~> 1.1'
-  gem 'connection_pool', "~> 0.9.3", require: false
+  gem 'connection_pool', "~> 0.9.3"#, require: false
 
   # required for CircleCI automatic test balancing
   gem 'rspec_junit_formatter'
@@ -180,20 +180,20 @@ group :development, :test do
 end
 
 
-gem 'therubyracer', '~> 0.12.2', platforms: :ruby, require: false
+gem 'therubyracer', '~> 0.12.2', platforms: :ruby#, require: false
 gem 'js-routes', '~> 1.2.5'
 
 # Color utilities needed for landing page
-gem 'color', '~> 1.8', require: false
+gem 'color', '~> 1.8'#, require: false
 gem 'figaro'
 gem 'stripe', '1.30.0'
 
-gem 'capistrano', require: false
+gem 'capistrano'#, require: false
 gem 'capistrano-bundler', '~> 1.1.2'
-gem 'capistrano-rails', '~> 1.1.1', require: false
+gem 'capistrano-rails', '~> 1.1.1'#, require: false
 gem 'capistrano-rvm'
 gem 'carmen-rails'
 gem 'annotate', "~> 2.6.5"
-gem 'daemons', require: false
+gem 'daemons'#, require: false
 
 gem 'gem_bench', :group => :console
