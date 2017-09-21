@@ -10,8 +10,10 @@
       <a href="#">Notifications<span class="<%= get_badge_class(@person.friends.count) %>"><%= @person.friends.count %></span></a>
     </li>
     <li>
+      <% if current_user?(@person) %>
       <a href="<%= inbox_path %>" class="<%= 'active' if action_name == 'show' && controller_name == 'inboxes' %>">Messages
         <span class="<%= get_badge_class(@person.friends.count) %>"><%= unread_count %></span></a>
+       <% end %>
     </li>
     <li>
       <%= link_to friend_person_path(@person.username), class: "#{'active' if action_name == 'friend' && controller_name == 'people' }" do %>
