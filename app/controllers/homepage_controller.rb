@@ -6,6 +6,8 @@ class HomepageController < ApplicationController
   APP_DEFAULT_VIEW_TYPE = "grid"
   VIEW_TYPES = ["grid", "list", "map"]
 
+  layout 'public', only: [:index]
+
   def index
     redirect_to landing_page_path and return if no_current_user_in_private_clp_enabled_marketplace?
 
@@ -67,6 +69,8 @@ class HomepageController < ApplicationController
       viewport = viewport_geometry(params[:boundingbox], params[:lc], @current_community.location)
     end
 
+    posts = Post.all.order('created_at desc')
+
     if request.xhr? # checks if AJAX request
       search_result.on_success { |listings|
         @listings = listings # TODO Remove
@@ -92,6 +96,7 @@ class HomepageController < ApplicationController
                  shape_name_map: shape_name_map,
                  listing_shape_menu_enabled: listing_shape_menu_enabled,
                  main_search: main_search,
+                 posts: posts,
                  location_search_in_use: location_in_use,
                  viewport: viewport }
       }.on_error { |e|
@@ -105,10 +110,121 @@ class HomepageController < ApplicationController
                  shape_name_map: shape_name_map,
                  listing_shape_menu_enabled: listing_shape_menu_enabled,
                  main_search: main_search,
+                 posts: posts,
                  location_search_in_use: location_in_use,
                  viewport: viewport }
       }
     end
+  end
+
+def listing
+  redirect_to landing_page_path and return if no_current_user_in_private_clp_enabled_marketplace?
+
+  @homepage = true
+
+  @view_type = HomepageController.selected_view_type(params[:view], @current_community.default_browse_view, APP_DEFAULT_VIEW_TYPE, VIEW_TYPES)
+
+  @big_cover_photo = !(@current_user || CustomLandingPage::LandingPageStore.enabled?(@current_community.id)) || params[:big_cover_photo]
+
+  @categories = @current_community.categories.includes(:children)
+  @main_categories = @categories.select { |c| c.parent_id == nil }
+
+  all_shapes = shapes.get(community_id: @current_community.id)[:data]
+
+  # This assumes that we don't never ever have communities with only 1 main share type and
+  # only 1 sub share type, as that would make the listing type menu visible and it would look bit silly
+  listing_shape_menu_enabled = all_shapes.size > 1
+  @show_categories = @categories.size > 1
+  show_price_filter = @current_community.show_price_filter && all_shapes.any? { |s| s[:price_enabled] }
+
+  filters = @current_community.custom_fields.where(search_filter: true).sort
+  @show_custom_fields = filters.present? || show_price_filter
+  @category_menu_enabled = @show_categories || @show_custom_fields
+
+  filter_params = {}
+
+  listing_shape_param = params[:transaction_type]
+
+  selected_shape = all_shapes.find { |s| s[:name] == listing_shape_param }
+
+  filter_params[:listing_shape] = Maybe(selected_shape)[:id].or_else(nil)
+
+  compact_filter_params = HashUtils.compact(filter_params)
+
+  per_page = @view_type == "map" ? APP_CONFIG.map_listings_limit : APP_CONFIG.grid_listings_limit
+
+  includes =
+      case @view_type
+        when "grid"
+          [:author, :listing_images]
+        when "list"
+          [:author, :listing_images, :num_of_reviews]
+        when "map"
+          [:location]
+        else
+          raise ArgumentError.new("Unknown view_type #{@view_type}")
+      end
+
+  main_search = search_mode
+  enabled_search_modes = search_modes_in_use(params[:q], params[:lc], main_search)
+  keyword_in_use = enabled_search_modes[:keyword]
+  location_in_use = enabled_search_modes[:location]
+
+  search_result = find_listings(params, per_page, compact_filter_params, includes.to_set, location_in_use, keyword_in_use)
+
+  shape_name_map = all_shapes.map { |s| [s[:id], s[:name]]}.to_h
+
+  if @view_type == 'map'
+    viewport = viewport_geometry(params[:boundingbox], params[:lc], @current_community.location)
+  end
+
+  if request.xhr? # checks if AJAX request
+    search_result.on_success { |listings|
+      @listings = listings # TODO Remove
+
+      if @view_type == "grid" then
+        render partial: "grid_item", collection: @listings, as: :listing, locals: { show_distance: location_in_use }
+      elsif location_in_use
+        render partial: "list_item_with_distance", collection: @listings, as: :listing, locals: { shape_name_map: shape_name_map, show_distance: location_in_use }
+      else
+        render partial: "list_item", collection: @listings, as: :listing, locals: { shape_name_map: shape_name_map }
+      end
+    }.on_error {
+      render nothing: true, status: 500
+    }
+  else
+    search_result.on_success { |listings|
+      @listings = listings
+      render locals: {
+                 shapes: all_shapes,
+                 filters: filters,
+                 show_price_filter: show_price_filter,
+                 selected_shape: selected_shape,
+                 shape_name_map: shape_name_map,
+                 listing_shape_menu_enabled: listing_shape_menu_enabled,
+                 main_search: main_search,
+                 location_search_in_use: location_in_use,
+                 viewport: viewport }
+    }.on_error { |e|
+      flash[:error] = t("homepage.errors.search_engine_not_responding")
+      @listings = Listing.none.paginate(:per_page => 1, :page => 1)
+      render status: 500, locals: {
+                            shapes: all_shapes,
+                            filters: filters,
+                            show_price_filter: show_price_filter,
+                            selected_shape: selected_shape,
+                            shape_name_map: shape_name_map,
+                            listing_shape_menu_enabled: listing_shape_menu_enabled,
+                            main_search: main_search,
+                            location_search_in_use: location_in_use,
+                            viewport: viewport }
+    }
+  end
+end
+
+  def landing
+    posts = Post.all.order('created_at desc')
+    render locals: {posts: posts}
   end
 
   def self.selected_view_type(view_param, community_default, app_default, all_types)

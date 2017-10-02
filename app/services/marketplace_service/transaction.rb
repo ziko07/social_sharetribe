@@ -70,6 +70,8 @@ module MarketplaceService
             APP_CONFIG.paypal_expiration_period.to_i
           when :stripe
             APP_CONFIG.paypal_expiration_period.to_i
+          when :bkash
+            APP_CONFIG.paypal_expiration_period.to_i
           else
             raise ArgumentError.new("Unknown payment_type: '#{payment_type}'")
         end

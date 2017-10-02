@@ -84,10 +84,16 @@ Kassi::Application.routes.draw do
                                 CustomLandingPage::LandingPageStore.enabled?(request.env[:current_marketplace]&.id)
                               }
 
+  get '/browse_listings', to: 'homepage#listing', as: :home_listing
+  # get '/:locale/browse_listings', to: 'homepage#listing', as: :home_listing
+
   # Default routes for homepage, these are matched if custom landing page is not in use
   # Inside this constraits are the routes that are used when request has subdomain other than www
   get '/:locale/' => 'homepage#index', :constraints => {:locale => locale_matcher}, as: :homepage_with_locale
   get '/' => 'homepage#index', as: :homepage_without_locale
+
+  # get '/:locale/' => 'homepage#landing', :constraints => {:locale => locale_matcher}, as: :homepage_with_locale
+  # get '/' => 'homepage#landing', as: :homepage_without_locale
   get '/:locale/s', to: redirect('/%{locale}', status: 307), constraints: {locale: locale_matcher}
   get '/s', to: redirect('/', status: 307)
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905055625) do
+ActiveRecord::Schema.define(version: 20171002101744) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string   "token",            limit: 255
@@ -303,7 +303,6 @@ ActiveRecord::Schema.define(version: 20160905055625) do
     t.datetime "updated_at",                         null: false
   end
 
-  # add_index "custom_field_option_titles", ["custom_field_option_id", "locale"], name: "locale_index", using: :btree
   add_index "custom_field_option_titles", ["custom_field_option_id"], name: "index_custom_field_option_titles_on_custom_field_option_id", using: :btree
 
   create_table "custom_field_options", force: :cascade do |t|
@@ -566,6 +565,7 @@ ActiveRecord::Schema.define(version: 20160905055625) do
     t.boolean  "pickup_enabled",                                default: false
     t.integer  "shipping_price_cents",            limit: 4
     t.integer  "shipping_price_additional_cents", limit: 4
+    t.boolean  "for_sell"
   end
 
   add_index "listings", ["category_id"], name: "index_listings_on_new_category_id", using: :btree

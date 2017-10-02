@@ -29,6 +29,8 @@ module MarketplaceService
             :paypal
           elsif stripe_active?(community.id)
             :stripe
+          elsif bkash_active?(community.id)
+            :bkash
           else
             nil
           end
@@ -55,6 +57,16 @@ module MarketplaceService
                               .or_else(nil)
 
         return active_settings && active_settings[:payment_gateway] == :stripe
+      end
+
+
+      def bkash_active?(community_id)
+        active_settings = Maybe(TxApi.settings.get_active(community_id: community_id))
+                              .select { |result| result[:success] }
+                              .map { |result| result[:data] }
+                              .or_else(nil)
+
+        return active_settings && active_settings[:payment_gateway] == :bkash
       end
 
     end

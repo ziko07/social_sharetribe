@@ -1,0 +1,86 @@
+<%= content_for :social_left_section do %>
+    <div class="user-profile-content-wrapper">
+      <div class="spacing-btwn-divs wall-post-wrapper">
+        <form action="<%= home_listing_path %>" method="get">
+          <%= render 'search_bar' %>
+        </form>
+      </div>
+
+      <div class="wall-posts">
+        <ul class="all_post">
+          <% posts.each do |post| %>
+              <%= render 'people/wall_post_item', post: post, person: @current_user %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+<% end %>
+
+<%= content_for :extra_javascript do %>
+    <script type="text/javascript">
+        var mentionArea = $('textarea.mention');
+        var postArea = $('#description');
+        $('#attachment-update-post').click(function () {
+            $('#new-attachment-modal-form').lightbox_me({centered: true, zIndex: 1000000});
+        });
+
+        $('.post-form').submit(function () {
+            if (postArea.val() == '') {
+                postArea.focus();
+                return false;
+            }
+            else {
+                mentionArea.mentionsInput('val', function (text) {
+                    $('#post-description-field').val(text);
+                });
+
+                mentionArea.mentionsInput('getMentions', function (data) {
+                    $('#user-mention').val(JSON.stringify(data));
+                });
+            }
+        });
+
+        $('#tokenfield').tokenInput('/listings/listing_lists.json', {
+            theme: "facebook",
+            placeholder: 'Refer Your listings',
+            preventDuplicates: true
+        });
+
+        $(function () {
+            mentionArea.mentionsInput({
+                onDataRequest: function (mode, query, callback) {
+                    $.getJSON('/find_mention.json', {search: query}, function (responseData) {
+                        responseData = _.filter(responseData, function (item) {
+                            return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1
+                        });
+                        callback.call(this, responseData);
+                    });
+                }
+            });
+        });
+    </script>
+<% end %>
+
+<%#= render 'posts/post_with_attachment_modal', person: @person %>
+
+<div class="row footer">
+  <div class="footer-left">
+    <p>
+      2016 - Boss · Powered by <span></span>
+    </p>
+  </div>
+  <ul class="footer-social-icon">
+    <li>
+      <a href="#"><i class="fa fa-facebook"></i></a>
+    </li>
+    <li>
+      <a href="#"><i class="fa fa-twitter"></i></a>
+    </li>
+    <li>
+      <a href="#"><i class="fa fa-youtube"></i></a>
+    </li>
+    <li>
+      <a href="#"><i class="fa fa-arrow-up"></i></a>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,67 @@
+<%= render :partial => 'layouts/head' %>
+<body class="social">
+<%= render partial: 'layouts/global_header', locals: header_props() %>
+<div class="container">
+  <div class="social-wrapper content-container clearfix">
+    <div class="social-left-section col-sm-12 reset-padding">
+      <%= yield :social_left_section %>
+    </div>
+    <div style="clear: both;"></div>
+    <div class="footer-section">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    window.I18n = {};
+</script>
+<%= javascript_include_tag "i18n/#{I18n.locale}" %>
+<%= javascript_include_tag 'application' %>
+<script type="text/javascript">
+    window.ST.jsonTranslations = <%= raw JSONTranslations.get(I18n.locale) %>;
+</script>
+<% if @analytics_event %>
+    <script type="text/javascript">
+        report_analytics_event.apply(null, '<%= @analytics_event %>');
+    </script>
+<% end %>
+<% if @gtm_datalayer %>
+    <script type="text/javascript">
+        if (window.ST != null && typeof window.ST.gtmPush === 'function') {
+            window.ST.gtmPush('<%= @gtm_datalayer.to_json%>');
+        }
+    </script>
+<% end %>
+<script type="text/javascript">
+    $(function () {
+        if ('touchAction' in document.body.style) {
+            document.body.style.touchAction = 'manipulation';
+        } else {
+            window.FastClick.attach(document.body, {excludeNode: '^pac-'});
+        }
+    });
+</script>
+<% if Rails.env.test? %>
+    <script type="text/javascript">
+        $(function () {
+            $.transit.enabled = false;
+        });
+    </script>
+<% end %>
+<%= yield :extra_javascript %>
+<script>
+    $(document).ready(function () {
+        initialize_defaults("<%= I18n.locale %>");
+        <%= yield :javascript %>
+    });
+</script>
+
+
+</body>
+<footer>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+</footer>
+</html>

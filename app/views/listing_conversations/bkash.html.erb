@@ -1,0 +1,116 @@
+<% content_for :extra_javascript do %>
+    <%= javascript_include_tag "https://js.stripe.com/v2/" %>
+<% end %>
+<% content_for :extra_javascript do %>
+    <script type="text/javascript">
+        $(function () {
+            Stripe.setPublishableKey('pk_test_fuVgqaEYDyxcMHpSwkZJo4fK');
+            var $form = $('#stripe-payment-form');
+            $form.submit(function (event) {
+                // Disable the submit button to prevent repeated clicks:
+                $form.find('.submit').prop('disabled', true);
+
+                // Request a token from Stripe:
+                Stripe.card.createToken($form, stripeResponseHandler);
+
+                // Prevent the form from being submitted:
+                return false;
+            });
+        });
+
+        function stripeResponseHandler(status, response) {
+            var $form = $('#stripe-payment-form');
+
+            if (response.error) { // Problem!
+
+                // Show the errors on the form:
+                $form.find('.payment-errors').text(response.error.message);
+                $form.find('.submit').prop('disabled', false); // Re-enable submission
+
+            } else { // Token was created!
+                console.log(response)
+                // Get the token ID:
+                var token = response.id;
+
+                // Insert the token ID into the form so it gets submitted to the server:
+                $form.append($('<input type="hidden" name="stripeToken">').val(token));
+
+                // Submit the form:
+                $form.get(0).submit();
+            }
+        }
+    </script>
+<% end %>
+<% content_for :javascript do %>
+    initialize_send_message_form('#{I18n.locale}');
+<% end %>
+<% content_for :title_header do %>
+    <h1>
+      <%= action_button_label %>
+      <%= link_to(listing[:title], listing_path(listing[:id])) %>
+    </h1>
+<% end %>
+
+<div class="centered-section" id="new_message_form">
+  <% author_link = link_to(author[:display_name], person_path(username: author[:username])) %>
+  <div class="preauthorize-section">
+    <h2 class="preauthorize-details-title">
+      <%= t(".details") %>
+    </h2>
+    <ul class="no-bullets">
+      <li>
+        <div>
+          <%= t(".by", listing: link_to("#{listing[:title]}", listing_path(listing[:id])), author: author_link).html_safe %>
+        </div>
+      </li>
+      <li>
+        <%= render partial: "transactions/price_break_down", locals: price_break_down_locals %>
+      </li>
+    </ul>
+  </div>
+  <%= form_for preauthorize_form, :url => form_action, :method => "post", :html => {:id => "stripe-payment-form"} do |form| %>
+      <% if preauthorize_form.respond_to?(:start_on) && preauthorize_form.respond_to?(:end_on) %>
+          <%= form.date_select :start_on, {value: preauthorize_form.start_on}, {class: 'hidden'} %>
+          <%= form.date_select :end_on, {value: preauthorize_form.end_on}, {class: 'hidden'} %>
+      <% end %>
+      <div class="preauthorize-section">
+        <h2>
+          <%= t(".payment") %>
+        </h2>
+        <%= render partial: "payments/stripe/credit_card_info" %>
+      </div>
+      <div class="preauthorize-section">
+        <h2>
+          <%= t("conversations.new.optional_message_to", author_name: link_to(author[:display_name], person_path(username: author[:username]))).html_safe %>
+        </h2>
+
+        <div class="row">
+          <div class="col-12">
+            <%= form.text_area :content, :class => "text_area" %>
+            <%= form.hidden_field :sender_id, :value => @current_user.id %>
+          </div>
+        </div>
+        <% if @current_community.transaction_agreement_in_use %>
+            <%= render :partial => "listing_conversations/transaction_agreement_checkbox", locals: {form: form} %>
+        <% end %>
+        <% if local_assigns.has_key?(:quantity) %>
+            <%= form.hidden_field :quantity, value: quantity %>
+        <% end %>
+        <div class="row">
+          <div class="col-12">
+            <%= form.button t("preauthorize_payments.edit.confirm_payment"), :class => "send_button" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <p>
+              <%= t(".you_will_be_charged", author: author_link, expiration_period: expiration_period).html_safe %>
+            </p>
+          </div>
+        </div>
+      </div>
+  <% end %>
+  <noscript>
+    <%= "For security reasons JavaScript has to be enabled" %>
+  </noscript>
+</div>

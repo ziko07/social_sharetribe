@@ -153,6 +153,8 @@ class PreauthorizeTransactionsController < ApplicationController
             "listing_conversations/preauthorize"
           when :paypal
             "listing_conversations/initiate"
+          when :bkash
+            "listing_conversations/bkash"
           else
             raise ArgumentError.new("Unknown payment type #{vprms[:payment_type]} for booking")
         end
@@ -333,7 +335,13 @@ class PreauthorizeTransactionsController < ApplicationController
 
     action_button_label = translate(listing[:action_button_tr_key])
 
+    p "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,"
+    p listing[:price]
+    p quantity
+    p "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,"
+
     subtotal = listing[:price] * quantity
+
     shipping_price = shipping_price_total(listing[:shipping_price], listing[:shipping_price_additional], quantity)
     total_price = shipping_enabled ? subtotal + shipping_price : subtotal
 

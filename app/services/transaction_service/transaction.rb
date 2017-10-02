@@ -9,12 +9,14 @@ module TransactionService::Transaction
   SETTINGS_ADAPTERS = {
     paypal: TransactionService::Gateway::PaypalSettingsAdapter.new,
     stripe: TransactionService::Gateway::StripeSettingsAdapter.new,
+    bkash: TransactionService::Gateway::BkashSettingsAdapter.new,
     none: TransactionService::Gateway::FreeSettingsAdapter.new
   }
 
   GATEWAY_ADAPTERS = {
     paypal: TransactionService::Gateway::PaypalAdapter.new,
     stripe: TransactionService::Gateway::StripeAdapter.new,
+    bkash: TransactionService::Gateway::BkashAdapter.new,
     none: TransactionService::Gateway::FreeAdapter.new,
   }
 
@@ -26,6 +28,9 @@ module TransactionService::Transaction
   module_function
 
   def settings_adapter(payment_gateway)
+    p "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,,,"
+    p payment_gateway
+    p "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,,,"
     adapter = SETTINGS_ADAPTERS[payment_gateway]
     raise ArgumentError.new("No matching settings adapter found for payment_gateway type #{payment_gateway}.") if adapter.nil?
 

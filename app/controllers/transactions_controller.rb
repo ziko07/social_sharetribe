@@ -42,6 +42,8 @@ class TransactionsController < ApplicationController
         redirect_to initiate_order_path(transaction_params)
       when matches([:preauthorize, :stripe])
           redirect_to preauthorize_payment_path(transaction_params)
+      when matches([:preauthorize, :bkash])
+        redirect_to book_path(transaction_params)
       else
         opts = "listing_id: #{listing_id}, payment_gateway: #{gateway}, payment_process: #{process}, booking: #{booking}"
         raise ArgumentError.new("Cannot find new transaction path to #{opts}")

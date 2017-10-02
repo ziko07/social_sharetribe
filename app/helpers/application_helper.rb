@@ -116,7 +116,11 @@ module ApplicationHelper
   end
 
   def huge_avatar_thumb_url(person, options={})
-    person.image.present? ? person.image.url(:medium) : missing_avatar(:medium)
+    if person.present?
+      person.image.present? ? person.image.url(:medium) : missing_avatar(:medium)
+    else
+      missing_avatar(:medium)
+    end
   end
 
   def missing_avatar(size = :medium)
@@ -636,16 +640,20 @@ module ApplicationHelper
       count = object.likes.count
     end
     html = "<span id='like-counts-comment-#{object.id}'> #{count}</span>&nbsp;&nbsp;"
-    if object.likes.where(person_id: person.id).present?
-      link_html = link_to(like_path(object.likes.where(person_id: person.id).first.id), id: "#{type}#{object.id}", :remote => true, method: 'delete') do
-        content_tag(:i, "", class: "fa fa-thumbs-o-up liked")
+    if person.present?
+      if object.likes.where(person_id: person.id).present?
+        link_html = link_to(like_path(object.likes.where(person_id: person.id).first.id), id: "#{type}#{object.id}", :remote => true, method: 'delete') do
+          content_tag(:i, "", class: "fa fa-thumbs-o-up liked")
+        end
+      else
+        link_html = link_to(likes_path(likeable_id: object.id, likeable_type: type), id: "#{type}_#{object.id}", :remote => true, method: 'post') do
+          content_tag(:i, "", class: "fa fa-thumbs-o-up")
+        end
       end
     else
-      link_html = link_to(likes_path(likeable_id: object.id, likeable_type: type), id: "#{type}_#{object.id}", :remote => true, method: 'post') do
-        content_tag(:i, "", class: "fa fa-thumbs-o-up")
-      end
+      link_html = content_tag(:i, "", class: "fa fa-thumbs-o-up")
     end
-    return raw html << link_html
+        return raw html << link_html
   end
 
   def community_description(truncate=true)

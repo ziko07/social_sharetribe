@@ -22,9 +22,11 @@
 
     </div>
     <ul class="post-actions clearfix">
-      <li>
-        <a href="javascript:void(0);" class="reply-comments"><i class="fa fa-reply"></i></a>
-      </li>
+      <% if @current_user.present? %>
+          <li>
+            <a href="javascript:void(0);" class="reply-comments"><i class="fa fa-reply"></i></a>
+          </li>
+      <% end %>
       <li class="like-post-<%= post.id %>">
         <%= like_unlike_link(post, @current_user, 'post') %>
       </li>
@@ -57,3 +59,5 @@
     </div>
   </div>
 </li>
+
+
