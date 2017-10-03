@@ -30,6 +30,8 @@
 #  delivery_method                   :string(31)       default("none")
 #  shipping_price_cents              :integer
 #  deleted                           :boolean          default(FALSE)
+#  mobile                            :string(255)
+#  transaction_number                :string(255)
 #
 # Indexes
 #
@@ -62,7 +64,9 @@ class Transaction < ActiveRecord::Base
     :unit_tr_key,
     :unit_selector_tr_key,
     :shipping_price,
-    :delivery_method
+    :delivery_method,
+    :mobile,
+    :transaction_number
   )
 
   attr_accessor :contract_agreed

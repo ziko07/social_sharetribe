@@ -125,7 +125,9 @@ Kassi::Application.routes.draw do
     get "/listings/:listing_id/book" => "preauthorize_transactions#book", :as => :book
     post "/listings/:listing_id/booked" => "preauthorize_transactions#booked", :as => :booked
     get "/listings/:listing_id/initiate" => "preauthorize_transactions#initiate", :as => :initiate_order
+    get "/listings/:listing_id/initiate_bkash" => "preauthorize_transactions#initiate_bkash", :as => :initiate_bkash_order
     post "/listings/:listing_id/initiated" => "preauthorize_transactions#initiated", :as => :initiated_order
+    post "/listings/:listing_id/initiated_bkash" => "preauthorize_transactions#initiated_bkash", :as => :initiated_bkash_order
 
     # free flow
     post "/listings/:listing_id/create_contact" => "free_transactions#create_contact", :as => :create_contact

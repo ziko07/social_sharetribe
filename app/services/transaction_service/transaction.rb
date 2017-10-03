@@ -28,9 +28,6 @@ module TransactionService::Transaction
   module_function
 
   def settings_adapter(payment_gateway)
-    p "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,,,"
-    p payment_gateway
-    p "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,,,"
     adapter = SETTINGS_ADAPTERS[payment_gateway]
     raise ArgumentError.new("No matching settings adapter found for payment_gateway type #{payment_gateway}.") if adapter.nil?
 
@@ -85,7 +82,6 @@ module TransactionService::Transaction
 
   def create(opts, paypal_async: false)
     opts_tx = opts[:transaction]
-
     set_adapter = settings_adapter(opts_tx[:payment_gateway])
     tx_process_settings = set_adapter.tx_process_settings(opts_tx)
 

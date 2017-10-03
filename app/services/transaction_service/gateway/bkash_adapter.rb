@@ -6,23 +6,20 @@ module TransactionService::Gateway
     end
 
     def create_payment(tx:, gateway_fields:, prefer_async: nil)
-      # community = Community.find_by_id(tx[:community_id])
-      # payment = StripePayment.create(
-      #     {
-      #         transaction_id: tx[:id],
-      #         community_id: tx[:community_id],
-      #         status: :pending,
-      #         payer_id: tx[:starter_id],
-      #         recipient_id: tx[:listing_author_id],
-      #         currency: community.default_currency,
-      #         sum_cents: tx[:unit_price] * tx[:listing_quantity]})
-      #
-      # result = StripeService::StripeSaleService.new(payment, gateway_fields).create_customer
-      #
-      # unless result.present?
-      #   SyncCompletion.new(Result::Error.new('Unable to create stripe customer'))
-      # end
-      # SyncCompletion.new(Result::Success.new({result: true}))
+      community = Community.find_by_id(tx[:community_id])
+      payment = BkashPayment.create(
+          {
+              transaction_id: tx[:id],
+              community_id: tx[:community_id],
+              status: :pending,
+              mobile: tx[:mobile],
+              transaction_number: tx[:transaction_number],
+              payer_id: tx[:starter_id],
+              recipient_id: tx[:listing_author_id],
+              currency: community.default_currency,
+              sum_cents: tx[:unit_price] * tx[:listing_quantity]})
+
+       SyncCompletion.new(Result::Success.new({result: true}))
     end
 
     def reject_payment(tx:, reason: "")

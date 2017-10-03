@@ -1,0 +1,89 @@
+<% content_for :title_header do %>
+    <h1>
+      <%= action_button_label %>
+      <%= link_to(listing[:title], listing_path(listing[:id])) %>
+    </h1>
+<% end %>
+<div class="centered-section" id="new_message_form">
+  <% author_link = link_to(author[:display_name], person_path(username: author[:username])) %>
+  <div class="preauthorize-section">
+    <h2 class="preauthorize-details-title">
+      <%= t("listing_conversations.preauthorize.details") %>
+    </h2>
+    <ul class="no-bullets">
+      <li>
+        <div>
+          <%= t("listing_conversations.preauthorize.by", listing: link_to("#{listing[:title]}", listing_path(listing[:id])), author: author_link).html_safe %>
+        </div>
+      </li>
+      <li>
+        <%= render partial: "transactions/price_break_down", locals: price_break_down_locals %>
+      </li>
+    </ul>
+  </div>
+  <%= form_for preauthorize_form,:url => form_action, :method => "post",:html => { :id => "transaction-form" } do |form| %>
+      <% # TODO Fix this, no respond_to? %>
+      <% if preauthorize_form.respond_to?(:start_on) && preauthorize_form.respond_to?(:end_on) %>
+          <%= form.date_select :start_on, { value: preauthorize_form.start_on }, { class: "hidden" } %>
+          <%= form.date_select :end_on, { value: preauthorize_form.end_on }, { class: "hidden" } %>
+      <% end %>
+      <div class="preauthorize-section">
+          <h2>
+            <%= t(".payment") %>
+          </h2>
+        <div class="row">
+          <div class="col-12">
+              <label>
+                <span>Mobile Number</span>
+                <input type="text" size="13" name="listing_conversation[mobile]">
+              </label>
+
+            <label>
+              <span>Transaction Number</span>
+              <input type="text" size="13" name="listing_conversation[transaction_number]" >
+            </label>
+          </div>
+        </div>
+
+
+        <h2>
+          <%= t("conversations.new.optional_message_to", author_name: author_link).html_safe %>
+        </h2>
+        <div class="row">
+          <div class="col-12">
+            <%= form.text_area :content, :class => "text_area" %>
+            <%= form.hidden_field :sender_id, :value => @current_user.id %>
+          </div>
+        </div>
+        <% if @current_community.transaction_agreement_in_use %>
+            <%= render :partial => "listing_conversations/transaction_agreement_checkbox", locals: { form: form } %>
+        <% end %>
+        <% if local_assigns.has_key?(:quantity) %>
+            <%= form.hidden_field :quantity, value: quantity %>
+        <% end %>
+        <% if delivery_method %>
+            <%= form.hidden_field :delivery_method, value: delivery_method %>
+        <% end %>
+        <div class="row">
+          <div class="col-12 paypal-button-wrapper">
+            <%= form.button t("paypal.pay_with_paypal"), class: "checkout-with-paypal-button" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <%#= render :partial => "listing_conversations/paypal_payment_methods", locals: { country_code: country_code } %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <p>
+              <%= t("listing_conversations.preauthorize.you_will_be_charged", author: author_link, expiration_period: expiration_period).html_safe %>
+            </p>
+          </div>
+        </div>
+      </div>
+  <% end %>
+  <noscript>
+    <%= "For security reasons JavaScript has to be enabled" %>
+  </noscript>
+</div>

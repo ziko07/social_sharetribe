@@ -38,6 +38,97 @@ class PreauthorizeTransactionsController < ApplicationController
 
   ListingQuery = MarketplaceService::Listing::Query
 
+
+  def initiate_bkash
+    delivery_method = valid_delivery_method(delivery_method_str: params[:delivery],
+                                            shipping: @listing.require_shipping_address,
+                                            pickup: @listing.pickup_enabled)
+    if (delivery_method == :errored)
+      return redirect_to error_not_found_path
+    end
+
+    quantity = TransactionViewUtils.parse_quantity(params[:quantity])
+
+    vprms = view_params(listing_id: params[:listing_id],
+                        quantity: quantity,
+                        shipping_enabled: delivery_method == :shipping)
+
+    price_break_down_locals = TransactionViewUtils.price_break_down_locals({
+                                                                               booking: false,
+                                                                               quantity: quantity,
+                                                                               listing_price: vprms[:listing][:price],
+                                                                               localized_unit_type: translate_unit_from_listing(vprms[:listing]),
+                                                                               localized_selector_label: translate_selector_label_from_listing(vprms[:listing]),
+                                                                               subtotal: (quantity > 1 || vprms[:listing][:shipping_price].present?) ? vprms[:subtotal] : nil,
+                                                                               shipping_price: delivery_method == :shipping ? vprms[:shipping_price] : nil,
+                                                                               total: vprms[:total_price]
+                                                                           })
+
+    community_country_code = LocalizationUtils.valid_country_code(@current_community.country)
+
+
+    render "listing_conversations/initiate_bkash", locals: {
+                                               preauthorize_form: PreauthorizeMessageForm.new,
+                                               listing: vprms[:listing],
+                                               delivery_method: delivery_method,
+                                               quantity: quantity,
+                                               author: query_person_entity(vprms[:listing][:author_id]),
+                                               action_button_label: vprms[:action_button_label],
+                                               expiration_period: MarketplaceService::Transaction::Entity.authorization_expiration_period(vprms[:payment_type]),
+                                               form_action: initiated_bkash_order_path(person_id: @current_user.id, listing_id: vprms[:listing][:id]),
+                                               price_break_down_locals: price_break_down_locals,
+                                               country_code: community_country_code
+                                           }
+  end
+
+
+  def initiated_bkash
+    conversation_params = params[:listing_conversation]
+
+    if @current_community.transaction_agreement_in_use? && conversation_params[:contract_agreed] != "1"
+      return render_error_response(request.xhr?, t("error_messages.transaction_agreement.required_error"), action: :initiate)
+    end
+
+    preauthorize_form = PreauthorizeMessageForm.new(conversation_params.merge({
+                                                                                  listing_id: @listing.id
+                                                                              }))
+    unless preauthorize_form.valid?
+      return render_error_response(request.xhr?, preauthorize_form.errors.full_messages.join(", "), action: :initiate)
+    end
+    delivery_method = valid_delivery_method(delivery_method_str: preauthorize_form.delivery_method,
+                                            shipping: @listing.require_shipping_address,
+                                            pickup: @listing.pickup_enabled)
+    if (delivery_method == :errored)
+      return render_error_response(request.xhr?, "Delivery method is invalid.", action: :initiate)
+    end
+
+    quantity = TransactionViewUtils.parse_quantity(preauthorize_form.quantity)
+    shipping_price = shipping_price_total(@listing.shipping_price, @listing.shipping_price_additional, quantity)
+
+
+    transaction_response = create_bkash_preauth_transaction(
+        payment_type: :bkash,
+        community: @current_community,
+        listing: @listing,
+        listing_quantity: quantity,
+        mobile: conversation_params[:mobile] ,
+        transaction_number: conversation_params[:transaction_number] ,
+        user: @current_user,
+        content: preauthorize_form.content,
+        use_async: request.xhr?,
+        delivery_method: delivery_method,
+        shipping_price: shipping_price
+    )
+
+    unless transaction_response[:success]
+      return render_error_response(request.xhr?, t("error_messages.paypal.generic_error"), action: :initiate) unless transaction_response[:success]
+    end
+    p "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    p transaction_response[:data][:transaction][:id]
+    p "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+        return redirect_to person_transaction_path(:person_id => @current_user.id, :id => transaction_response[:data][:transaction][:id])
+  end
+
   def initiate
     delivery_method = valid_delivery_method(delivery_method_str: params[:delivery],
                                             shipping: @listing.require_shipping_address,
@@ -335,11 +426,6 @@ class PreauthorizeTransactionsController < ApplicationController
 
     action_button_label = translate(listing[:action_button_tr_key])
 
-    p "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,"
-    p listing[:price]
-    p quantity
-    p "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,"
-
     subtotal = listing[:price] * quantity
 
     shipping_price = shipping_price_total(listing[:shipping_price], listing[:shipping_price_additional], quantity)
@@ -509,6 +595,54 @@ class PreauthorizeTransactionsController < ApplicationController
         unit_tr_key: opts[:listing].unit_tr_key,
         unit_selector_tr_key: opts[:listing].unit_selector_tr_key,
         content: opts[:content],
+        payment_gateway: opts[:payment_type],
+        payment_process: :preauthorize,
+        booking_fields: opts[:booking_fields],
+        delivery_method: opts[:delivery_method],
+        currency: @current_community.default_currency
+    }
+
+    if (opts[:delivery_method] == :shipping)
+      transaction[:shipping_price] = opts[:shipping_price]
+    end
+    TransactionService::Transaction.create({
+                                               transaction: transaction,
+                                               gateway_fields: gateway_fields
+                                           }, paypal_async: opts[:use_async])
+    end
+
+  def create_bkash_preauth_transaction(opts)
+    gateway_fields =
+        if opts[:payment_type] == :paypal
+          logo_url = Maybe(opts[:community])
+                         .wide_logo
+                         .select { |wl| wl.present? }
+                         .url(:paypal, timestamp: false)
+                         .or_else(nil)
+
+          {
+              merchant_brand_logo_url: logo_url,
+              success_url: success_paypal_service_checkout_orders_url,
+              cancel_url: cancel_paypal_service_checkout_orders_url(listing_id: opts[:listing].id)
+          }
+        else
+          {stripe_token: opts[:stripeToken]}
+        end
+
+    transaction = {
+        starter_id: opts[:user].id,
+        listing_id: opts[:listing].id,
+        community_id: opts[:community].id,
+        listing_title: opts[:listing].title,
+        listing_author_id: opts[:listing].author.id,
+        listing_quantity: opts[:listing_quantity],
+        unit_type: opts[:listing].unit_type,
+        unit_price: opts[:listing].price,
+        unit_tr_key: opts[:listing].unit_tr_key,
+        unit_selector_tr_key: opts[:listing].unit_selector_tr_key,
+        content: opts[:content],
+        mobile: opts[:mobile],
+        transaction_number: opts[:transaction_number],
         payment_gateway: opts[:payment_type],
         payment_process: :preauthorize,
         booking_fields: opts[:booking_fields],

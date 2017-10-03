@@ -27,6 +27,8 @@ class AcceptPreauthorizedConversationsController < ApplicationController
         render_paypal_form("accept")
       when :stripe
         render_paypal_form("accept")
+      when :bkash
+        render_paypal_form("accept")
       else
         raise ArgumentError.new("Unknown payment type: #{payment_type}")
     end

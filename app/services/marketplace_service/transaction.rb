@@ -346,6 +346,8 @@ module MarketplaceService
                                  expiration_period.days.from_now - 10.minutes
                                when :stripe
                                  expiration_period.days.from_now - 10.minutes
+                               when :bkash
+                                 expiration_period.days.from_now - 10.minutes
                                else
                                  raise ArgumentError.new("Unknown payment_type: '#{payment_type}'")
                              end

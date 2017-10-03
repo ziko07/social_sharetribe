@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171002101744) do
+ActiveRecord::Schema.define(version: 20171003120020) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string   "token",            limit: 255
@@ -36,6 +36,20 @@ ActiveRecord::Schema.define(version: 20171002101744) do
   end
 
   add_index "billing_agreements", ["paypal_account_id"], name: "index_billing_agreements_on_paypal_account_id", using: :btree
+
+  create_table "bkash_payments", force: :cascade do |t|
+    t.integer  "transaction_id",     limit: 4
+    t.integer  "community_id",       limit: 4
+    t.string   "status",             limit: 255
+    t.string   "payer_id",           limit: 255
+    t.string   "recipient_id",       limit: 255
+    t.string   "mobile",             limit: 255
+    t.string   "transaction_number", limit: 255
+    t.string   "currency",           limit: 255
+    t.integer  "sum_cents",          limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
 
   create_table "bookings", force: :cascade do |t|
     t.integer  "transaction_id", limit: 4
@@ -1046,6 +1060,8 @@ ActiveRecord::Schema.define(version: 20171002101744) do
     t.string   "delivery_method",                   limit: 31,  default: "none"
     t.integer  "shipping_price_cents",              limit: 4
     t.boolean  "deleted",                                       default: false
+    t.string   "mobile",                            limit: 255
+    t.string   "transaction_number",                limit: 255
   end
 
   add_index "transactions", ["community_id", "deleted"], name: "transactions_on_cid_and_deleted", using: :btree
