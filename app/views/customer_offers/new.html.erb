@@ -1,0 +1,67 @@
+<div class="centered-section" id="new_message_form">
+  <% author_link = link_to(@listing.author.given_name, person_path(username: @listing.author.username)) %>
+
+  <div class="preauthorize-section">
+    <h2 class="preauthorize-details-title">
+      <%= t("listing_conversations.preauthorize.details") %>
+    </h2>
+    <ul class="no-bullets">
+      <li>
+        <div>
+          <%= t("listing_conversations.preauthorize.by", listing: link_to(@listing.title, listing_path(@listing.id)), author: author_link).html_safe %>
+        </div>
+      </li>
+      <li>
+        <div class="initiate-transaction-totals">
+          <div class="initiate-transaction-total-wrapper">
+      <span class="initiate-transaction-total-label">
+          <%= t("transactions.total") %>
+      </span>
+      <span class="initiate-transaction-total-value">
+        <%= humanized_money_with_symbol(@listing.price) %>
+      </span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <%= form_for @customer_offer,:url => listing_customer_offers_path(@listing.id), :method => "post",:html => { :id => "transaction-form" } do |form| %>
+      <% # TODO Fix this, no respond_to? %>
+      <div class="preauthorize-section">
+        <div class="row">
+          <div class="col-12">
+            <label>
+              <span>Mobile Number</span>
+              <input type="text" size="13" name="customer_offer[mobile]">
+            </label>
+
+            <label>
+              <span>Offered Amount</span>
+              <input type="text" size="13" name="customer_offer[amount]" >
+            </label>
+          </div>
+        </div>
+
+
+        <h2>
+          <%= t("conversations.new.optional_message_to", author_name: author_link).html_safe %>
+        </h2>
+
+        <div class="row">
+          <div class="col-12">
+            <label>
+              <textarea  size="13" name="customer_offer[content]"></textarea>
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 paypal-button-wrapper">
+            <%= form.button t("paypal.pay_with_paypal"), class: "checkout-with-paypal-button" %>
+          </div>
+        </div>
+
+      </div>
+  <% end %>
+</div>

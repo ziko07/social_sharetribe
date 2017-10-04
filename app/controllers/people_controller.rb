@@ -89,6 +89,12 @@ class PeopleController < Devise::RegistrationsController
   end
 
 
+  def offer_list
+    @current_user.receiving_offers.update_all(read: true)
+    @offers =  @current_user.receiving_offers.group(:listing_id).count
+  end
+
+
   def wall
     @person = Person.find_by_username(params[:username])
     posts = Post.all.order('created_at desc')

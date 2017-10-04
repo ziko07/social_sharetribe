@@ -328,6 +328,9 @@ Kassi::Application.routes.draw do
     end
 
     resources :listings do
+      resources :customer_offers do
+        put :accept, on: :member
+      end
       member do
         post :follow
         delete :unfollow
@@ -401,6 +404,7 @@ Kassi::Application.routes.draw do
           get :wall
           get :friend
           get :change_notification_status
+          get :offer_list
         end
         collection do
           get 'find_mention'

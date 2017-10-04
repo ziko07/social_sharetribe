@@ -7,8 +7,21 @@
             <%= @current_user.pending_invited_by.count %>
           </div>
       <% end %>
+<% end %>
+</div>
+
+<div class="header-right visible-tablet">
+  <%= link_to offer_list_person_path(@current_user.username), title: "Offer", :id => "inbox-link", :class => "header-text-link header-hover header-inbox-link" do %>
+      <%#= icon_map_tag(icons, "user", ["icon-with-text"]) %>
+      <i class="fa fa-gift" style="font-size: 17px; margin-top: 25px;"></i>
+      <% if get_unread_offer > 0 %>
+          <div class="<%= get_badge_class(get_unread_offer) %> badge">
+            <%= get_unread_offer %>
+          </div>
+      <% end %>
   <% end %>
 </div>
+
 
 
 <div class="header-right visible-tablet">

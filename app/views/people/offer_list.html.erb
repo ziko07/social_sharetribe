@@ -1,0 +1,52 @@
+<% @offers.each do |offer| %>
+    <div class="collaps-header">
+      <% listing =  get_listing_from_id(offer[0]) %>
+      <p><%= listing.title %> <%= offer[1] %></p>
+    </div>
+    <div class="collaps-content">
+
+          <table style="text-align: center">
+            <tr style="text-align: center">
+              <th style="text-align: center">Customer Name </th>
+              <th style="text-align: center">Mobile Number</th>
+              <th style="text-align: center">Offered Amount</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+            <% if listing.customer_offers.present?  %>
+                <% listing.customer_offers.each do |offer| %>
+                    <tr>
+                      <td><%= get_given_name(offer.payer) %></td>
+                      <td><%= offer.mobile %></td>
+                      <td><%= offer.amount %></td>
+                      <td><%= link_to 'Accept',accept_listing_customer_offer_path(listing,offer) %></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                <% end %>
+            <% end %>
+          </table>
+    </div>
+        <% end %>
+
+
+<% content_for :extra_javascript do %>
+    <script type="text/javascript">
+        $(".collaps-header").click(function () {
+            $header = $(this);
+            //getting the next element
+            $content = $header.next();
+            //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+            $content.slideToggle(500, function () {
+                //execute this after slideToggle is done
+                //change text of header based on visibility of content div
+//                $header.text(function () {
+//                    //change text based on condition
+//                    return $content.is(":visible") ? "Collapse" : "Expand";
+//                });
+            });
+
+        });
+    </script>
+<% end %>
